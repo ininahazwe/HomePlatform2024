@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+{% include'dashboard/admin-sidebar.html.twig' %}
+
+<div class="main-dashboard-content d-flex flex-column">
+    {% include'layouts/navbar-admin.html.twig' %}
+    {% block body %}{% endblock %}
+</div>
+
+</body>
+</html>
