@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+{{ form_widget(form) }}
+        {% if app.request.attributes.get('_route') == 'project_edit' %}
+            <h2>Images</h2>
+            {% for image in project.images %}
+                <div>
+                    <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="150">
+                    <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    <button class="default-btn border-radius-5">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

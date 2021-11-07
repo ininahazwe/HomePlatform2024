@@ -1,0 +1,20 @@
+import './contact-form-script';
+import './custom';
+import './dropzone.min';
+import './form-validator.min';
+import './jquery.ajaxchimp.min';
+import './jquery.appear.min';
+import './jquery.magnific-popup.min';
+import './jquery.min';
+import './jquery-ui';
+import './meanmenu.min';
+import './metismenu.min';
+import './odometer.min';
+import './owl.carousel.min';
+import './range-slider.min';
+import './selectize.min';
+import './simplebar.min';
+import './sticky-sidebar.min';
+import './tweenMax.min';
+import './wow.min';
+
