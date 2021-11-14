@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "63a8acff725c681b85f854b9ac113de8",
+    "content-hash": "cf0385827d057aeb753107a0bec7acf5",
     "packages": [
         {
             "name": "antishov/doctrine-extensions-bundle",
@@ -1717,6 +1717,87 @@
                 }
             ],
             "time": "2021-05-22T16:11:15+00:00"
+        },
+        {
+            "name": "friendsofsymfony/ckeditor-bundle",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle.git",
+                "reference": "282c79b0d3eda68855ea4c8732ab8d249cd5fbd0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSCKEditorBundle/zipball/282c79b0d3eda68855ea4c8732ab8d249cd5fbd0",
+                "reference": "282c79b0d3eda68855ea4c8732ab8d249cd5fbd0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zip": "*",
+                "php": "^7.1|^8.0",
+                "symfony/asset": "^4.4 || ^5.0",
+                "symfony/config": "^4.4 || ^5.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0",
+                "symfony/expression-language": "^4.4 || ^5.0",
+                "symfony/form": "^4.4 || ^5.0",
+                "symfony/framework-bundle": "^4.4 || ^5.0",
+                "symfony/http-foundation": "^4.4 || ^5.0",
+                "symfony/http-kernel": "^4.4 || ^5.0",
+                "symfony/options-resolver": "^4.4 || ^5.0",
+                "symfony/property-access": "^4.4 || ^5.0",
+                "symfony/routing": "^4.4 || ^5.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0",
+                "twig/twig": "^2.4 || ^3.0"
+            },
+            "conflict": {
+                "sebastian/environment": "<1.3.4",
+                "sebastian/exporter": "<2.0.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^3.0 || ^4.0",
+                "symfony/console": "^4.4 || ^5.0",
+                "symfony/phpunit-bridge": "^4.4 || ^5.0",
+                "symfony/yaml": "^4.4 || ^5.0"
+            },
+            "suggest": {
+                "egeloen/form-extra-bundle": "Allows to load CKEditor asynchronously"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "FOS\\CKEditorBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric GELOEN",
+                    "email": "geloen.eric@gmail.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/graphs/contributors"
+                }
+            ],
+            "description": "Provides a CKEditor integration for your Symfony project.",
+            "keywords": [
+                "CKEditor"
+            ],
+            "support": {
+                "issues": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/issues",
+                "source": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle/tree/2.3.0"
+            },
+            "time": "2020-12-26T14:29:00+00:00"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -7818,6 +7899,107 @@
                 }
             ],
             "time": "2021-07-29T06:20:01+00:00"
+        },
+        {
+            "name": "symfonycasts/reset-password-bundle",
+            "version": "v1.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/reset-password-bundle.git",
+                "reference": "775e847613737f55cf06c6a7457f4bcf8ce258e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/reset-password-bundle/zipball/775e847613737f55cf06c6a7457f4bcf8ce258e5",
+                "reference": "775e847613737f55cf06c6a7457f4bcf8ce258e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4 | ^5.0",
+                "symfony/dependency-injection": "^4.4 | ^5.0",
+                "symfony/deprecation-contracts": "^2.2",
+                "symfony/http-kernel": "^4.4 | ^5.0"
+            },
+            "conflict": {
+                "doctrine/orm": "<2.7",
+                "symfony/framework-bundle": "<4.4",
+                "symfony/http-foundation": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^2.0.3",
+                "doctrine/orm": "^2.7",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "symfony/framework-bundle": "^4.4 | ^5.0",
+                "symfony/phpunit-bridge": "^5.0",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SymfonyCasts\\Bundle\\ResetPassword\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle that adds password reset functionality.",
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/reset-password-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/reset-password-bundle/tree/v1.9.1"
+            },
+            "time": "2021-07-12T18:59:28+00:00"
+        },
+        {
+            "name": "symfonycasts/verify-email-bundle",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SymfonyCasts/verify-email-bundle.git",
+                "reference": "8c21aa9aa6b7123afed213e72485e8dad75e5dcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SymfonyCasts/verify-email-bundle/zipball/8c21aa9aa6b7123afed213e72485e8dad75e5dcf",
+                "reference": "8c21aa9aa6b7123afed213e72485e8dad75e5dcf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4 | ^5.0",
+                "symfony/dependency-injection": "^4.4 | ^5.0",
+                "symfony/deprecation-contracts": "^2.2",
+                "symfony/http-kernel": "^4.4 | ^5.0",
+                "symfony/routing": "^4.4 | ^5.0"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "doctrine/persistence": "^2.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "symfony/framework-bundle": "^4.4 | ^5.0",
+                "symfony/phpunit-bridge": "^5.0",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "SymfonyCasts\\Bundle\\VerifyEmail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Simple, stylish Email Verification for Symfony",
+            "support": {
+                "issues": "https://github.com/SymfonyCasts/verify-email-bundle/issues",
+                "source": "https://github.com/SymfonyCasts/verify-email-bundle/tree/v1.5.0"
+            },
+            "time": "2021-05-05T18:08:21+00:00"
         },
         {
             "name": "twig/extra-bundle",

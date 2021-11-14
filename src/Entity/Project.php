@@ -33,7 +33,7 @@ class Project
     private ?string $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=File::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=File::class, mappedBy="project", cascade={"persist"})
      */
     private Collection $images;
 
@@ -47,12 +47,27 @@ class Project
      */
     private Collection $auteur;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="project")
+     */
+    private Collection $tags;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->categorie = new ArrayCollection();
         $this->auteur = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable('now');
+        $this->tags = new ArrayCollection();
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string {
+        return $this->nom;
+    }
+
 
     public function getSlug(): ?string
     {
@@ -157,6 +172,33 @@ class Project
     public function removeAuteur(User $auteur): self
     {
         $this->auteur->removeElement($auteur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeProject($this);
+        }
 
         return $this;
     }

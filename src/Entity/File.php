@@ -14,8 +14,6 @@ class File
     use Timestapable;
 
     const TYPE_AVATAR = 1;
-    const TYPE_CV = 2;
-    const TYPE_MOTIVATION = 3;
     const TYPE_ILLUSTRATION = 4;
     const TYPE_LOGO = 5;
 
@@ -48,6 +46,26 @@ class File
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="images")
      */
     private ?Project $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Edition::class, inversedBy="avatar")
+     */
+    private ?Edition $edition_avatar;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Edition::class, inversedBy="illustration")
+     */
+    private ?Edition $edition_illustration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=About::class, inversedBy="photos")
+     */
+    private ?About $about_photos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Partner::class, inversedBy="logo")
+     */
+    private $partner;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable('now');
@@ -122,6 +140,54 @@ class File
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getEditionAvatar(): ?Edition
+    {
+        return $this->edition_avatar;
+    }
+
+    public function setEditionAvatar(?Edition $edition_avatar): self
+    {
+        $this->edition_avatar = $edition_avatar;
+
+        return $this;
+    }
+
+    public function getEditionIllustration(): ?Edition
+    {
+        return $this->edition_illustration;
+    }
+
+    public function setEditionIllustration(?Edition $edition_illustration): self
+    {
+        $this->edition_illustration = $edition_illustration;
+
+        return $this;
+    }
+
+    public function getAboutPhotos(): ?About
+    {
+        return $this->about_photos;
+    }
+
+    public function setAboutPhotos(?About $about_photos): self
+    {
+        $this->about_photos = $about_photos;
+
+        return $this;
+    }
+
+    public function getPartner(): ?Partner
+    {
+        return $this->partner;
+    }
+
+    public function setPartner(?Partner $partner): self
+    {
+        $this->partner = $partner;
 
         return $this;
     }

@@ -53,6 +53,8 @@ class CategorieController extends AbstractController
             $entityManager->persist($categorie);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Ajout réussi');
+
             return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -98,6 +100,8 @@ class CategorieController extends AbstractController
             $categorie->updateTimestamps();
 
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Mise à jour réussie');
 
             return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
         }

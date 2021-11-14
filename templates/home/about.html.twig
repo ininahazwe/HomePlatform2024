@@ -1,0 +1,55 @@
+<!-- Career Area -->
+<div class="career-area pt-100 pb-70">
+    <div class="container">
+        {% for about in abouts %}
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="career-img">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <div class="row">
+                                {% if about.photos %}
+                                <div class="col-12">
+                                    <div class="images1 wow fadeInDown" data-wow-delay="000ms" data-wow-duration="1000ms">
+                                        {% for image in about.photos|slice(0,2) %}
+                                            <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}">
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                {% if about.photos %}
+                                    <div class="col-12">
+                                        <div class="images1 wow fadeInDown" data-wow-delay="000ms" data-wow-duration="1000ms">
+                                            {% for image in about.photos|slice(2,5) %}
+                                                <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}">
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="career-content pl-20 wow fadeInUp" data-wow-delay="400ms" data-wow-duration="1000ms">
+                    <div class="section-title">
+                        <h2>{{ about.titre }}</h2>
+                        <div class="bar"></div>
+                    </div>
+                    <p>{{ about.description }}</p>
+                    <div class="col-lg-12 col-md-12">
+                        <a href="{{ path('about_show', {'slug': about.slug}) }}" class="default-btn border-radius-5">Learn more <i class="ri-chat-4-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Career Area End -->

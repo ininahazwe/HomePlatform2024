@@ -27,12 +27,12 @@ class ProjectController extends AbstractController
     public function new(Request $request): Response
     {
         $project = new Project();
-        $user = $this->getUser()->getId();
+        $user = $this->getUser();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('logo')->getData();
+            $images = $form->get('images')->getData();
             foreach($images as $image){
                 $fichier = md5(uniqid()).'.'.$image->guessExtension();
                 $name = $image->getClientOriginalName();
@@ -52,6 +52,8 @@ class ProjectController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($project);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Ajout réussi');
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -73,7 +75,7 @@ class ProjectController extends AbstractController
     #[Route('/{id}/edit', name: 'project_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Project $project): Response
     {
-        $user = $this->getUser()->getId();
+        $user = $this->getUser();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
@@ -96,6 +98,8 @@ class ProjectController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Mise à jour réussie');
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }

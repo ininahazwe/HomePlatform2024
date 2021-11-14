@@ -137,6 +137,9 @@
       <path value="$PROJECT_DIR$/vendor/gedmo/doctrine-extensions" />
       <path value="$PROJECT_DIR$/vendor/antishov/doctrine-extensions-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/ux-dropzone" />
+      <path value="$PROJECT_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfonycasts/reset-password-bundle" />
+      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0">

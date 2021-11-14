@@ -6,56 +6,54 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use ResourceId;
+    use Timestapable;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="user")
      */
-    private $files;
+    private Collection $files;
 
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="auteur")
      */
-    private $projects;
+    private Collection $projects;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isVerified = false;
 
     public function __construct()
     {
         $this->files = new ArrayCollection();
         $this->projects = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEmail(): ?string
@@ -143,7 +141,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|File[]
+     * @return Collection
      */
     public function getFiles(): Collection
     {
@@ -173,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Project[]
+     * @return Collection
      */
     public function getProjects(): Collection
     {
@@ -195,6 +193,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->projects->removeElement($project)) {
             $project->removeAuteur($this);
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

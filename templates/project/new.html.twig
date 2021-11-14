@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-dashboard.html.twig' %}
 
 {% block title %}New Project{% endblock %}
 
 {% block body %}
-    <h1>Create new Project</h1>
-
-    {{ include('project/_form.html.twig') }}
-
-    <a href="{{ path('project_index') }}">back to list</a>
+    <!-- Start Post a New Job Area -->
+    <div class="post-a-new-job-box">
+        <h3>Post New Project</h3>
+        <div class="bar"></div>
+        {{ include('project/_form.html.twig') }}
+    </div>
 {% endblock %}

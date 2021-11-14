@@ -13,3 +13,7 @@ import { Tooltip, Toast,  Popover } from "bootstrap";
 // start the Stimulus application
 import './bootstrap';
 import './js/all';
+
+$(document).ready(function() {
+    $('.select-tags').select2();
+});

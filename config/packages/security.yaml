@@ -20,6 +20,20 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                # "login" is the name of the route created previously
+                login_path: login
+                check_path: login
+                enable_csrf: true
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                  # by default, the feature is enabled by checking a
+                  # checkbox in the login form (see below), uncomment the
+                  # following line to always enable it.
+                  #always_remember_me: true
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

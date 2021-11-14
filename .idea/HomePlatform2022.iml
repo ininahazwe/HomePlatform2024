@@ -140,6 +140,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/gedmo/doctrine-extensions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/antishov/doctrine-extensions-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/ux-dropzone" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfonycasts/reset-password-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

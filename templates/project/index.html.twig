@@ -43,16 +43,21 @@
         </div>
 
         <div class="row pt-45">
+            {% for project in projects %}
             <div class="col-lg-12">
                 <div class="recent-job-card box-shadow">
                     <div class="content">
                         <div class="recent-job-img">
                             <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job4.jpg" alt="Images">
+                                {% if project.images %}
+                                    {% for image in project.images %}
+                                        <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}" style="max-width: 70px; max-height: 70px">
+                                    {% endfor %}
+                                {% endif %}
                             </a>
                         </div>
 
-                        <h3><a href="job-details.html">Product Designer</a></h3>
+                        <h3><a href="job-details.html">{{ project.nom }}</a></h3>
 
                         <ul class="job-list1">
                             <li><i class="ri-briefcase-line"></i> Design</li>
@@ -74,227 +79,7 @@
                     <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
                 </div>
             </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job5.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">Creative Director</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Automotive Jobs</li>
-                            <li><i class="ri-time-line"></i> 2 Hour Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> 105 San Antonio, TX</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                        </ul>
-
-                        <div class="price">$120 - $140 <b>/Per Week</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job6.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">General Ledger Accountant</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Accounting  & Finance</li>
-                            <li><i class="ri-time-line"></i> 1 Day Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> 320 Los Angeles, CA</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                            <li class="internship">Internship</li>
-                        </ul>
-
-                        <div class="price">$120 - $140 <b>/Per Week</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job7.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">Finance Manager & Health </a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Medical & Health</li>
-                            <li><i class="ri-time-line"></i> 5 Days Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> 320 Atlanta, GA</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                            <li class="urgent">Urgent</li>
-                        </ul>
-
-                        <div class="price">$30 - $40 <b>/Per Hour</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job8.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">Group Marketing Manager</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Customer</li>
-                            <li><i class="ri-time-line"></i> 3 Days Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> 305 Hicks St Brooklyn, NY</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                            <li class="urgent">Urgent</li>
-                        </ul>
-
-                        <div class="price">$30 - $40 <b>/Per Hour</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job9.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">iOS Developer</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> IT Agency</li>
-                            <li><i class="ri-time-line"></i> 1 Days Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> Los Angeles, CA</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                        </ul>
-
-                        <div class="price">$20 - $30 <b>/Per Hour</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job11.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">UI/UX Designer</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Designer</li>
-                            <li><i class="ri-time-line"></i> 7 Days Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> Los Angeles, CA</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                        </ul>
-
-                        <div class="price">$40 - $50 <b>/Per Hour</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job12.jpg" alt="Images">
-                            </a>
-                        </div>
-
-                        <h3><a href="job-details.html">Creative Director</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Automotive Jobs</li>
-                            <li><i class="ri-time-line"></i> 2 Days Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> 320 Los Angeles, CA</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                        </ul>
-
-                        <div class="price">$35 - $40 <b>/Per Hour</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-
+            {% endfor %}
             <div class="col-lg-12 col-md-12 text-center">
                 <div class="pagination-area">
                     <a href="job-listing.html" class="prev page-numbers">

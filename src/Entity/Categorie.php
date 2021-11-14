@@ -49,6 +49,14 @@ class Categorie
         $this->projects = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
+    public function __toString(): string {
+        return $this->nom;
+    }
+
+
     public function getNom(): ?string
     {
         return $this->nom;

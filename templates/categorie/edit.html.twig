@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-dashboard.html.twig' %}
 
 {% block title %}Edit Categorie{% endblock %}
 
 {% block body %}
-    <h1>Edit Categorie</h1>
+    <div class="post-a-new-job-box">
+        <h3>Edit SDG</h3>
+        <div class="bar"></div>
+        {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
 
-    {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('categorie_index') }}">back to list</a>
-
-    {{ include('categorie/_delete_form.html.twig') }}
+    <script src="{{ asset('js/images.js') }}"></script>
 {% endblock %}

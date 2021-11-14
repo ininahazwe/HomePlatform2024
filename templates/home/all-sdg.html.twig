@@ -1,0 +1,36 @@
+<!-- Browse Jobs Area -->
+<div class="browse-jobs-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>Learn more about SDGs</h2>
+            <div class="bar m-auto"></div>
+            <p class="m-auto">17 goals to transform the world</p>
+        </div>
+
+        <div class="row pt-45 justify-content-center">
+            {% for category in categories %}
+            <div class="col-lg-4 col-sm-6">
+                <div class="browse-jobs-card">
+                    <div class="icon">
+                        {#<i class="ri-stack-line"></i>#}
+                        {% if category.logo %}
+                            {% for logo in category.logo %}
+                                <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <h3><a href="{{ path('categorie_show', {'slug': category.slug}) }}">{{ category.nom }}</a></h3>
+                    <p>({{ category.projects|length }} project)</p>
+                    <a href="{{ path('categorie_show', {'slug': category.slug}) }}" class="more-btn"><i class="ri-arrow-right-s-line"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-lg-12 text-center">
+                <div class="browse-btn">
+                    <a href="job-listing.html"> Browse All SDGs <i class="ri-arrow-right-s-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Browse Jobs Area End -->

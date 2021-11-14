@@ -15,4 +15,7 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Symfony\UX\Dropzone\DropzoneBundle::class => ['all' => true],
+    SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
+    SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
+    FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
 ];

@@ -1,3 +1,4 @@
+import './select2';
 import './contact-form-script';
 import './custom';
 import './dropzone.min';
