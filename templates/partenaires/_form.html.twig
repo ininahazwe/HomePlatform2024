@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+<div class="form-group">{{ form_row(form.nom) }}</div>
+<div class="form-group">{{ form_row(form.description) }}</div>
+{{ form_row(form.logo) }}
+    {% if app.request.attributes.get('_route') == 'partenaires_edit' %}
+        <p>Logos</p>
+        {% for image in partenaires.logo %}
+            <div>
+                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
+                <a href="{{ path('partenaires_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+<button class="default-btn border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

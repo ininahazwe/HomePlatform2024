@@ -58,14 +58,14 @@ class File
     private ?Edition $edition_illustration;
 
     /**
-     * @ORM\ManyToOne(targetEntity=About::class, inversedBy="photos")
+     * @ORM\ManyToOne(targetEntity=Partenaires::class, inversedBy="logo")
      */
-    private ?About $about_photos;
+    private ?Partenaires $partenaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Partner::class, inversedBy="logo")
+     * @ORM\ManyToOne(targetEntity=About::class, inversedBy="images")
      */
-    private $partner;
+    private $about_images;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable('now');
@@ -168,26 +168,26 @@ class File
         return $this;
     }
 
-    public function getAboutPhotos(): ?About
+    public function getPartenaires(): ?Partenaires
     {
-        return $this->about_photos;
+        return $this->partenaires;
     }
 
-    public function setAboutPhotos(?About $about_photos): self
+    public function setPartenaires(?Partenaires $partenaires): self
     {
-        $this->about_photos = $about_photos;
+        $this->partenaires = $partenaires;
 
         return $this;
     }
 
-    public function getPartner(): ?Partner
+    public function getAboutImages(): ?About
     {
-        return $this->partner;
+        return $this->about_images;
     }
 
-    public function setPartner(?Partner $partner): self
+    public function setAboutImages(?About $about_images): self
     {
-        $this->partner = $partner;
+        $this->about_images = $about_images;
 
         return $this;
     }
