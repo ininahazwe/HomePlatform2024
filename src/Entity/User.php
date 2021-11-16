@@ -19,6 +19,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use ResourceId;
     use Timestapable;
 
+    const GENRE_HOMME = 'Man';
+    const GENRE_FEMME = 'Woman';
+    const GENRE_AUTRE = 'Other';
+
+
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
@@ -50,10 +55,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private bool $isVerified = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $civilite;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
         $this->projects = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable('now');
     }
 
     public function getEmail(): ?string
@@ -104,6 +125,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * @return string[]
+     */
+    public static function getGenreName(): array
+    {
+        return array(
+            'Man' => User::GENRE_HOMME,
+            'Woman' => User::GENRE_FEMME,
+            'Other' => User::GENRE_AUTRE,
+        );
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getFullname(): string
+    {
+        return $this->getPrenom().' '.$this->getNom();
+    }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -205,6 +253,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(?string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getCivilite(): ?string
+    {
+        return $this->civilite;
+    }
+
+    public function setCivilite(?string $civilite): self
+    {
+        $this->civilite = $civilite;
 
         return $this;
     }

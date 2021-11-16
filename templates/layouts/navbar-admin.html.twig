@@ -293,24 +293,24 @@
                                     </div>
 
                                     <div class="info text-center">
-                                        <span class="name">Jean Burke</span>
-                                        <p class="mb-3 email">hello@jeanburke.com</p>
+                                        <span class="name"></span>
+                                        <p class="mb-3 email"></p>
                                     </div>
                                 </div>
 
                                 <div class="dropdown-body">
                                     <ul class="profile-nav p-0 pt-3">
                                         <li class="nav-item active">
-                                            <a href="dashboard.html" class="nav-link">
+                                            <a href="{{ path('dashboard') }}" class="nav-link">
                                                 <span class="icon"><i class="ri-home-line"></i></span>
                                                 <span class="menu-title">Dashboard</span>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a href="dashboard-applicants.html" class="nav-link">
+                                            <a href="{{ path('project_index') }}" class="nav-link">
                                                 <span class="icon"><i class="ri-file-list-line"></i></span>
-                                                <span class="menu-title">All Applicants</span>
+                                                <span class="menu-title">My Projects</span>
                                             </a>
                                         </li>
 
@@ -333,7 +333,7 @@
                                 <div class="dropdown-footer">
                                     <ul class="profile-nav">
                                         <li class="nav-item">
-                                            <a href="index.html" class="nav-link"><i class="ri-logout-box-r-line"></i> <span>Logout</span></a>
+                                            <a href="{{ path('logout') }}" class="nav-link"><i class="ri-logout-box-r-line"></i> <span>Logout</span></a>
                                         </li>
                                     </ul>
                                 </div>

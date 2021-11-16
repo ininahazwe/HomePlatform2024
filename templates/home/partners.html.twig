@@ -4,7 +4,7 @@
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <div class="section-title">
-                    <h2>Our Partners</h2>
+                    <h2>Our partenaires</h2>
                     <div class="bar"></div>
                     <p>We collect reviews from our users so you can get an honest opinion of what an experience with our website are really like!</p>
                 </div>
@@ -18,12 +18,12 @@
         </div>
 
         <div class="company-slider owl-carousel owl-theme  pt-45">
-            {% for partner in partners %}
+            {% for partenaire in partenaires %}
             <div class="company-item">
                 <a href="company-details.html">
                     <img src="assets/images/company/company-img1.jpg" alt="Images">
                 </a>
-                <h3><a href="company-details.html">{{ partner.nom }}</a></h3>
+                <h3><a href="company-details.html">{{ partenaire.nom }}</a></h3>
                 <p><i class="ri-map-pin-line"></i> St Brooklyn</p>
                 <a href="company-details.html" class="company-btn">Open Jobs - (03)</a>
             </div>
