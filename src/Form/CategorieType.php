@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
+use App\Entity\Dictionnaire;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,6 +33,24 @@ class CategorieType extends AbstractType
                 'mapped' => false,
                 'required' => false
             ])
+            ->add('type', EntityType::class, [
+                'required'  => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Category type',
+                'expanded' => false,
+                'class' => 'App\Entity\Dictionnaire',
+                'query_builder' => function($repository) {
+                    $query = $repository->createQueryBuilder('d')
+                        ->select('d')
+                        ->where('d.type = :type')
+                        ->setParameter('type', Dictionnaire::TYPE_CATEGORIE);
+
+                    return $query;
+                }
+            ])
+
         ;
     }
 

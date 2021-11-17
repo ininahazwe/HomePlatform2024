@@ -19,15 +19,15 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                    <h3><a href="{{ path('categorie_show', {'slug': category.slug}) }}">{{ category.nom }}</a></h3>
+                    <h3><a href="{{ path('sdg_page', {'slug': category.slug}) }}">{{ category.nom }}</a></h3>
                     <p>({{ category.projects|length }} project)</p>
-                    <a href="{{ path('categorie_show', {'slug': category.slug}) }}" class="more-btn"><i class="ri-arrow-right-s-line"></i></a>
+                    <a href="{{ path('sdg_page', {'slug': category.slug}) }}" class="more-btn"><i class="ri-arrow-right-s-line"></i></a>
                 </div>
             </div>
             {% endfor %}
             <div class="col-lg-12 text-center">
                 <div class="browse-btn">
-                    <a href="job-listing.html"> Browse All SDGs <i class="ri-arrow-right-s-line"></i></a>
+                    <a href="{{ path('all_sdg') }}"> Browse All SDGs <i class="ri-arrow-right-s-line"></i></a>
                 </div>
             </div>
         </div>

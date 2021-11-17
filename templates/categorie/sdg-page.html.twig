@@ -1,0 +1,345 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SDG | {{ categorie.nom }}{% endblock %}
+
+{% block body %}
+    <!-- Inner Banner -->
+    <div class="inner-banner">
+        <div class="container">
+            <div class="inner-title text-center">
+                <h3>{{ categorie.nom|capitalize }}</h3>
+                <ul>
+                    <li>
+                        <a href="{{ path('home') }}">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('all_sdg') }}">All SDG</a>
+                    </li>
+                    <li>{{ categorie.nom }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Inner Banner End -->
+
+    <!-- Job Details Area -->
+    <div class="job-details-area pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="find-jobs-card d-flex align-items-center box-shadow">
+                        <div class="find-jobs-img">
+                            {% if categorie.logo %}
+                                {% for logo in categorie.logo %}
+                                    <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+
+                        <div class="content">
+                            <ul class="content-list">
+                                <li class="time">Full Time</li>
+                                <li class="freelance">Freelance</li>
+                                <li class="internship">Internship</li>
+                            </ul>
+
+                            <h3>Bank Transfer Operations Team Leader</h3>
+
+                            <ul class="content-list2">
+                                <li class="list-one"> Coding Agency</li>
+                                <li class="list-two"><i class="ri-time-line"></i> Posted 1 Wekas Ago</li>
+                            </ul>
+
+                            <ul class="content-list3">
+                                <li><i class="ri-briefcase-line"></i> Category : <b>Bank & Institution</b></li>
+                                <li><i class="ri-map-pin-line"></i> Location : <b>Hicks St Brooklyn, NY</b></li>
+                                <li><i class="ri-currency-line"></i>Salary : <b>$20 - $30 Per Hour</b></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="job-details-widget-side pr-20">
+                        <div class="job-details-widget">
+                            <h3 class="title">Job Overview</h3>
+                            <div class="bar"></div>
+                            <ul class="job-details-category">
+                                <li>Published On: <span>Vacancy</span></li>
+                                <li>Vacancy: <span>01</span></li>
+                                <li>Job Type: <span>Part Time</span></li>
+                                <li>Experience: <span>3 Year(s)</span></li>
+                                <li>Job Location: <span>New York, USA</span></li>
+                                <li>Category: <span>Finance</span></li>
+                                <li>Gender: <span>Both</span></li>
+                                <li>Application Due: <span>05.05.2021</span></li>
+                            </ul>
+
+                            <div class="job-details-social">
+                                <span>Share Post:</span>
+                                <ul class="social-icon">
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class="ri-facebook-fill"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.instagram.com/" target="_blank">
+                                            <i class="ri-instagram-fill"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/" target="_blank">
+                                            <i class="ri-twitter-fill"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class="ri-linkedin-fill"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="job-details-widget">
+                            <h3 class="title">Employer Location</h3>
+                            <div class="bar"></div>
+                            <div class="job-details-map">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.3531005543196!2d-73.6960694852179!3d40.973748329498996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c290dc165bb96f%3A0x63af0a238a20fe90!2s5%20North%20St%2C%20Rye%2C%20NY%2010580%2C%20USA!5e0!3m2!1sen!2sbd!4v1625385308899!5m2!1sen!2sbd"></iframe>
+                            </div>
+                        </div>
+
+                        <div class="job-details-widget">
+                            <h3 class="title">Job Skills</h3>
+                            <div class="bar"></div>
+                            <ul class="job-details-widget-tag">
+                                <li><a href="tags.html" target="_blank">Prototyping</a></li>
+                                <li><a href="tags.html" target="_blank">New Layout</a></li>
+                                <li><a href="tags.html" target="_blank">Agile</a></li>
+                                <li><a href="tags.html" target="_blank">Resumes</a></li>
+                                <li><a href="tags.html" target="_blank">Skills</a></li>
+                                <li><a href="tags.html" target="_blank">Career</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="job-details-widget">
+                            <h3 class="title">Company Overview</h3>
+                            <div class="bar"></div>
+                            <ul class="job-details-category">
+                                <li>Categories: <span>Application</span></li>
+                                <li>Established: <span>1986</span></li>
+                                <li>Employees: <span>75</span></li>
+                                <li>Location: <span>New York</span></li>
+                                <li>Phone Number: <span>+44 7655 897987</span></li>
+                                <li>Email: <span>info@zoben.com</span></li>
+                            </ul>
+
+                            <div class="job-details-social">
+                                <span>Socials:</span>
+                                <ul class="social-icon">
+                                    <li>
+                                        <a href="https://www.facebook.com/" target="_blank">
+                                            <i class="ri-facebook-fill"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.instagram.com/" target="_blank">
+                                            <i class="ri-instagram-fill"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/" target="_blank">
+                                            <i class="ri-twitter-fill"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/" target="_blank">
+                                            <i class="ri-linkedin-fill"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="job-details-web-btn">
+                                <a href="index.html" target="_blank">www.zobencontact.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="job-details-content">
+                        <div class="content mb-30">
+                            <h3>Description</h3>
+                            <div class="bar"></div>
+                            <p>{{ categorie.description }}</p>
+                        </div>
+
+                        <div class="job-details-list">
+                            <h3>Key Responsibilities</h3>
+                            <div class="bar"></div>
+                            <ul>
+                                <li>Be involved in every step of the product design cycle from discovery to developer handoff and user acceptance testing.</li>
+                                <li>Work with BAs, product managers and tech teams to lead the Product Design</li>
+                                <li>Style guides, high fidelity prototypes, micro interaction specifications and pattern libraries.</li>
+                                <li>Maintain quality of the design process and ensure that when designs are translated into code they accurately reflect the design specifications</li>
+                                <li>Present your work to the wider business at Show & Tell sessions.</li>
+                                <li>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
+                            </ul>
+                        </div>
+
+                        <div class="job-details-list">
+                            <h3>Skill & Experience</h3>
+                            <div class="bar"></div>
+                            <ul>
+                                <li>You have at least 3 years’ experience working as a Product Designer.</li>
+                                <li>You have experience using Sketch and InVision or Framer</li>
+                                <li>You have some previous experience working in an agile environment – Think two-week sprints.</li>
+                                <li>You are familiar using Jira and Confluence in your workflow</li>
+                                <li>Present your work to the wider business at Show & Tell sessions.</li>
+                                <li>Consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>
+                            </ul>
+                        </div>
+
+                        <div class="article-social-icon">
+                            <ul class="social-icon">
+                                <li class="title">Share Post</li>
+                                <li>
+                                    <a href="https://www.facebook.com/" target="_blank">
+                                        <i class="ri-facebook-fill"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/" target="_blank">
+                                        <i class="ri-instagram-fill"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://twitter.com/" target="_blank">
+                                        <i class="ri-twitter-fill"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/" target="_blank">
+                                        <i class="ri-linkedin-fill"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="job-details-portfolio">
+                            <h3>Our Gallery</h3>
+                            <div class="bar"></div>
+                            <div class="row gallery-photo">
+                                <div class="col-lg-3 col-6 col-md-3">
+                                    <div class="job-details-portfolio-img">
+                                        <a href="assets/images/blog/blog-details-img2.jpg">
+                                            <img src="assets/images/blog/blog-details-img2.jpg" alt="Images">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6 col-md-3">
+                                    <div class="job-details-portfolio-img">
+                                        <a href="assets/images/blog/blog-details-img3.jpg">
+                                            <img src="assets/images/blog/blog-details-img3.jpg" alt="Images">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6 col-md-3">
+                                    <div class="job-details-portfolio-img">
+                                        <a href="assets/images/blog/blog-details-img4.jpg">
+                                            <img src="assets/images/blog/blog-details-img4.jpg" alt="Images">
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6 col-md-3">
+                                    <div class="job-details-portfolio-img">
+                                        <a href="assets/images/blog/blog-details-img5.jpg">
+                                            <img src="assets/images/blog/blog-details-img5.jpg" alt="Images">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Video</h3>
+                        <div class="bar"></div>
+                        <div class="job-details-play">
+                            <a href="https://www.youtube.com/watch?v=Zd00oIDAt60" class="play-btn">
+                                <i class="ri-play-circle-line"></i>
+                            </a>
+                        </div>
+
+                        <h3>Other SDG</h3>
+                        <div class="bar"></div>
+                        {% for categorie in categories %}
+                        <div class="col-lg-12">
+                            <div class="recent-job-card box-shadow">
+                                <div class="content">
+                                    <div class="recent-job-img">
+                                        <a href="{{ path('sdg_page', {'slug': categorie.slug}) }}">
+                                            {% if categorie.logo %}
+                                                {% for logo in categorie.logo %}
+                                                    <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="60%">
+                                                {% endfor %}
+                                            {% endif %}
+                                        </a>
+                                    </div>
+
+                                    <h3>{{ categorie.nom }}</h3>
+
+                                    <ul class="job-list1">
+                                        <li><i class="ri-briefcase-line"></i> Automotive Jobs</li>
+                                        <li><i class="ri-time-line"></i> 2 Hour Ago</li>
+                                    </ul>
+                                    <span><i class="ri-map-pin-line"></i> 105 San Antonio, TX</span>
+                                </div>
+
+                                <div class="job-sub-content">
+                                    <ul class="job-list2">
+                                        <li class="time">Full Time</li>
+                                        <li class="freelance">Freelance</li>
+                                    </ul>
+
+                                    <div class="price">$120 - $140 <b>/Per Week</b></div>
+                                </div>
+
+                                <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Job Details Area End -->
+
+    <!-- Employers CV Area -->
+    <div class="employers-cv-area">
+        <div class="container">
+            <div class="employers-cv-bg">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="employers-cv-content">
+                            <h2>Let Employers Find You</h2>
+                            <div class="bar"></div>
+                            <p>Advertise your jobs to millions of monthly users and search 15.8 million CV in our database.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="employers-cv-btn">
+                            <a href="mailto:contact@zoben.com">Upload Your CV</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Employers CV Area -->
+{% endblock %}

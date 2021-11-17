@@ -42,6 +42,11 @@ class Categorie
      */
     private Collection $projects;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Dictionnaire::class, inversedBy="categories")
+     */
+    private ?Dictionnaire $type;
+
     public function __construct()
     {
         $this->logo = new ArrayCollection();
@@ -139,6 +144,18 @@ class Categorie
         if ($this->projects->removeElement($project)) {
             $project->removeCategorie($this);
         }
+
+        return $this;
+    }
+
+    public function getType(): ?Dictionnaire
+    {
+        return $this->type;
+    }
+
+    public function setType(?Dictionnaire $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

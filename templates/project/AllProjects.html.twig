@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All projects{% endblock %}
+
+{% block body %}
+
+    <!-- Recent Job Area Two -->
+    <div class="recent-job-area-two pt-100 pb-70">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Recent Projects Posted</h2>
+                <div class="bar m-auto"></div>
+                <p class="m-auto">We collect reviews from our users so you can get an honest opinion of what an experience with our website are really like!</p>
+            </div>
+
+            <div class="row pt-45">
+                {% for project in projects %}
+                    <div class="col-lg-6">
+                        <div class="recent-job-card">
+                            <div class="content">
+                                <div class="recent-job-img">
+                                    {% if project.images %}
+                                        {% for logo in project.images %}
+                                            <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="15%">
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+
+                                <h3><a href="{{ path('project_page', {'slug': project.slug }) }}">{{ project.nom }}</a></h3>
+
+                                <ul class="job-list1">
+                                    <li><i class="ri-briefcase-line"></i> Design</li>
+                                    <li><i class="ri-time-line"></i> 2 Week Ago</li>
+                                </ul>
+                                <span><i class="ri-map-pin-line"></i> 305 Hicks St Brooklyn, NY</span>
+                            </div>
+
+                            <div class="job-sub-content">
+                                <ul class="job-list2">
+                                    <li class="time">Full Time</li>
+                                    <li class="freelance">Freelance</li>
+                                    <li class="urgent">Urgent</li>
+                                </ul>
+
+                                <div class="price">$150 - $180 <b>/Per Week</b></div>
+                            </div>
+
+                            <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Recent Job Area Two End -->
+
+{% endblock %}
