@@ -5,23 +5,71 @@
 {% block body %}
 
     <!-- Recent Job Area Two -->
-    <div class="recent-job-area-two pt-100 pb-70">
+    <div class="inner-banner">
         <div class="container">
-            <div class="section-title text-center">
+            <div class="inner-title text-center">
                 <h2>Recent Projects Posted</h2>
                 <div class="bar m-auto"></div>
                 <p class="m-auto">We collect reviews from our users so you can get an honest opinion of what an experience with our website are really like!</p>
             </div>
+        </div>
+    </div>
 
-            <div class="row pt-45">
+    <div class="job-listing-area pt-100 pb-70">
+        <div class="container">
+            <div class="job-listing-top">
+                <div class="row align-items-center">
+                    <div class="col-lg-12">
+                        <div class="job-listing-form">
+                            <form>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="Keywords / Project Title">
+                                            <i class="ri-search-line"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" placeholder="City or Postcode">
+                                            <i class="ri-map-pin-line"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-4">
+                                        <div class="form-group select-group">
+                                            <select class="form-select form-control">
+                                                <option data-display='Choose A Category'>Choose A Category</option>
+                                                <option value="1">Ui/Ux Designer</option>
+                                                <option value="2">Web Developer</option>
+                                                <option value="2">FontEnd Developer</option>
+                                                <option value="2">Creative Agency</option>
+                                                <option value="3">Engineer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-12">
+                                        <button type="submit" class="submit-btn border-radius-5">
+                                            Find Projects
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 {% for project in projects %}
                     <div class="col-lg-6">
-                        <div class="recent-job-card">
+                        <div class="recent-job-card box-shadow">
                             <div class="content">
                                 <div class="recent-job-img">
                                     {% if project.images %}
                                         {% for logo in project.images %}
-                                            <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="15%">
+                                            <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
                                         {% endfor %}
                                     {% endif %}
                                 </div>

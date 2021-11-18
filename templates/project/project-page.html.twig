@@ -82,7 +82,7 @@
                             <div class="bar"></div>
                             <ul class="job-details-widget-tag">
                                 {% for tag in project.tags %}
-                                <li><a href="tags.html" target="_blank">{{ tag.nom }}</a></li>
+                                <li><a href="{{ path('tag_project', {'slug': tag.slug }) }}" target="_blank">{{ tag.nom }}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>

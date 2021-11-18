@@ -70,6 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?string $civilite;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Profile::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private ?Profile $profile;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
@@ -289,6 +294,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCivilite(?string $civilite): self
     {
         $this->civilite = $civilite;
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): self
+    {
+        $this->profile = $profile;
 
         return $this;
     }

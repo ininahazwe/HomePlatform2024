@@ -13,12 +13,14 @@
                 <div class="recent-job-card">
                     <div class="content">
                         <div class="recent-job-img">
-                            <a href="job-details.html">
-                                <img src="assets/images/recent-job/recent-job4.jpg" alt="Images">
-                            </a>
+                            {% if project.images %}
+                                {% for logo in project.images %}
+                                    <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
+                                {% endfor %}
+                            {% endif %}
                         </div>
 
-                        <h3><a href="job-details.html">{{ project.nom }}</a></h3>
+                        <h3><a href="{{ path('project_page', {'slug': project.slug}) }}">{{ project.nom }}</a></h3>
 
                         <ul class="job-list1">
                             <li><i class="ri-briefcase-line"></i> Design</li>

@@ -67,6 +67,11 @@ class File
      */
     private $about_images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Profile::class, inversedBy="photo")
+     */
+    private $profile;
+
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable('now');
     }
@@ -188,6 +193,18 @@ class File
     public function setAboutImages(?About $about_images): self
     {
         $this->about_images = $about_images;
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): self
+    {
+        $this->profile = $profile;
 
         return $this;
     }

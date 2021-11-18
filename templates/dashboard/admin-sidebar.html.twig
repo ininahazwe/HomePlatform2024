@@ -22,10 +22,18 @@
             </li>
 
             <li class="nav-item">
-                <a href="" class="nav-link">
+                {% if app.user %}
+                <a href="{{ path('profile_show', {'id': app.user.profile.id}) }}" class="nav-link">
                     <span class="icon"><i class="ri-user-line"></i></span>
-                    <span class="menu-title">About</span>
+                    <span class="menu-title">My profile</span>
                 </a>
+                {% else %}
+                    <a href="{{ path('profile_new') }}" class="nav-link">
+                        <span class="icon"><i class="ri-user-line"></i></span>
+                        <span class="menu-title">My profile</span>
+                    </a>
+                {% endif %}
+
             </li>
 
             <li class="nav-item">
