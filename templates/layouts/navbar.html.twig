@@ -296,8 +296,13 @@
                         {% endif %}
 
                         <div class="optional-item">
-                            <a href="post-job.html" class="default-btn border-radius-5">Post A Project <i class="ri-briefcase-2-line"></i></a>
+                            {% if app.user %}
+                                <a href="{{ path('project_new_home') }}" class="default-btn border-radius-5">Post A Project <i class="ri-briefcase-2-line"></i></a>
+                            {% else %}
+                                <a href="{{ path('login') }}" class="default-btn border-radius-5">Post A Project <i class="ri-briefcase-2-line"></i></a>
+                            {% endif %}
                         </div>
+
                     </div>
                 </div>
             </nav>

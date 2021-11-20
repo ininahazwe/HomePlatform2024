@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Categorie;
 use App\Entity\Project;
 use App\Entity\Tag;
+use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,13 +21,13 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Name',
+                'label' => 'Title',
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description',
+                'label' => 'Content',
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -46,9 +47,25 @@ class ProjectType extends AbstractType
                 'class' => Categorie::class,
                 'multiple' => true,
                 'choice_label' => 'nom',
+                'label' => 'Categories',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.nom', 'ASC');
+                },
+                'by_reference' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('auteur', EntityType::class, [
+                'class' => User::class,
+                'multiple' => true,
+                'compound' => false,
+                'choice_label' => 'nom',
+                'label' => 'Contributors',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
                 },
                 'by_reference' => false,
                 'attr' => [

@@ -1166,6 +1166,11 @@
     "error-stack-parser" "^2.0.0"
     "string-width" "^4.2.3"
 
+"@orchidjs/sifter@^0.9.0":
+  "integrity" "sha512-NDYPhjdydJNbwDRvMFyUFFeImj1a+CJAwpjh/goKmvTHi726DPAJ1nW0X05p/GsorQgXHwhgDPyu6WaYqd4cRA=="
+  "resolved" "https://registry.npmjs.org/@orchidjs/sifter/-/sifter-0.9.0.tgz"
+  "version" "0.9.0"
+
 "@popperjs/core@^2.10.2":
   "integrity" "sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ=="
   "resolved" "https://registry.npmjs.org/@popperjs/core/-/core-2.10.2.tgz"
@@ -7011,6 +7016,13 @@
   "integrity" "sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw=="
   "resolved" "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.0.tgz"
   "version" "1.0.0"
+
+"tom-select@^2.0.0-rc.5":
+  "integrity" "sha512-JCigldJTC7OnMDfkPbv2CSBTpJpfq1YcpSlqD37WMILxgA18I4Pf1QMOGYyA4E1cLfII4ofFa5r8FN7Vn/pGGg=="
+  "resolved" "https://registry.npmjs.org/tom-select/-/tom-select-2.0.0-rc.5.tgz"
+  "version" "2.0.0-rc.5"
+  dependencies:
+    "@orchidjs/sifter" "^0.9.0"
 
 "tough-cookie@^4.0.0":
   "integrity" "sha512-tHdtEpQCMrc1YLrMaqXXcj6AxhYi/xgit6mZu1+EDWUn+qhUf8wMQoFIy9NXuq23zAwtcB0t/MjACGR18pcRbg=="

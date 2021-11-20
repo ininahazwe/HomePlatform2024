@@ -38,7 +38,7 @@ class CategorieController extends AbstractController
                 $name = $image->getClientOriginalName();
 
                 $image->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('files_directory'),
                     $fichier
                 );
                 $img = new File();
@@ -86,7 +86,7 @@ class CategorieController extends AbstractController
                 $name = $image->getClientOriginalName();
 
                 $image->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('files_directory'),
                     $fichier
                 );
                 $img = new File();

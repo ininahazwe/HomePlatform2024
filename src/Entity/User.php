@@ -157,6 +157,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getPrenom().' '.$this->getNom();
     }
 
+    public function checkRoles($role): bool
+    {
+        foreach($this->roles as $item)
+        {
+            if($item == $role)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isCandidat(): bool
+    {
+        $role = "ROLE_CANDIDAT";
+        return $this->checkRoles($role);
+    }
+
+    public function isMentor(): bool
+    {
+        $role = "ROLE_MENTOR";
+        return $this->checkRoles($role);
+    }
+
+    public function isAdmin(): bool
+    {
+        $role = "ROLE_ADMIN";
+        return $this->checkRoles($role);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        $role = "ROLE_SUPER_ADMIN";
+        return $this->checkRoles($role);
+    }
+
+    public function getRoleName():string
+    {
+        if ($this->isSuperAdmin()){
+            return 'Super Administrateur';
+        }else if($this->isAdmin()){
+            return 'Admin';
+        }else if($this->isMentor()){
+            return 'Mentor';
+        }else if($this->isCandidat()){
+            return 'Candidat';
+        }else{
+            return 'No info';
+        }
+    }
+
 
     /**
      * @see PasswordAuthenticatedUserInterface

@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Entity\File;
 use App\Entity\Project;
+use App\Form\ProjectType;
 use App\Repository\CategorieRepository;
 use App\Repository\EditionRepository;
 use App\Repository\PartenairesRepository;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -60,6 +63,47 @@ class HomeController extends AbstractController
         return $this->render('project/project-page.html.twig', [
             'project' => $project,
             'projects' => $projectRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/projects/new', name: 'project_new_home', methods: ['GET','POST'])]
+    public function newProject(Request $request, ProjectRepository $projectRepository): Response
+    {
+        $project = new Project();
+        $user = $this->getUser();
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+            foreach($images as $image){
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                $name = $image->getClientOriginalName();
+
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                $img = new File();
+                $img->setNom($fichier);
+                $img->setUser($user);
+                $img->setNomFichier($name);
+                $img->setType(File::TYPE_LOGO);
+                $project->addImage($img);
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($project);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Ajout réussi');
+
+            return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('home/project_new.html.twig', [
+            'project' => $project,
+            'form' => $form,
         ]);
     }
 }

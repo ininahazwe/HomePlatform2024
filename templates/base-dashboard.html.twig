@@ -12,7 +12,10 @@
     {% endblock %}
 </head>
 <body>
-{% include'dashboard/admin-sidebar.html.twig' %}
+{% if app.user.isCandidat() %}{{ include('dashboard/user-sidebar.html.twig') }}{% endif %}
+{% if app.user.isMentor() %}{{ include('dashboard/mentor-sidebar.html.twig') }}{% endif %}
+{% if app.user.isAdmin() %}{{ include('dashboard/admin-sidebar.html.twig') }}{% endif %}
+{% if app.user.isSuperAdmin() %}{{ include('dashboard/super-admin-sidebar.html.twig') }}{% endif %}
 
 <div class="main-dashboard-content d-flex flex-column">
     {% include'layouts/navbar-admin.html.twig' %}

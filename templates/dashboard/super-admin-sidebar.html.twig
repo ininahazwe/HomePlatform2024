@@ -22,7 +22,7 @@
             </li>
 
             <li class="nav-item">
-                {% if app.user and app.user.profile %}
+                {% if app.user.profile %}
                 <a href="{{ path('profile_show', {'id': app.user.profile.id}) }}" class="nav-link">
                     <span class="icon"><i class="ri-user-line"></i></span>
                     <span class="menu-title">My profile</span>

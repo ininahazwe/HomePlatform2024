@@ -48,3 +48,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy:
+        ROLE_CANDIDAT:
+        ROLE_MENTOR: ROLE_CANDIDAT
+        ROLE_ADMIN: ROLE_MENTOR
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
