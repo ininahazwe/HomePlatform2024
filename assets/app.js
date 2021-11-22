@@ -13,20 +13,11 @@ import { Tooltip, Toast,  Popover } from "bootstrap";
 // start the Stimulus application
 import './bootstrap';
 import './js/all';
-import TomSelect from "tom-select";
 
-$(document).ready(function() {
+const $ = require('jquery');
+global.$ = global.jQuery = $;
+
+$(function () {
     $('.select-tags').select2();
-});
-
-function bindSelect(select){
-    new TomSelect(select, {
-        hideSelected: true,
-        closeAfterSelect: true,
-        load: async (query, callback)=>{
-            const url = `${select.dataset.remote}?q=${encodeURIComponent(query)}`
-        }
-    })
-}
-Array.from(document.querySelectorAll('select[multiple]')).map(bindSelect)
+})
 

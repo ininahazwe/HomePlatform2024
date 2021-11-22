@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\About;
 use App\Entity\Categorie;
 use App\Entity\File;
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\AboutRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\EditionRepository;
 use App\Repository\PartenairesRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,14 +21,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
+    public function index(AboutRepository $aboutRepository, CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
     {
         $projects = $projectRepository->findAll();
+        $abouts = $aboutRepository->findAll();
         $partenaires = $partenairesRepository->findAll();
         $categories = $categorieRepository->findLatest();
         $editions = $editionRepository->findAll();
         return $this->render('home/index.html.twig', [
             'categories' => $categories,
+            'abouts' => $abouts,
             'editions' => $editions,
             'projects' => $projects,
             'partenaires' => $partenaires,
@@ -37,6 +42,25 @@ class HomeController extends AbstractController
     {
         return $this->render('categorie/allSDG.html.twig', [
             'categories' => $categorieRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/editions', name: 'all_editions', methods: ['GET'])]
+    public function allEditions(EditionRepository $editionRepository): Response
+    {
+        return $this->render('edition/allEditions.html.twig', [
+            'categories' => $editionRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/about-us', name: 'about-page', methods: ['GET'])]
+    public function about(TeamRepository $teamRepository, AboutRepository $aboutRepository): Response
+    {
+        $teams = $teamRepository->findAll();
+
+        return $this->render('home/about_page.html.twig', [
+            'about' => $aboutRepository->findOneBy(['id' => 1]),
+            'teams' => $teams,
         ]);
     }
 
@@ -81,7 +105,7 @@ class HomeController extends AbstractController
                 $name = $image->getClientOriginalName();
 
                 $image->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('files_directory'),
                     $fichier
                 );
                 $img = new File();

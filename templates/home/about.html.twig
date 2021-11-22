@@ -1,0 +1,52 @@
+<!-- Career Area -->
+<div class="career-area pt-100 pb-70">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="career-img">
+                    <div class="row align-items-center">
+                        {% for about in abouts %}
+                        <div class="col-6">
+                            <div class="row">
+                                {% for image in about.images|slice(0, 2)%}
+                                <div class="col-12">
+                                    <div class="images1 wow fadeInDown" data-wow-delay="000ms" data-wow-duration="1000ms">
+                                        <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row">
+                                {% for image in about.images|slice(2, 4)%}
+                                <div class="col-12">
+                                    <div class="images2 wow fadeInDown" data-wow-delay="200ms" data-wow-duration="1000ms">
+                                        <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% for about in abouts %}
+            <div class="col-lg-6">
+                <div class="career-content pl-20 wow fadeInUp" data-wow-delay="400ms" data-wow-duration="1000ms">
+                    <div class="section-title">
+                        <h2>{{ about.titre }}</h2>
+                        <div class="bar"></div>
+                    </div>
+                    <p>{{ about.intro|raw }}</p>
+                    <div class="optional-item">
+                        <a href="{{ path('about-page') }}" class="default-btn two border-radius-5">Learn more <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Career Area End -->

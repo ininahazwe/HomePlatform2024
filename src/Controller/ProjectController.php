@@ -23,7 +23,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'project_new', methods: ['GET','POST'])]
+    #[Route('/pr/new', name: 'project_new', methods: ['GET','POST'])]
     public function new(Request $request): Response
     {
         $project = new Project();
@@ -38,7 +38,7 @@ class ProjectController extends AbstractController
                 $name = $image->getClientOriginalName();
 
                 $image->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('files_directory'),
                     $fichier
                 );
                 $img = new File();
@@ -64,7 +64,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'project_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'project_show', methods: ['GET'])]
     public function show(Project $project): Response
     {
         return $this->render('project/show.html.twig', [
@@ -72,7 +72,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'project_edit', methods: ['GET','POST'])]
+    #[Route('/edit/{id}', name: 'project_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Project $project): Response
     {
         $user = $this->getUser();
@@ -86,7 +86,7 @@ class ProjectController extends AbstractController
                 $name = $image->getClientOriginalName();
 
                 $image->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('files_directory'),
                     $fichier
                 );
                 $img = new File();
@@ -128,7 +128,7 @@ class ProjectController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
             $nom = $image->getNom();
-            unlink($this->getParameter('images_directory') . '/' . $nom);
+            unlink($this->getParameter('files_directory') . '/' . $nom);
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($image);

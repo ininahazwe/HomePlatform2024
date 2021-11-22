@@ -22,23 +22,18 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            Home
+                            Projects
                             <i class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link">
-                                    Home One
+                                <a href="{{ path('project_new') }}" class="nav-link">
+                                    Add project
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="index-2.html" class="nav-link">
-                                    Home Two
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="index-3.html" class="nav-link">
-                                    Home Three
+                                <a href="{{ path('project_index') }}" class="nav-link">
+                                    My projects
                                 </a>
                             </li>
                         </ul>
@@ -46,41 +41,33 @@
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            Jobs
+                            SDGs
                             <i class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="job-listing.html" class="nav-link">Job Listing</a>
+                                <a href="{{ path('categorie_new') }}" class="nav-link">Add SDG</a>
                             </li>
                             <li class="nav-item">
-                                <a href="post-job.html" class="nav-link">Post A Job</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="job-details.html" class="nav-link">Job Details</a>
+                                <a href="{{ path('categorie_index') }}" class="nav-link">All SDGS</a>
                             </li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            Employers
+                            Editions
                             <i class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="employers-listing.html" class="nav-link">
-                                    Employers Listing
+                                <a href="{{ path('edition_new') }}" class="nav-link">
+                                    Add edition
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="employers-details.html" class="nav-link">
-                                    Employers Details
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="dashboard.html" class="nav-link">
-                                    Employers Dashboard
+                                <a href="{{ path('edition_index') }}" class="nav-link">
+                                    All editions
                                 </a>
                             </li>
                         </ul>
@@ -88,23 +75,18 @@
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            Candidates
+                            Partners
                             <i class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="candidates-listing.html" class="nav-link">
-                                    Candidates Listing
+                                <a href="{{ path('partenaires_new') }}" class="nav-link">
+                                    Add partner
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="candidates-details.html" class="nav-link">
-                                    Candidates Details
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="candidates-dashboard.html" class="nav-link">
-                                    Candidates Dashboard
+                                <a href="{{ path('partenaires_index') }}" class="nav-link">
+                                    All partners
                                 </a>
                             </li>
                         </ul>
@@ -112,164 +94,18 @@
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            Blog
+                            Dictionnaire
                             <i class="ri-arrow-down-s-line"></i>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="blog-1.html" class="nav-link">
-                                    Blog Grid
+                                <a href="{{ path('dictionnaire_new') }}" class="nav-link">
+                                    Add dictionnaire
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="blog-2.html" class="nav-link">
-                                    Blog Left Sidebar
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="blog-3.html" class="nav-link">
-                                    Blog Right Sidebar
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="blog-details.html" class="nav-link">
-                                    Blog Details
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="categories.html" class="nav-link">
-                                    Categories
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="tags.html" class="nav-link">
-                                    Tags
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Pages
-                            <i class="ri-arrow-down-s-line"></i>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a href="about.html" class="nav-link">
-                                    About Us
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="contact.html" class="nav-link">
-                                    Contact Us
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="testimonials.html" class="nav-link">
-                                    Testimonials
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    Freelancer
-                                    <i class="ri-arrow-down-s-line"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="freelancer.html" class="nav-link">
-                                            Freelancer
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="freelancer-details.html" class="nav-link">
-                                            Freelancer Details
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="dashboard-invoice.html" class="nav-link">
-                                    Invoice
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    Company
-                                    <i class="ri-arrow-down-s-line"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="company.html" class="nav-link">
-                                            Company Listing
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="company-details.html" class="nav-link">
-                                            Company Details
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="search-job.html" class="nav-link">
-                                            Search Job
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="pricing.html" class="nav-link">
-                                    Pricing Plan
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="faq.html" class="nav-link">
-                                    FAQ
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="log-in-register.html" class="nav-link">
-                                    Log In / Register
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="forgot-password.html" class="nav-link">
-                                    Forgot Password
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="terms-condition.html" class="nav-link">
-                                    Terms & Conditions
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="privacy-policy.html" class="nav-link">
-                                    Privacy Policy
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="404.html" class="nav-link">
-                                    404 Page
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="coming-soon.html" class="nav-link">
-                                    Coming Soon
+                                <a href="{{ path('dictionnaire_index') }}" class="nav-link">
+                                    Dictionnaire
                                 </a>
                             </li>
                         </ul>
@@ -283,9 +119,7 @@
                                 <div class="menu-profile">
                                     {% if app.user.profile and app.user.profile.photo|length %}
                                         {% for photo in app.user.profile.photo %}
-                                            {% if photo.type is same as 1 %}
-                                                {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="thumb">{% endif %}
-                                            {% endif %}
+                                            {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle">{% endif %}
                                         {% endfor %}
                                     {% else %}
                                         <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb">
@@ -299,12 +133,10 @@
                                     <div class="figure mb-3">
                                         {% if app.user.profile and app.user.profile.photo|length %}
                                             {% for photo in app.user.profile.photo %}
-                                                {% if photo.type is same as 1 %}
-                                                    {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle">{% endif %}
-                                                {% endif %}
+                                                {% if loop.first %}<img class="rounded-circle" src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar">{% endif %}
                                             {% endfor %}
                                         {% else %}
-                                            <img src="{{ asset('images/user-img/avataaars.png') }}" class="rounded-circle" alt="image">
+                                            <img class="rounded-circle" src="{{ asset('images/user-img/avataaars.png') }}" alt="image">
                                         {% endif %}
                                     </div>
 
@@ -378,7 +210,7 @@
                             <div class="dropdown profile-nav-item">
                                 <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="menu-profile">
-                                        <img src="{{ asset('images/user-img/user-img2.jpg') }}" class="rounded-circle" alt="image">
+                                        <img class="rounded-circle" src="{{ asset('images/user-img/user-img2.jpg') }}" alt="image">
                                         <span class="name">My Account</span>
                                     </div>
                                 </a>
@@ -386,7 +218,7 @@
                                 <div class="dropdown-menu">
                                     <div class="dropdown-header d-flex flex-column align-items-center">
                                         <div class="figure mb-3">
-                                            <img src="assets/images/user-img/user-img2.jpg" class="rounded-circle" alt="image">
+                                            <img src="{{ asset('images/user-img/user-img2.jpg') }}" class="rounded-circle" alt="image">
                                         </div>
 
                                         <div class="info text-center">

@@ -54,7 +54,7 @@ class ProjectType extends AbstractType
                 },
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'select-tags'
                 ]
             ])
             ->add('auteur', EntityType::class, [
@@ -69,7 +69,7 @@ class ProjectType extends AbstractType
                 },
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'select-tags'
                 ]
             ])
             ->add('tags', EntityType::class, [

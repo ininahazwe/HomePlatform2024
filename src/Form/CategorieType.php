@@ -39,6 +39,7 @@ class CategorieType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'label' => 'Category type',
+                'multiple' => false,
                 'expanded' => false,
                 'class' => 'App\Entity\Dictionnaire',
                 'query_builder' => function($repository) {

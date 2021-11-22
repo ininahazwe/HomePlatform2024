@@ -15,7 +15,10 @@
     <!-- End Breadcrumb Area -->
 
     <div class="all-applicants-box">
-        <h2>SDG's list</h2>
+        <div class="d-flex flex-row justify-content-between">
+            <h2>SDGs list</h2>
+            <a class="default-btn border-radius-5" href="{{ path('categorie_new') }}">Add</a>
+        </div>
 
         <div class="row">
             {% for categorie in categories %}

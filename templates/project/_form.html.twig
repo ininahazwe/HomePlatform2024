@@ -12,7 +12,7 @@
         <h2>Images</h2>
         {% for image in project.images %}
             <div>
-                <img src="{{ asset('/uploads/'~image.name) }}" alt="" width="150">
+                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
                 <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
             </div>
         {% endfor %}

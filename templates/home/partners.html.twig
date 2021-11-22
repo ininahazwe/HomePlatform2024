@@ -9,19 +9,19 @@
                     <p>We collect reviews from our users so you can get an honest opinion of what an experience with our website are really like!</p>
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="browse-btn float-end">
-                    <a href="company.html"> Browse All Categories <i class="ri-arrow-right-s-line"></i></a>
-                </div>
-            </div>
         </div>
 
         <div class="company-slider owl-carousel owl-theme  pt-45">
             {% for partenaire in partenaires %}
             <div class="company-item">
-                <a href="company-details.html">
-                    <img src="assets/images/company/company-img1.jpg" alt="Images">
+                <a href="{{ path('partenaires_show', {'slug': partenaire.slug }) }}">
+                    {% if partenaire.logo %}
+                        {% for photo in partenaire.logo %}
+                            {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar">{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb">
+                    {% endif %}
                 </a>
                 <h3><a href="company-details.html">{{ partenaire.nom }}</a></h3>
                 <p><i class="ri-map-pin-line"></i> St Brooklyn</p>

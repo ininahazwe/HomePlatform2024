@@ -8,6 +8,7 @@ import './jquery.appear.min';
 import './jquery.magnific-popup.min';
 import './jquery.min';
 import './jquery-ui';
+import './jquery';
 import './meanmenu.min';
 import './metismenu.min';
 import './odometer.min';

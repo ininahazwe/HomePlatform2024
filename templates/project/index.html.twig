@@ -8,7 +8,10 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="job-listing-title">
-                        <h3>Showing 1 – 6 of 145 results</h3>
+                        <div class="d-flex flex-row justify-content-between">
+                            <h2>Projects list</h2>
+                            <a class="default-btn border-radius-5" href="{{ path('project_new') }}">Add</a>
+                        </div>
                     </div>
                 </div>
 
@@ -48,7 +51,7 @@
                 <div class="recent-job-card box-shadow">
                     <div class="content">
                         <div class="recent-job-img">
-                            <a href="job-details.html">
+                            <a href="{{ path('project_show', {'slug': project.slug }) }}">
                                 {% if project.images %}
                                     {% for image in project.images %}
                                         <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}" style="max-width: 70px; max-height: 70px">
@@ -57,7 +60,7 @@
                             </a>
                         </div>
 
-                        <h3><a href="job-details.html">{{ project.nom }}</a></h3>
+                        <h3><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom }}</a></h3>
 
                         <ul class="job-list1">
                             <li><i class="ri-briefcase-line"></i> Design</li>
