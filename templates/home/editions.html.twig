@@ -1,5 +1,5 @@
 <!-- Blog Area -->
-<div class="recent-job-area-two pt-100 pb-70">
+<div class="blog-area pt-100 pb-70">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
@@ -13,7 +13,7 @@
 
             <div class="col-lg-4">
                 <div class="browse-btn float-end">
-                    <a href="{{ path('all_editions') }}"> Browse More Editions <i class="ri-arrow-right-s-line"></i></a>
+                    <a href="{{ path('edition_index') }}"> Browse More Editions <i class="ri-arrow-right-s-line"></i></a>
                 </div>
             </div>
         </div>
@@ -25,27 +25,15 @@
                     <div class="blog-img">
                         <a href="blog-details.html">
                             {% if edition.avatar %}
-                                {% for photo in edition.avatar %}
-                                    <a href="">
-                                        <img src="{{ asset('uploads/' ~ photo.nom) }}" alt="{{ photo.nom }}">
-                                    </a>
+                                {% for logo in edition.avatar %}
+                                    <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
                                 {% endfor %}
                             {% endif %}
                         </a>
-                        <a href="tags.html" class="tag" target="_blank">
-                            Job Board
-                        </a>
+                        <a href="tags.html" class="tag" target="_blank">{{ edition.city }}</a>
                     </div>
                     <div class="content">
-                        <ul>
-                            <li>
-                                <i class="ri-time-line"></i> June 14, 2021
-                            </li>
-                            <li>
-                                <i class="ri-mail-line"></i> 02 Comments
-                            </li>
-                        </ul>
-                        <h3><a href="{{ path('edition_show', {'slug': edition.slug}) }}">{{ edition.nom }}</a></h3>
+                        <h3><a href="{{ path('edition_page', {'slug': edition.slug }) }}">{{ edition.nom }}</a></h3>
                     </div>
                 </div>
             </div>

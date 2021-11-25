@@ -2,7 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Home Education{% endblock %}</title>
+        <link rel="icon" href="{{ asset('uploads/design/logo-small.png') }}">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="Home is association that focuses in sharing educational experiences on international scale.">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}

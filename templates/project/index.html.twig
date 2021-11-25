@@ -1,103 +1,52 @@
 {% extends 'base-dashboard.html.twig' %}
 
-{% block title %}Project index{% endblock %}
+{% block title %}All Projects{% endblock %}
 
 {% block body %}
 
-        <div class="job-listing-topper">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="job-listing-title">
-                        <div class="d-flex flex-row justify-content-between">
-                            <h2>Projects list</h2>
-                            <a class="default-btn border-radius-5" href="{{ path('project_new') }}">Add</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="job-listing-category">
-                        <div class="row">
-                            <div class="col-lg-6 col-6">
-                                <div class="form-group select-group">
-                                    <select class="form-select form-control">
-                                        <option data-display='Sort By (Default)'>Sort By (Default)</option>
-                                        <option value="1"> Top Rate</option>
-                                        <option value="2">Mid Rate</option>
-                                        <option value="3">Low Rated</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-6">
-                                <div class="form-group select-group">
-                                    <select class="form-select form-control">
-                                        <option data-display='06 Per Pages'>06 Per Pages</option>
-                                        <option value="1"> 03 Per Pages</option>
-                                        <option value="2">06 Per Pages</option>
-                                        <option value="3">09 Per Pages</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="resume-alerts-area">
+        <div class="resume-alerts-table table-responsive">
+            <div class="d-flex flex-row justify-content-between">
+                <h2>Projects</h2>
+                <a class="default-btn border-radius-5" href="{{ path('project_new') }}">Add</a>
             </div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Authors</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for project in projects %}
+                    <tr>
+                        <td><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom }}</a></td>
+                        <td>
+                            {% for cat in project.categorie %}
+                                {{ cat.nom }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for user in project.auteur %}
+                                {{ user.fullname }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <ul class="option-list">
+                                <li><a href="{{ path('project_show', {'slug': project.slug}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
+                                <li><a href="{{ path('project_edit', {'id': project.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
+                                <li>{{ include('project/_delete_form.html.twig') }}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-
-        <div class="row pt-45">
-            {% for project in projects %}
-            <div class="col-lg-12">
-                <div class="recent-job-card box-shadow">
-                    <div class="content">
-                        <div class="recent-job-img">
-                            <a href="{{ path('project_show', {'slug': project.slug }) }}">
-                                {% if project.images %}
-                                    {% for image in project.images %}
-                                        <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}" style="max-width: 70px; max-height: 70px">
-                                    {% endfor %}
-                                {% endif %}
-                            </a>
-                        </div>
-
-                        <h3><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom }}</a></h3>
-
-                        <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Design</li>
-                            <li><i class="ri-time-line"></i> 2 Week Ago</li>
-                        </ul>
-                        <span><i class="ri-map-pin-line"></i> 305 Hicks St Brooklyn, NY</span>
-                    </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                            <li class="urgent">Urgent</li>
-                        </ul>
-
-                        <div class="price">$150 - $180 <b>/Per Week</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
-                </div>
-            </div>
-            {% endfor %}
-            <div class="col-lg-12 col-md-12 text-center">
-                <div class="pagination-area">
-                    <a href="job-listing.html" class="prev page-numbers">
-                        <i class="ri-arrow-left-s-line"></i>
-                    </a>
-
-                    <span class="page-numbers current" aria-current="page">1</span>
-                    <a href="job-listing.html" class="page-numbers">2</a>
-                    <a href="job-listing.html" class="page-numbers">3</a>
-
-                    <a href="job-listing.html" class="next page-numbers">
-                        <i class="ri-arrow-right-s-line"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+    </div>
 
 {% endblock %}

@@ -1,0 +1,3 @@
+{% for project in projects %}
+    {% include 'project/_card.html.twig' with {project: project} only %}
+{% endfor %}

@@ -1,0 +1,32 @@
+<div class="col-lg-6">
+    <div class="recent-job-card box-shadow">
+        <div class="content">
+            <div class="recent-job-img">
+                {% if project.images %}
+                    {% for logo in project.images %}
+                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <h3><a href="{{ path('project_page', {'slug': project.slug }) }}">{{ project.nom }}</a></h3>
+            <div class="job-sub-content">
+                <ul class="job-list2">
+                    {% if project.categorie %}
+                        {% for cat in project.categorie %}
+                            <li class="time">{{ cat.nom }}</li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+            <ul class="job-list1">
+                <i class="ri-briefcase-line"></i>
+                {% if project.auteur %}
+                    {% for user in project.auteur %}
+                        <li {{ user.fullname }}</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</div>

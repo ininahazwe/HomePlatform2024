@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\About;
 use App\Entity\Categorie;
+use App\Entity\Edition;
 use App\Entity\File;
 use App\Entity\Project;
 use App\Form\ProjectType;
@@ -50,6 +51,14 @@ class HomeController extends AbstractController
     {
         return $this->render('edition/allEditions.html.twig', [
             'categories' => $editionRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/editions/{slug}', name: 'edition_page', methods: ['GET'])]
+    public function OneEdition(Edition $edition): Response
+    {
+        return $this->render('edition/page.html.twig', [
+            'edition' => $edition
         ]);
     }
 

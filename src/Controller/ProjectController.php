@@ -97,6 +97,8 @@ class ProjectController extends AbstractController
                 $project->addImage($img);
             }
 
+            $project->updateTimestamps();
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', 'Mise à jour réussie');

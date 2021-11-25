@@ -2,9 +2,13 @@
 
 namespace App\Repository;
 
+use App\Data\SearchDataProject;
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Project|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +18,46 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProjectRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    private PaginatorInterface $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator) {
         parent::__construct($registry, Project::class);
+        $this->paginator = $paginator;
+    }
+
+    /**
+     * @param SearchDataProject $search
+     * @return PaginationInterface
+     */
+    public function findSearch(SearchDataProject $search): PaginationInterface {
+        $query = $this->getSearchQuery($search)->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $search->page,
+            10
+        );
+    }
+
+    public function getSearchQuery(SearchDataProject $search): QueryBuilder {
+        $query = $this
+            ->createQueryBuilder('p')
+        ;
+
+
+        if(!empty($search->q)){
+            $query
+                ->andWhere('p.nom LIKE :q')
+                ->setParameter('q', "%" . $search->q . "%");
+        }
+
+        if(!empty($search->categories)){
+            $query = $query
+                ->innerJoin('p.categorie', 'c')
+                ->andWhere('c.id IN (:categorie)')
+                ->setParameter('categorie', $search->categories);
+        }
+
+        return $query;
     }
 
     // /**

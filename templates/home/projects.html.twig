@@ -23,29 +23,23 @@
                         <h3><a href="{{ path('project_page', {'slug': project.slug}) }}">{{ project.nom }}</a></h3>
 
                         <ul class="job-list1">
-                            <li><i class="ri-briefcase-line"></i> Design</li>
-                            <li><i class="ri-time-line"></i> 2 Week Ago</li>
+                            <div class="job-sub-content">
+                                <ul class="job-list2">
+                                    {% if project.categorie %}
+                                        {% for cat in project.categorie %}
+                                            <li class="time">{{ cat.nom }}</li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            </div>
                         </ul>
-                        <span><i class="ri-map-pin-line"></i> 305 Hicks St Brooklyn, NY</span>
                     </div>
-
-                    <div class="job-sub-content">
-                        <ul class="job-list2">
-                            <li class="time">Full Time</li>
-                            <li class="freelance">Freelance</li>
-                            <li class="urgent">Urgent</li>
-                        </ul>
-
-                        <div class="price">$150 - $180 <b>/Per Week</b></div>
-                    </div>
-
-                    <button class="bookmark-btn"><i class="ri-bookmark-line"></i></button>
                 </div>
             </div>
             {% endfor %}
             <div class="col-lg-12 text-center">
                 <div class="browse-btn">
-                    <a href="{{ path('all_projects') }}"> Browse All SDGs <i class="ri-arrow-right-s-line"></i></a>
+                    <a href="{{ path('all_projects') }}"> Browse All Projects <i class="ri-arrow-right-s-line"></i></a>
                 </div>
             </div>
         </div>
