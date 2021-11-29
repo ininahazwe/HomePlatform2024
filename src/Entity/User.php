@@ -75,11 +75,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?Profile $profile;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="members")
+     */
+    private $groups;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable('now');
+        $this->groups = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -357,6 +363,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfile(?Profile $profile): self
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Group[]
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    public function addGroup(Group $group): self
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+            $group->addMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(Group $group): self
+    {
+        if ($this->groups->removeElement($group)) {
+            $group->removeMember($this);
+        }
 
         return $this;
     }

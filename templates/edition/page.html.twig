@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edition{% endblock %}
+{% block title %}{{ edition.nom }} | {{ edition.city }}{% endblock %}
 
 {% block body %}
     <div class="blog-details-area pt-100 pb-70">
@@ -10,7 +10,7 @@
                     <h2>{{ edition.nom }}</h2>
                     {% if edition.city %}
                     <ul>
-                        <li><a href="tags.html">{{ edition.city }}</a></li>
+                        <li><a>{{ edition.city }}</a></li>
                     </ul>
                     {% endif %}
                 </div>
@@ -25,43 +25,12 @@
             <div class="blog-details-content">
                 <div class="blog-articel">
                     <b>{{ edition.intro|raw }}</b>
-                    <div class="bar"></div>
-                    <p>{{ edition.description|raw }}</p>
                 </div>
                 <blockquote class="blockquote">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Feugiat enim a erat sit vulputate elementum orci. Risus nec viverra ornare venenatis proin ac varius tristique ut. Vitae egestas tellus amet nulla cursus in that.
-                    </p>
-                    <span>Thomas Deltom</span>
-                    <div class="line1"></div>
-                    <div class="line2"></div>
+                    <p>{{ edition.description|raw }}</p>
                 </blockquote>
-                <div class="blog-details-list">
-                    <h3>What You’ll Learn</h3>
-                    <div class="bar"></div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <ul>
-                                <li><i class="ri-check-line"></i> Become a UI/UX designer.</li>
-                                <li><i class="ri-check-line"></i> You will be able to start earning money skills.</li>
-                                <li><i class="ri-check-line"></i> Build a UI project from beginning to end</li>
-                                <li><i class="ri-check-line"></i> Work with colors &amp; fonts.</li>
-                                <li><i class="ri-check-line"></i> You will create your own UI Kit.</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <ul>
-                                <li><i class="ri-check-line"></i> Create low-fidelity airframe.</li>
-                                <li><i class="ri-check-line"></i> Learn to design mobile apps &amp; websites.</li>
-                                <li><i class="ri-check-line"></i> Design 3 different logos.</li>
-                                <li><i class="ri-check-line"></i> Build &amp; test a complete mobile app.</li>
-                                <li><i class="ri-check-line"></i> Downloadable exercise files.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
                 <div class="blog-portfolio">
-                    <h3>What You’ll Learn</h3>
+                    <h3>Photos</h3>
                     <div class="bar"></div>
                     <div class="row gallery-photo">
                         {% if edition.illustration %}
@@ -76,14 +45,6 @@
                             {% endfor %}
                         {% endif %}
                     </div>
-                </div>
-                <div class="blog-details-list-two">
-                    <ul>
-                        <li>Be involved in every step of the product design cycle from discovery to developer handoff and user acceptance testing.</li>
-                        <li>Work with BAs, product managers and tech teams to lead the Product Design</li>
-                        <li>style guides, high fidelity prototypes, micro interaction specifications and pattern libraries.</li>
-                        <li>Maintain quality of the design process and ensure that when designs are translated into code they accurately reflect the design specifications</li>
-                    </ul>
                 </div>
                 <div class="article-share-area">
                     <div class="row align-items-center">

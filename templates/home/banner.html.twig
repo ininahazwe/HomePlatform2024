@@ -1,62 +1,52 @@
-<!-- Banner Area Two -->
 <div class="banner-area-two">
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="banner-content-two">
-                    <h1 class="wow fadeInLeft" data-wow-delay="000ms" data-wow-duration="1000ms">Find a <b>project</b></h1>
+                    <h1 class="wow fadeInLeft" data-wow-delay="000ms" data-wow-duration="1000ms">Searching For A Project? Find the <b>Perfect One</b></h1>
                     <div class="banner-form-two wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Keywords / Job Title">
-                                        <i class="ri-search-line"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="City or Postcode">
-                                        <i class="ri-map-pin-line"></i>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4">
-                                    <button type="submit" class="submit-btn border-radius-5">
-                                        Find Jobs
-                                    </button>
+                        {{ form_start(form) }}
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group">
+                                    {{ form_row(form.q) }}
+                                    <i class="ri-search-line"></i>
                                 </div>
                             </div>
-                        </form>
+
+                            <div class="col-lg-4 col-md-12">
+                                <div class="form-group select-group">
+                                    {{ form_row(form.categories) }}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-12">
+                                <a href="{{ path('all_projects') }}" type="submit" class="submit-btn border-radius-5">
+                                    Find Projects
+                                </a>
+                            </div>
+                        </div>
+                        {{  form_end(form) }}
                     </div>
 
                     <div class="popular-searches-tag wow fadeInLeft" data-wow-delay="200ms" data-wow-duration="1000ms">
                         <span class="title">Popular Searches : </span>
-                        <a href="job-listing.html">Designer</a>,
-                        <a href="job-listing.html">Developer</a>,
-                        <a href="job-listing.html">Web</a>,
-                        <a href="job-listing.html">IOS</a>,
-                        <a href="job-listing.html">PHP</a>,
-                        <a href="job-listing.html">Senior</a>,
-                        <a href="job-listing.html">Engineer</a>
+                        <a href="job-listing.html">SDG</a>,
+                        <a href="job-listing.html">Developer</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="banner-img-two">
-                    <img src="{{ asset('images/banner.jpg') }}" alt="Banner Images" class="wow fadeInUp" data-wow-delay="000ms" data-wow-duration="1000ms">
+                    {#<img src="{{ asset('images/banner.jpg') }}" alt="Banner Images" class="wow fadeInUp" data-wow-delay="000ms" data-wow-duration="1000ms">#}
+                   <div class="banner-shape-two">
 
-                    <div class="banner-shape-two">
-                        {#<div class="shape1 wow fadeInUp" data-wow-delay="100ms" data-wow-duration="1000ms">
-                            <img src="{{ asset('images/home-two/sdg.jpg') }}" alt="Image">
+                        <div class="shape2 wow fadeInDown"  data-wow-delay="200ms" data-wow-duration="1000ms" style="z-index: 1; opacity: .5">
+                            <img src="{{ asset('images/home-two/sdg-no-bg.png') }}" alt="">
                         </div>
-                        <div class="shape2 wow fadeInDown"  data-wow-delay="200ms" data-wow-duration="1000ms">
-                            <img src="{{ asset('images/home-two/man.png') }}" alt="Image">
-                        </div>#}
                         <div class="shape3 wow fadeInDown" data-wow-delay="300ms" data-wow-duration="1000ms">
-                            <img src="{{ asset('images/home-two/sdg-no-bg.png') }}" alt="Image" style="opacity: 0.5">
+                            <img src="{{ asset('images/banner.jpg') }}" alt="">
                         </div>
                     </div>
                 </div>
@@ -64,4 +54,3 @@
         </div>
     </div>
 </div>
-<!-- Banner Area Two End -->

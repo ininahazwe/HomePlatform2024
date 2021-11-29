@@ -47,6 +47,21 @@ class Categorie
      */
     private ?Dictionnaire $type;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $link;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $video;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $intro;
+
     public function __construct()
     {
         $this->logo = new ArrayCollection();
@@ -156,6 +171,42 @@ class Categorie
     public function setType(?Dictionnaire $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(?string $link): self
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?string $video): self
+    {
+        $this->video = $video;
+
+        return $this;
+    }
+
+    public function getIntro(): ?string
+    {
+        return $this->intro;
+    }
+
+    public function setIntro(?string $intro): self
+    {
+        $this->intro = $intro;
 
         return $this;
     }

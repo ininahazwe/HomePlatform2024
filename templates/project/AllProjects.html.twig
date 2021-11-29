@@ -18,48 +18,7 @@
     <div class="job-listing-area pt-100 pb-70">
         <div class="container">
             <div class="job-listing-top">
-                <div class="row align-items-center">
-                    <div class="col-lg-12">
-                        <div class="job-listing-form">
-                            <form>
-                                <div class="row align-items-center">
-                                    <div class="col-lg-3 col-md-4">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="Keywords / Project Title">
-                                            <i class="ri-search-line"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-4">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" placeholder="City or Postcode">
-                                            <i class="ri-map-pin-line"></i>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-4">
-                                        <div class="form-group select-group">
-                                            <select class="form-select form-control">
-                                                <option data-display='Choose A Category'>Choose A Category</option>
-                                                <option value="1">Ui/Ux Designer</option>
-                                                <option value="2">Web Developer</option>
-                                                <option value="2">FontEnd Developer</option>
-                                                <option value="2">Creative Agency</option>
-                                                <option value="3">Engineer</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-3 col-md-12">
-                                        <button type="submit" class="submit-btn border-radius-5">
-                                            Find Projects
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                {% include 'search/_filter_project.html.twig' %}
             </div>
             <div class="row">
                 {% include 'project/_projects.html.twig' %}

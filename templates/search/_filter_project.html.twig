@@ -1,0 +1,28 @@
+<div class="row align-items-center">
+    <div class="col-lg-12">
+        <div class="job-listing-form">
+            {{ form_start(form) }}
+                <div class="row align-items-center">
+                    <div class="col-lg-4 col-md-12">
+                        <div class="form-group">
+                            {{ form_row(form.q) }}
+                            <i class="ri-search-line"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <div class="form-group select-group">
+                            {{ form_row(form.categories) }}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12">
+                        <button type="submit" class="submit-btn border-radius-5">
+                            Find Projects
+                        </button>
+                    </div>
+                </div>
+            {{  form_end(form) }}
+        </div>
+    </div>
+</div>

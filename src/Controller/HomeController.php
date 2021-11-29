@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\About;
+use App\Data\SearchDataProject;
 use App\Entity\Categorie;
 use App\Entity\Edition;
 use App\Entity\File;
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Form\Search\SearchProjectForm;
 use App\Repository\AboutRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\EditionRepository;
@@ -22,19 +23,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(AboutRepository $aboutRepository, CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
+    public function index(Request $request, AboutRepository $aboutRepository, CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
     {
         $projects = $projectRepository->findAll();
         $abouts = $aboutRepository->findAll();
         $partenaires = $partenairesRepository->findAll();
         $categories = $categorieRepository->findLatest();
         $editions = $editionRepository->findAll();
+
+        $data = new SearchDataProject();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchProjectForm::class, $data);
+        $form->handleRequest($request);
         return $this->render('home/index.html.twig', [
             'categories' => $categories,
             'abouts' => $abouts,
             'editions' => $editions,
             'projects' => $projects,
             'partenaires' => $partenaires,
+            'form' => $form->createView()
         ]);
     }
 
@@ -83,10 +90,18 @@ class HomeController extends AbstractController
     }
 
     #[Route('/projects', name: 'all_projects', methods: ['GET'])]
-    public function allProjects(ProjectRepository $projectRepository): Response
+    public function allProjects(Request $request, ProjectRepository $projectRepository): Response
     {
+        $data = new SearchDataProject();
+        $data->page = $request->get('page', 1);
+        $form = $this->createForm(SearchProjectForm::class, $data);
+        $form->handleRequest($request);
+
+        $projects = $projectRepository->findSearch($data);
+
         return $this->render('project/AllProjects.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $projects,
+            'form' => $form->createView()
         ]);
     }
 

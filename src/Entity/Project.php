@@ -52,6 +52,11 @@ class Project
      */
     private Collection $tags;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $video;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -199,6 +204,18 @@ class Project
         if ($this->tags->removeElement($tag)) {
             $tag->removeProject($this);
         }
+
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?string $video): self
+    {
+        $this->video = $video;
 
         return $this;
     }

@@ -20,14 +20,18 @@ class SearchProjectForm extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Rechercher'
+                    'class' => 'form-control',
+                    'placeholder' => 'Keywords / Project Title'
                 ]
             ])
             ->add('categories', EntityType::class, [
                 'required' => false,
                 'label' => false,
-                'expanded' => true,
+                'expanded' => false,
                 'multiple'=> true,
+                'attr' => [
+                    'class' => 'form-select form-control select-tags',
+                ],
                 'class' => Categorie::class,
                 'query_builder' => function(EntityRepository $er){
                     return $er->createQueryBuilder('c')

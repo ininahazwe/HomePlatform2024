@@ -15,7 +15,9 @@
                         <div class="recent-job-img">
                             {% if project.images %}
                                 {% for logo in project.images %}
+                                    {% if loop.first %}
                                     <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
+                                    {% endif %}
                                 {% endfor %}
                             {% endif %}
                         </div>

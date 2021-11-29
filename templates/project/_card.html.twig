@@ -20,10 +20,10 @@
                 </ul>
             </div>
             <ul class="job-list1">
-                <i class="ri-briefcase-line"></i>
+                <i class="ri-user-2-line"></i>
                 {% if project.auteur %}
                     {% for user in project.auteur %}
-                        <li {{ user.fullname }}</li>
+                        <li>{{ user.nom }}</li>
                     {% endfor %}
                 {% endif %}
             </ul>

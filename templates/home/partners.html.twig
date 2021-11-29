@@ -19,7 +19,7 @@
             {% for partenaire in partenaires %}
                 <div class="col-lg-3 col-sm-6">
                     <div class="freelancers-card">
-                        <a href="">
+                        <a>
                             {% if partenaire.logo %}
                                 {% for photo in partenaire.logo %}
                                     {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}"alt="avatar">{% endif %}
@@ -29,9 +29,7 @@
                             {% endif %}
                         </a>
                         <div class="title">
-                            <h3>
-                                <a href="">{{ partenaire.nom }}</a>
-                            </h3>
+                            <h3>{{ partenaire.nom }}</h3>
                         </div>
                     </div>
                 </div>

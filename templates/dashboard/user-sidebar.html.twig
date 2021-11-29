@@ -1,0 +1,73 @@
+<!-- Start Sidemenu Area -->
+<div class="sidemenu-area">
+    <div class="sidemenu-header">
+        <a href="{{ path('home') }}" class="navbar-brand d-flex align-items-center">
+            <img src="{{ asset('uploads/design/logo-small.png') }}" alt="logo">
+        </a>
+
+        <div class="responsive-burger-menu d-block d-lg-none">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+    </div>
+
+    <div class="sidemenu-body">
+        <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
+            <li class="nav-item active">
+                <a href="{{ path('dashboard') }}" class="nav-link">
+                    <span class="icon"><i class="ri-home-line"></i></span>
+                    <span class="menu-title">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                {% if app.user.profile %}
+                    <a href="{{ path('profile_show', {'id': app.user.profile.id}) }}" class="nav-link">
+                        <span class="icon"><i class="ri-user-line"></i></span>
+                        <span class="menu-title">My profile</span>
+                    </a>
+                {% else %}
+                    <a href="{{ path('profile_new') }}" class="nav-link">
+                        <span class="icon"><i class="ri-user-line"></i></span>
+                        <span class="menu-title">Create my Profile</span>
+                    </a>
+                {% endif %}
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ path('edition_index') }}" class="nav-link">
+                    <span class="icon"><i class="ri-send-plane-fill"></i></span>
+                    <span class="menu-title">My team(s)</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ path('project_index') }}" class="nav-link">
+                    <span class="icon"><i class="ri-briefcase-line"></i></span>
+                    <span class="menu-title">My Projects</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('app_reset_password') }}" class="nav-link">
+                    <span class="icon"><i class="ri-lock-line"></i></span>
+                    <span class="menu-title">Change Password</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('logout') }}" class="nav-link">
+                    <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
+                    <span class="menu-title">Logout</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">
+                    <span class="icon"><i class="ri-delete-bin-line"></i></span>
+                    <span class="menu-title">Delete Profile</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- End Sidemenu Area -->

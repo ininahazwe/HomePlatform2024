@@ -32,13 +32,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ path('project_index') }}" class="nav-link">
-                                    My projects
+                                <a href="{{ path('all_projects') }}" class="nav-link">
+                                    All projects
                                 </a>
                             </li>
                         </ul>
                     </li>
-
+                    {% if app.user.isAdmin() %}
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             SDGs
@@ -110,10 +110,11 @@
                             </li>
                         </ul>
                     </li>
+                    {% endif %}
+
                     <li class="nav-item">
                         <a href="{{ path('dashboard') }}" class="nav-link">
                             Dashboard
-                            <i class="ri-arrow-down-s-line"></i>
                         </a>
                     </li>
                 </ul>
@@ -161,6 +162,7 @@
                                             </a>
                                         </li>
 
+                                        {% if app.user.isCandidat() %}
                                         <li class="nav-item">
                                             <a href="{{ path('project_index') }}" class="nav-link">
                                                 <span class="icon"><i class="ri-file-list-line"></i></span>
@@ -170,17 +172,11 @@
 
                                         <li class="nav-item">
                                             <a href="dashboard-submit-resume.html" class="nav-link">
-                                                <span class="icon"><i class="ri-bookmark-line"></i></span>
-                                                <span class="menu-title">Submit Resumes</span>
+                                                <span class="icon"><i class="ri-folder-user-line"></i></span>
+                                                <span class="menu-title">My Team</span>
                                             </a>
                                         </li>
-
-                                        <li class="nav-item">
-                                            <a href="dashboard-packages.html" class="nav-link">
-                                                <span class="icon"><i class="ri-stack-fill"></i></span>
-                                                <span class="menu-title">Packages</span>
-                                            </a>
-                                        </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
 
