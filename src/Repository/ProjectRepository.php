@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Data\SearchDataProject;
 use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
@@ -23,6 +24,19 @@ class ProjectRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator) {
         parent::__construct($registry, Project::class);
         $this->paginator = $paginator;
+    }
+
+    /**
+     * @return Query
+     */
+    public function getProjectsRandomly(): Query
+    {
+        $query = $this->createQueryBuilder('p')
+            ->select('p.nom')
+            ->orderBy('RAND()')
+            ->setMaxResults(2)
+        ;
+        return $query->getQuery();
     }
 
     /**

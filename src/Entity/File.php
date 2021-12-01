@@ -65,17 +65,22 @@ class File
     /**
      * @ORM\ManyToOne(targetEntity=About::class, inversedBy="images")
      */
-    private $about_images;
+    private ?About $about_images;
 
     /**
      * @ORM\ManyToOne(targetEntity=Profile::class, inversedBy="photo")
      */
-    private $profile;
+    private ?Profile $profile;
 
     /**
      * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="photo")
      */
-    private $team;
+    private ?Team $team;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="avatar")
+     */
+    private ?Project $project_avatar;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable('now');
@@ -222,6 +227,18 @@ class File
     public function setTeam(?Team $team): self
     {
         $this->team = $team;
+
+        return $this;
+    }
+
+    public function getProjectAvatar(): ?Project
+    {
+        return $this->project_avatar;
+    }
+
+    public function setProjectAvatar(?Project $project_avatar): self
+    {
+        $this->project_avatar = $project_avatar;
 
         return $this;
     }

@@ -31,6 +31,7 @@ class SearchProjectForm extends AbstractType
                 'multiple'=> true,
                 'attr' => [
                     'class' => 'form-select form-control select-tags',
+                    'placeholder' => 'by SDG'
                 ],
                 'class' => Categorie::class,
                 'query_builder' => function(EntityRepository $er){

@@ -92,6 +92,11 @@
                         <div class="content mb-30">
                             <h3>Description</h3>
                             <div class="bar"></div>
+                            {% if project.intro %}
+                                <div class="blog-details-content">
+                                    <blockquote class="blockquote">{{ project.intro|raw }}</blockquote>
+                                </div>
+                            {% endif %}
                             <p>{{ project.description|raw }}</p>
                         </div>
                         {% if project.images %}
@@ -99,7 +104,7 @@
                             <h3>Photos Gallery</h3>
                             <div class="bar"></div>
                             <div class="row gallery-photo">
-                                {% for logo in project.images|slice(1, 20) %}
+                                {% for logo in project.images %}
                                     <div class="col-lg-3 col-6 col-md-3">
                                         <div class="job-details-portfolio-img">
                                             <a href="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
@@ -129,8 +134,8 @@
                                     <div class="recent-job-card box-shadow">
                                         <div class="content">
                                             <div class="recent-job-img">
-                                                {% if project.images %}
-                                                    {% for logo in project.images %}
+                                                {% if project.avatar %}
+                                                    {% for logo in project.avatar %}
                                                         {% if loop.first %}
                                                         <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
                                                         {% endif %}

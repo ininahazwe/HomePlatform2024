@@ -7,16 +7,10 @@
                     <div class="banner-form-two wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
                         {{ form_start(form) }}
                         <div class="row align-items-center">
-                            <div class="col-lg-4 col-md-12">
+                            <div class="col-lg-8 col-md-12">
                                 <div class="form-group">
                                     {{ form_row(form.q) }}
                                     <i class="ri-search-line"></i>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-12">
-                                <div class="form-group select-group">
-                                    {{ form_row(form.categories) }}
                                 </div>
                             </div>
 
@@ -26,13 +20,15 @@
                                 </a>
                             </div>
                         </div>
-                        {{  form_end(form) }}
+                        {{  form_end(form, {'render_rest': false}) }}
                     </div>
 
                     <div class="popular-searches-tag wow fadeInLeft" data-wow-delay="200ms" data-wow-duration="1000ms">
                         <span class="title">Popular Searches : </span>
-                        <a href="job-listing.html">SDG</a>,
-                        <a href="job-listing.html">Developer</a>
+                        <a>SDG</a>,
+                        <a>Development</a>,
+                        <a>Digital</a>,
+                        <a>Substainable</a>
                     </div>
                 </div>
             </div>
@@ -43,10 +39,10 @@
                    <div class="banner-shape-two">
 
                         <div class="shape2 wow fadeInDown"  data-wow-delay="200ms" data-wow-duration="1000ms" style="z-index: 1; opacity: .5">
-                            <img src="{{ asset('images/home-two/sdg-no-bg.png') }}" alt="">
+                            <img src="{{ asset('images/home-two/sdg-no-bg.png') }}" alt="" width="80%">
                         </div>
                         <div class="shape3 wow fadeInDown" data-wow-delay="300ms" data-wow-duration="1000ms">
-                            <img src="{{ asset('images/banner.jpg') }}" alt="">
+                            <img src="{{ asset('images/banner.jpg') }}" alt="" width="80%">
                         </div>
                     </div>
                 </div>

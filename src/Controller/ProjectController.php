@@ -27,26 +27,18 @@ class ProjectController extends AbstractController
     public function new(Request $request): Response
     {
         $project = new Project();
-        $user = $this->getUser();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $images = $form->get('avatar')->getData();
+            foreach($images as $image){
+                $this->saveDoc($project, $image, File::TYPE_AVATAR);
+            }
             $images = $form->get('images')->getData();
             foreach($images as $image){
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
-                $name = $image->getClientOriginalName();
-
-                $image->move(
-                    $this->getParameter('files_directory'),
-                    $fichier
-                );
-                $img = new File();
-                $img->setNom($fichier);
-                $img->setUser($user);
-                $img->setNomFichier($name);
-                $img->setType(File::TYPE_LOGO);
-                $project->addImage($img);
+                $this->saveDoc($project, $image, File::TYPE_ILLUSTRATION);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -62,6 +54,29 @@ class ProjectController extends AbstractController
             'project' => $project,
             'form' => $form,
         ]);
+    }
+
+    public function saveDoc($project, $image, $type)
+    {
+        $user = $this->getUser();
+        $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+        $nomFichier = $image->getClientOriginalName();
+        $image->move($this->getParameter('files_directory'), $fichier);
+        $img = new File();
+
+        $img->setNom($fichier);
+        $img->setUser($user);
+        $img->setNomFichier($nomFichier);
+        if ($type == File::TYPE_AVATAR){
+            $img->setProjectAvatar($project);
+            $img->setType($type);
+            $project->addLogo($img);
+        }
+        if ($type == File::TYPE_ILLUSTRATION){
+            $img->setProject($project);
+            $img->setType($type);
+            $project->addDocument($img);
+        }
     }
 
     #[Route('/{slug}', name: 'project_show', methods: ['GET'])]

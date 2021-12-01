@@ -1,14 +1,73 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-lg-12"><div class="form-group">{{ form_row(form.nom) }}</div></div>
-    <div class="col-lg-12"><div class="form-group">{{ form_row(form.description) }}</div></div>
-    <div class="col-lg-12"><div class="form-group">{{ form_row(form.video) }}</div></div>
-    <div class="col-lg-6 col-md-6"><div class="form-group">{{ form_row(form.categorie) }}</div></div>
-    <div class="col-lg-6 col-md-6"><div class="form-group">{{ form_row(form.tags) }}</div></div>
-    <div class="col-lg-12 col-md-12"><div class="form-group">{{ form_row(form.auteur) }}</div></div>
-</div>
+    <div class="col-lg-12 col-md-12">
+        <div class="form-group">
+            {{ form_row(form.nom) }}
+        </div>
+    </div>
 
-{{ form_row(form.images) }}
+    <div class="col-lg-12">
+        <div class="form-group">
+            {{ form_row(form.intro) }}
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="form-group">
+            {{ form_row(form.description) }}
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="choose-img">
+            <p class="title">Illustration</p>
+            {{ form_row(form.avatar) }}
+            <p>Maximum file size: 2 MB</p>
+        </div>
+    </div>
+    {% if app.request.attributes.get('_route') == 'project_edit' %}
+        <h2>Images</h2>
+        {% for image in project.avatar %}
+            <div>
+                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
+                <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.categorie) }}
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.tags) }}
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <div class="form-group">
+            {{ form_row(form.auteur, { 'attr': {'id': 'select'} }) }}
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.isPublished) }}
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+            {{ form_row(form.video) }}
+        </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="choose-img">
+            <p class="title">Gallery images</p>
+            {{ form_row(form.images) }}
+            <p>Maximum file size: 2 MB</p>
+        </div>
+    </div>
     {% if app.request.attributes.get('_route') == 'project_edit' %}
         <h2>Images</h2>
         {% for image in project.images %}
@@ -18,5 +77,10 @@
             </div>
         {% endfor %}
     {% endif %}
-<button class="default-btn border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
+    <div class="col-lg-12 col-md-12">
+        <button type="submit" class="default-btn border-radius-5">
+            Save <i class="ri-check-line"></i>
+        </button>
+    </div>
+</div>
 {{ form_end(form) }}

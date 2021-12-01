@@ -12,7 +12,25 @@ import { Tooltip, Toast,  Popover } from "bootstrap";
 
 // start the Stimulus application
 import './bootstrap';
-import './js/all';
+
+import './js/meanmenu.min';
+import './js/dropzone.min';
+import './js/form-validator.min';
+import './js/jquery';
+import './js/jquery-ui';
+import './js/jquery.ajaxchimp.min';
+import './js/jquery.appear.min';
+import './js/jquery.magnific-popup.min';
+import './js/metismenu.min';
+import './js/odometer.min';
+import './js/owl.carousel.min';
+import './js/range-slider.min';
+import './js/selectize.min';
+import './js/simplebar.min';
+import './js/tweenMax.min';
+import './js/select2';
+import './js/sticky-sidebar.min';
+import './js/custom';
 
 const $ = require('jquery');
 global.$ = global.jQuery = $;

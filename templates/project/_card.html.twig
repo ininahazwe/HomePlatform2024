@@ -2,9 +2,9 @@
     <div class="recent-job-card box-shadow">
         <div class="content">
             <div class="recent-job-img">
-                {% if project.images %}
-                    {% for logo in project.images %}
-                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
+                {% if project.avatar %}
+                    {% for logo in project.avatar %}
+                        {% if loop.first %}<img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">{% endif %}
                     {% endfor %}
                 {% endif %}
             </div>

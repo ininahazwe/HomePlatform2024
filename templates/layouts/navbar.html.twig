@@ -53,7 +53,7 @@
                     <div class="others-options d-flex align-items-center">
                         {% if not app.user %}
                         <div class="optional-item">
-                            <a href="{{ path('app_register') }}" class="default-btn two border-radius-5">Login / Register <i class="ri-user-3-line"></i></a>
+                            <a href="{{ path('login') }}" class="default-btn two border-radius-5">Login / Register <i class="ri-user-3-line"></i></a>
                         </div>
                         {% endif %}
 
@@ -64,7 +64,6 @@
                                 <a href="{{ path('login') }}" class="default-btn border-radius-5">Post A Project <i class="ri-briefcase-2-line"></i></a>
                             {% endif %}
                         </div>
-
                     </div>
                 </div>
             </nav>
@@ -85,13 +84,13 @@
                 <div class="side-nav-inner">
                     <div class="side-nav justify-content-center align-items-center">
                         <div class="side-nav-item">
-                            <a href="log-in-register.html" class="default-btn two">
+                            <a href="{{ path('login') }}" class="default-btn two">
                                 Login / Register <i class="ri-user-3-line"></i>
                             </a>
                         </div>
 
                         <div class="side-nav-item">
-                            <a href="post-job.html" class="default-btn">
+                            <a href="{{ path('project_new_home') }}" class="default-btn">
                                 Post A Project <i class="ri-briefcase-2-line"></i>
                             </a>
                         </div>

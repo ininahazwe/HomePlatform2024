@@ -22,7 +22,9 @@
 {% if app.user.isSuperAdmin() %}{{ include('dashboard/super-admin-sidebar.html.twig') }}{% endif %}
 
 <div class="main-dashboard-content d-flex flex-column">
-    {{ include('layouts/navbar-admin.html.twig') }}
+    {% if app.user.isCandidat() %}{{ include('layouts/navbar.html.twig') }}{% endif %}
+    {% if app.user.isMentor() %}{{ include('layouts/navbar-mentor.html.twig') }}{% endif %}
+    {% if app.user.isAdmin() %}{{ include('layouts/navbar-admin.html.twig') }}{% endif %}
     {% block body %}{% endblock %}
 </div>
 

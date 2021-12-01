@@ -1,6 +1,5 @@
-import './select2';
-import './contact-form-script';
 import './custom';
+import './select2';
 import './dropzone.min';
 import './form-validator.min';
 import './jquery.ajaxchimp.min';

@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,10 +28,24 @@ class ProjectType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('intro', CKEditorType::class, [
+                'label' => 'Introduction',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('description', CKEditorType::class, [
+                'required' => true,
                 'label' => 'Content',
                 'attr' => [
                     'class' => 'form-control'
+                ]
+            ])
+            ->add('isPublished', ChoiceType::class, [
+                'label' => 'Publish ?',
+                'choices' => [
+                    'Publie' => true,
+                    'Non publié' => false
                 ]
             ])
             ->add('video', TextType::class, [
@@ -42,7 +57,7 @@ class ProjectType extends AbstractType
             ])
             ->add('images', DropzoneType::class, [
                 'attr' => [
-                    'placeholder' => 'Choisir une image d\'illustration',
+                    'placeholder' => 'Choose gallery images',
                     'data-controller' => 'mydropzone'
                 ],
                 'label' => false,
@@ -50,11 +65,22 @@ class ProjectType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
+            ->add('avatar', DropzoneType::class, [
+                'attr' => [
+                    'placeholder' => 'Choose the image to illustrate the project',
+                    'data-controller' => 'mydropzone'
+                ],
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => true,
+            ])
 
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'multiple' => true,
                 'choice_label' => 'nom',
+                'required' => true,
                 'label' => 'Categories',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('c')
@@ -70,6 +96,7 @@ class ProjectType extends AbstractType
                 'multiple' => true,
                 'compound' => false,
                 'choice_label' => 'nom',
+                'required' => true,
                 'label' => 'Contributors',
                 'query_builder' => function (EntityRepository $er){
                     return $er->createQueryBuilder('u')

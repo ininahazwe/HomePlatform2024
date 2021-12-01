@@ -20,10 +20,22 @@
 
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    {{ form_row(form.description) }}
+                                    {{ form_row(form.intro) }}
                                 </div>
                             </div>
 
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{ form_row(form.description) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="choose-img">
+                                    <p class="title">Illustration</p>
+                                    {{ form_row(form.avatar) }}
+                                    <p>Maximum file size: 2 MB</p>
+                                </div>
+                            </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="form-group">
                                     {{ form_row(form.categorie) }}
@@ -40,10 +52,21 @@
                                     {{ form_row(form.auteur, { 'attr': {'id': 'select'} }) }}
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    {{ form_row(form.isPublished) }}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_row(form.video) }}
+                                </div>
+                            </div>
 
                             <div class="col-lg-12">
                                 <div class="choose-img">
-                                    <p class="title">Illustrations</p>
+                                    <p class="title">Gallery images</p>
                                     {{ form_row(form.images) }}
                                     <p>Maximum file size: 2 MB</p>
                                 </div>

@@ -1,0 +1,280 @@
+<!-- Start Navbar Area -->
+<div class="navbar-area">
+    <div class="main-responsive-nav">
+        <div class="main-responsive-menu">
+            <div class="responsive-burger-menu d-lg-none d-block">
+                <span class="top-bar"></span>
+                <span class="middle-bar"></span>
+                <span class="bottom-bar"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-responsive-nav">
+        <div class="mobile-responsive-menu">
+        </div>
+    </div>
+
+    <!-- Menu For Desktop Device -->
+    <div class="desktop-nav desktop-nav-one nav-area">
+        <nav class="navbar navbar-expand-md navbar-light ">
+            <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Projects
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{ path('project_new') }}" class="nav-link">
+                                    Add project
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('all_projects') }}" class="nav-link">
+                                    All projects
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if app.user.isAdmin() %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            SDGs
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{ path('categorie_new') }}" class="nav-link">Add SDG</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('categorie_index') }}" class="nav-link">All SDGS</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Editions
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{ path('edition_new') }}" class="nav-link">
+                                    Add edition
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('edition_index') }}" class="nav-link">
+                                    All editions
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Partners
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{ path('partenaires_new') }}" class="nav-link">
+                                    Add partner
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('partenaires_index') }}" class="nav-link">
+                                    All partners
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Dictionnaire
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{ path('dictionnaire_new') }}" class="nav-link">
+                                    Add dictionnaire
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('dictionnaire_index') }}" class="nav-link">
+                                    Dictionnaire
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <a href="{{ path('dashboard') }}" class="nav-link">
+                            Dashboard
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="others-options d-flex align-items-center">
+                    <div class="optional-item">
+                        <div class="dropdown profile-nav-item">
+                            <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="menu-profile">
+                                    {% if app.user.profile and app.user.profile.photo|length %}
+                                        {% for photo in app.user.profile.photo %}
+                                            {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle">{% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb">
+                                    {% endif %}
+                                    <span class="name">My Account</span>
+                                </div>
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <div class="dropdown-header d-flex flex-column align-items-center">
+                                    <div class="figure mb-3">
+                                        {% if app.user.profile and app.user.profile.photo|length %}
+                                            {% for photo in app.user.profile.photo %}
+                                                {% if loop.first %}<img class="rounded-circle" src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar">{% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <img class="rounded-circle" src="{{ asset('images/user-img/avataaars.png') }}" alt="image">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="info text-center">
+                                        <span class="name"></span>
+                                        <p class="mb-3 email"></p>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown-body">
+                                    <ul class="profile-nav p-0 pt-3">
+                                        <li class="nav-item active">
+                                            <a href="{{ path('dashboard') }}" class="nav-link">
+                                                <span class="icon"><i class="ri-home-line"></i></span>
+                                                <span class="menu-title">Dashboard</span>
+                                            </a>
+                                        </li>
+
+                                        {% if app.user.isCandidat() %}
+                                        <li class="nav-item">
+                                            <a href="{{ path('project_index') }}" class="nav-link">
+                                                <span class="icon"><i class="ri-file-list-line"></i></span>
+                                                <span class="menu-title">My Projects</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="dashboard-submit-resume.html" class="nav-link">
+                                                <span class="icon"><i class="ri-folder-user-line"></i></span>
+                                                <span class="menu-title">My Team</span>
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+
+                                <div class="dropdown-footer">
+                                    <ul class="profile-nav">
+                                        <li class="nav-item">
+                                            <a href="{{ path('logout') }}" class="nav-link"><i class="ri-logout-box-r-line"></i> <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="side-nav-responsive">
+        <div class="container-max">
+            <div class="dot-menu">
+                <div class="circle-inner">
+                    <div class="circle circle-one"></div>
+                    <div class="circle circle-two"></div>
+                    <div class="circle circle-three"></div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="side-nav-inner">
+                    <div class="side-nav justify-content-center align-items-center">
+                        <div class="option-item">
+                            <div class="dropdown profile-nav-item">
+                                <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div class="menu-profile">
+                                        <img class="rounded-circle" src="{{ asset('images/user-img/user-img2.jpg') }}" alt="image">
+                                        <span class="name">My Account</span>
+                                    </div>
+                                </a>
+
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-header d-flex flex-column align-items-center">
+                                        <div class="figure mb-3">
+                                            <img src="{{ asset('images/user-img/user-img2.jpg') }}" class="rounded-circle" alt="image">
+                                        </div>
+
+                                        <div class="info text-center">
+                                            <span class="name">Andy Smith</span>
+                                            <p class="mb-3 email">hello@androsmith.com</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="dropdown-body">
+                                        <ul class="profile-nav p-0 pt-3">
+                                            <li class="nav-item active">
+                                                <a href="dashboard.html" class="nav-link">
+                                                    <span class="icon"><i class="ri-home-line"></i></span>
+                                                    <span class="menu-title">Dashboard</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="dashboard-applicants.html" class="nav-link">
+                                                    <span class="icon"><i class="ri-file-list-line"></i></span>
+                                                    <span class="menu-title">All Applicants</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="dashboard-submit-resume.html" class="nav-link">
+                                                    <span class="icon"><i class="ri-bookmark-line"></i></span>
+                                                    <span class="menu-title">Submit Resumes</span>
+                                                </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="dashboard-packages.html" class="nav-link">
+                                                    <span class="icon"><i class="ri-stack-fill"></i></span>
+                                                    <span class="menu-title">Packages</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown-footer">
+                                        <ul class="profile-nav">
+                                            <li class="nav-item">
+                                                <a href="index.html" class="nav-link"><i class="ri-logout-box-r-line"></i> <span>Logout</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Navbar Area -->

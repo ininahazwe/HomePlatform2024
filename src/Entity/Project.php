@@ -57,6 +57,21 @@ class Project
      */
     private ?string $video;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $isPublished;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $intro;
+
+    /**
+     * @ORM\OneToMany(targetEntity=File::class, mappedBy="project_avatar", cascade={"persist"})
+     */
+    private Collection $avatar;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -64,6 +79,7 @@ class Project
         $this->auteur = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable('now');
         $this->tags = new ArrayCollection();
+        $this->avatar = new ArrayCollection();
     }
 
     /**
@@ -216,6 +232,60 @@ class Project
     public function setVideo(?string $video): self
     {
         $this->video = $video;
+
+        return $this;
+    }
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(?bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getIntro(): ?string
+    {
+        return $this->intro;
+    }
+
+    public function setIntro(?string $intro): self
+    {
+        $this->intro = $intro;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAvatar(): Collection
+    {
+        return $this->avatar;
+    }
+
+    public function addAvatar(File $avatar): self
+    {
+        if (!$this->avatar->contains($avatar)) {
+            $this->avatar[] = $avatar;
+            $avatar->setProjectAvatar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvatar(File $avatar): self
+    {
+        if ($this->avatar->removeElement($avatar)) {
+            // set the owning side to null (unless already changed)
+            if ($avatar->getProjectAvatar() === $this) {
+                $avatar->setProjectAvatar(null);
+            }
+        }
 
         return $this;
     }

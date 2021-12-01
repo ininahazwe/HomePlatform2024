@@ -125,8 +125,8 @@
                                         <div class="content">
                                             <div class="recent-job-img">
                                                 <a href="{{ path('sdg_page', {'slug': categorie.slug}) }}">
-                                                    {% if project.images %}
-                                                        {% for logo in project.images %}
+                                                    {% if project.avatar %}
+                                                        {% for logo in project.avatar %}
                                                             {% if loop.first %}
                                                                 <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
                                                             {% endif %}
