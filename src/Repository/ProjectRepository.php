@@ -27,19 +27,6 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Query
-     */
-    public function getProjectsRandomly(): Query
-    {
-        $query = $this->createQueryBuilder('p')
-            ->select('p.nom')
-            ->orderBy('RAND()')
-            ->setMaxResults(2)
-        ;
-        return $query->getQuery();
-    }
-
-    /**
      * @param SearchDataProject $search
      * @return PaginationInterface
      */

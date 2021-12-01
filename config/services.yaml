@@ -9,6 +9,12 @@ parameters:
     files_directory: '%kernel.project_dir%/public/uploads'
 
 services:
+    App\Service\Mailer:
+        arguments:
+            $senderEmail: '%app.sender_email%'
+            $senderName: '%app.sender_name%'
+
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

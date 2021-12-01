@@ -24,12 +24,14 @@ class ProjectType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Title',
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control'
                 ]
             ])
             ->add('intro', CKEditorType::class, [
                 'label' => 'Introduction',
+                'required' => false,
                 'attr' => [
                     'class' => 'form-control'
                 ]
@@ -73,7 +75,7 @@ class ProjectType extends AbstractType
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
             ])
 
             ->add('categorie', EntityType::class, [
