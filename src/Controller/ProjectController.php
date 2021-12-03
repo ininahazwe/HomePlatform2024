@@ -19,6 +19,14 @@ class ProjectController extends AbstractController
     public function index(ProjectRepository $projectRepository): Response
     {
         return $this->render('project/index.html.twig', [
+            'projects' => $projectRepository->getProjectByUser($this->getUser()),
+        ]);
+    }
+
+    #[Route('/admin/all', name: 'projects_for_admin', methods: ['GET'])]
+    public function allProjects(ProjectRepository $projectRepository): Response
+    {
+        return $this->render('project/findAll.html.twig', [
             'projects' => $projectRepository->findAll(),
         ]);
     }
@@ -70,12 +78,12 @@ class ProjectController extends AbstractController
         if ($type == File::TYPE_AVATAR){
             $img->setProjectAvatar($project);
             $img->setType($type);
-            $project->addLogo($img);
+            $project->addAvatar($img);
         }
         if ($type == File::TYPE_ILLUSTRATION){
             $img->setProject($project);
             $img->setType($type);
-            $project->addDocument($img);
+            $project->addImage($img);
         }
     }
 

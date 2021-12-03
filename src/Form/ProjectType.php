@@ -109,6 +109,22 @@ class ProjectType extends AbstractType
                     'class' => 'select-tags'
                 ]
             ])
+            ->add('editor', EntityType::class, [
+                'class' => User::class,
+                'multiple' => false,
+                'compound' => false,
+                'choice_label' => 'nom',
+                'required' => false,
+                'label' => 'Editor',
+                'query_builder' => function (EntityRepository $er){
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.nom', 'ASC');
+                },
+                'by_reference' => true,
+                'attr' => [
+                    'class' => 'select-tags'
+                ]
+            ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
                 'multiple' => true,

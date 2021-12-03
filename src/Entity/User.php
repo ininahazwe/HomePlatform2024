@@ -78,7 +78,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="members")
      */
-    private $groups;
+    private Collection $groups;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="Editor", cascade={"persist"})
+     */
+    private Collection $project_editor;
 
     public function __construct()
     {
@@ -86,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->projects = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable('now');
         $this->groups = new ArrayCollection();
+        $this->project_editor = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -368,7 +374,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|Group[]
+     * @return Collection
      */
     public function getGroups(): Collection
     {
@@ -389,6 +395,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->groups->removeElement($group)) {
             $group->removeMember($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getProjectEditor(): Collection
+    {
+        return $this->project_editor;
+    }
+
+    public function addProjectEditor(Project $projectEditor): self
+    {
+        if (!$this->project_editor->contains($projectEditor)) {
+            $this->project_editor[] = $projectEditor;
+            $projectEditor->setEditor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectEditor(Project $projectEditor): self
+    {
+        if ($this->project_editor->removeElement($projectEditor)) {
+            // set the owning side to null (unless already changed)
+            if ($projectEditor->getEditor() === $this) {
+                $projectEditor->setEditor(null);
+            }
         }
 
         return $this;

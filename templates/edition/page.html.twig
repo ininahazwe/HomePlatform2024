@@ -23,14 +23,21 @@
                 {% endif %}
             </div>
             <div class="blog-details-content">
-                <div class="blog-articel">
-                    <b>{{ edition.intro|raw }}</b>
-                </div>
                 <blockquote class="blockquote">
-                    <p>{{ edition.description|raw }}</p>
+                    <b>{{ edition.intro|raw }}</b>
                 </blockquote>
+                <div class="blog-articel">
+                    <p>{{ edition.description|raw }}</p>
+                </div>
+                <div class="company-details-content">
+                    <div class="company-details-play" style="background-image: url('{{ asset('uploads/' ~ edition.avatar.first) }}');">
+                        <a href="{{edition.video}}" class="play-btn">
+                            <i class="ri-play-circle-line"></i>
+                        </a>
+                    </div>
+                </div>
                 <div class="blog-portfolio">
-                    <h3>Photos</h3>
+                    <h3>Photos gallery</h3>
                     <div class="bar"></div>
                     <div class="row gallery-photo">
                         {% if edition.illustration %}

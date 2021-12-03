@@ -26,6 +26,16 @@ class ProjectRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    public function getProjectByUser($user)
+    {
+        $query = $this->createQueryBuilder('p');
+        $query->select('p')
+            ->InnerJoin('p.auteur', 'u', 'WITH', 'u = :user')
+            ->setParameter('user', $user);
+
+        return $query->getQuery()->getResult();
+    }
+
     /**
      * @param SearchDataProject $search
      * @return PaginationInterface

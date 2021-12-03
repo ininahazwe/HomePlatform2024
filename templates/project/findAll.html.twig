@@ -3,7 +3,7 @@
 {% block title %}All Projects{% endblock %}
 
 {% block body %}
-    {% if projects|length > 0 %}
+
     <div class="resume-alerts-area">
         <div class="resume-alerts-table table-responsive">
             <div class="d-flex flex-row justify-content-between">
@@ -15,7 +15,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Title</th>
-                    <th scope="col">SDG(s)</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Authors</th>
                     <th scope="col">Editor</th>
                     <th scope="col">Actions</th>
@@ -36,11 +36,13 @@
                                 {{ user.fullname }}<br>
                             {% endfor %}
                         </td>
-                        <td>{{ project.editor }}</td>
+                        <td>
+                            {{ project.editor }}
+                        </td>
                         <td>
                             <ul class="option-list">
                                 <li><a href="{{ path('project_show', {'slug': project.slug}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
-                                {% if app.user == project.editor %}<li><a href="{{ path('project_edit', {'id': project.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>{% endif %}
+                                <li><a href="{{ path('project_edit', {'id': project.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
                                 <li>{{ include('project/_delete_form.html.twig') }}</li>
                             </ul>
                         </td>
@@ -50,26 +52,5 @@
             </table>
         </div>
     </div>
-        {% else %}
-            <div class="container pb-5">
-                <div class="employers-cv-bg">
-                    <div class="row align-items-center">
-                        <div class="col-lg-8">
-                            <div class="employers-cv-content">
-                                <h2>No project yet recorded</h2>
-                                <div class="bar"></div>
-                                <p>Please join the homers and share your projects</p>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="employers-cv-btn">
-                                <a href="{{ path('project_new') }}">Post a project</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    {% endif %}
 
 {% endblock %}

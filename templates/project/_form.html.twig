@@ -25,13 +25,18 @@
         </div>
     </div>
     {% if app.request.attributes.get('_route') == 'project_edit' %}
-        <h2>Images</h2>
-        {% for image in project.avatar %}
-            <div>
-                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
-            </div>
-        {% endfor %}
+        <div class="row">
+            {% if project.avatar %}
+                {% for image in project.avatar %}
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <div>
+                        <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
+                        <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     {% endif %}
     <div class="col-lg-6 col-md-6">
         <div class="form-group">
@@ -44,9 +49,14 @@
             {{ form_row(form.tags) }}
         </div>
     </div>
-    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-6 col-md-12">
         <div class="form-group">
             {{ form_row(form.auteur, { 'attr': {'id': 'select'} }) }}
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+            {{ form_row(form.editor, { 'attr': {'id': 'select'} }) }}
         </div>
     </div>
     <div class="col-lg-6 col-md-6">
@@ -69,13 +79,18 @@
         </div>
     </div>
     {% if app.request.attributes.get('_route') == 'project_edit' %}
-        <h2>Images</h2>
-        {% for image in project.images %}
-            <div>
-                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
-            </div>
-        {% endfor %}
+        <div class="row">
+            {% if project.images %}
+                {% for image in project.images %}
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div>
+                            <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
+                            <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     {% endif %}
     <div class="col-lg-12 col-md-12">
         <button type="submit" class="default-btn border-radius-5">

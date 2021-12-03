@@ -30,7 +30,7 @@
                                 {% endfor %}
                             {% endif %}
                         </a>
-                        <a href="{{ path('edition_page', {'slug': edition.slug }) }}" class="tag" target="_blank">{{ edition.city }}</a>
+                        <a href="{{ path('edition_page', {'slug': edition.slug }) }}" class="tag">{{ edition.city }}</a>
                     </div>
                     <div class="content">
                         <h3><a href="{{ path('edition_page', {'slug': edition.slug }) }}">{{ edition.nom }}</a></h3>

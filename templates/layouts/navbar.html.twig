@@ -83,17 +83,35 @@
             <div class="container">
                 <div class="side-nav-inner">
                     <div class="side-nav justify-content-center align-items-center">
-                        <div class="side-nav-item">
-                            <a href="{{ path('login') }}" class="default-btn two">
-                                Login / Register <i class="ri-user-3-line"></i>
-                            </a>
-                        </div>
+                        {% if app.user %}
+                            <div class="side-nav justify-content-center align-items-center">
+                                <div class="side-nav-item">
+                                    <a href="{{ path('project_new_home') }}" class="default-btn two">
+                                        Post a project <i class="ri-file-paper-line"></i>
+                                    </a>
+                                </div>
 
-                        <div class="side-nav-item">
-                            <a href="{{ path('project_new_home') }}" class="default-btn">
-                                Post A Project <i class="ri-briefcase-2-line"></i>
-                            </a>
-                        </div>
+                                <div class="side-nav-item">
+                                    <a href="{{ path('logout') }}" class="default-btn">
+                                        Logout <i class="ri-close-circle-line"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="side-nav justify-content-center align-items-center">
+                                <div class="side-nav-item">
+                                    <a href="{{ path('login') }}" class="default-btn two">
+                                        Login / Register <i class="ri-user-3-line"></i>
+                                    </a>
+                                </div>
+
+                                <div class="side-nav-item">
+                                    <a href="{{ path('project_new_home') }}" class="default-btn">
+                                        Post A Project <i class="ri-file-paper-line"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

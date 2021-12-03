@@ -72,6 +72,11 @@ class Project
      */
     private Collection $avatar;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="project_editor")
+     */
+    private ?User $editor;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -286,6 +291,18 @@ class Project
                 $avatar->setProjectAvatar(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEditor(): ?User
+    {
+        return $this->editor;
+    }
+
+    public function setEditor(?User $editor): self
+    {
+        $this->editor = $editor;
 
         return $this;
     }

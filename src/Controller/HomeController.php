@@ -108,9 +108,10 @@ class HomeController extends AbstractController
     #[Route('/project/{slug}', name: 'project_page', methods: ['GET'])]
     public function OneProject(Project $project, ProjectRepository $projectRepository): Response
     {
+        $projects = $projectRepository->findAll();
         return $this->render('project/project-page.html.twig', [
             'project' => $project,
-            'projects' => $projectRepository->getProjectsRandomly(),
+            'projects' => $projects,
         ]);
     }
 
