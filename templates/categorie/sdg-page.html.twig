@@ -50,7 +50,7 @@
                             <h3 class="title">For futher info</h3>
                             <div class="bar"></div>
                             <ul class="job-details-category">
-                                <li>UN website: <span><a href="{{ categorie.link }}"></a><i class="ri-link"></i></span></li>
+                                <li><a href="{{ categorie.link }}">UN website: <span><i class="ri-link"></i></span></a></li>
                             </ul>
                         </div>
                         <div class="job-details-widget">
@@ -83,7 +83,7 @@
                         <div class="job-details-widget">
                             <div class="row">
                                 {% for cat in categories %}
-                                    <div class="col-lg-3 col-6 col-md-3">
+                                    <div class="col-lg-3 col-6 col-md-3 mb-3">
                                         <a href="{{ path('sdg_page', {'slug': categorie.slug}) }}">
                                             {% if cat.logo %}
                                                 {% for logo in cat.logo %}
@@ -116,6 +116,7 @@
                         </div>
                         {% endif %}
 
+                        {% if categorie.projects %}
                         <h3>Related Projects</h3>
                         <div class="bar"></div>
                         <div class="row">
@@ -134,49 +135,17 @@
                                                     {% endif %}
                                                 </a>
                                             </div>
-
                                             <h3>{{ project.nom }}</h3>
-
-                                            <div class="job-sub-content">
-                                                <ul class="job-list2">
-                                                    {% for cat in project.categorie %}
-                                                        <li class="time">{{ cat.nom }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             {% endfor %}
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Job Details Area End -->
-
-    <!-- Employers CV Area -->
-    <div class="employers-cv-area">
-        <div class="container">
-            <div class="employers-cv-bg">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <div class="employers-cv-content">
-                            <h2>Let Employers Find You</h2>
-                            <div class="bar"></div>
-                            <p>Advertise your jobs to millions of monthly users and search 15.8 million CV in our database.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="employers-cv-btn">
-                            <a href="mailto:contact@zoben.com">Upload Your CV</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Employers CV Area -->
 {% endblock %}

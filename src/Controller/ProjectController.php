@@ -6,6 +6,7 @@ use App\Entity\File;
 use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
+use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,8 @@ class ProjectController extends AbstractController
     #[Route('/', name: 'project_index', methods: ['GET'])]
     public function index(ProjectRepository $projectRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
+
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->getProjectByUser($this->getUser()),
         ]);
@@ -32,7 +35,7 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/pr/new', name: 'project_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, Mailer $mailer): Response
     {
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
@@ -53,7 +56,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Ajout réussi');
+            $this->addFlash('success', 'Successfully added');
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -98,33 +101,24 @@ class ProjectController extends AbstractController
     #[Route('/edit/{id}', name: 'project_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Project $project): Response
     {
-        $user = $this->getUser();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('avatar')->getData();
+            foreach($images as $image){
+                $this->saveDoc($project, $image, File::TYPE_AVATAR);
+            }
             $images = $form->get('images')->getData();
             foreach($images as $image){
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
-                $name = $image->getClientOriginalName();
-
-                $image->move(
-                    $this->getParameter('files_directory'),
-                    $fichier
-                );
-                $img = new File();
-                $img->setNom($fichier);
-                $img->setUser($user);
-                $img->setNomFichier($name);
-                $img->setType(File::TYPE_LOGO);
-                $project->addImage($img);
+                $this->saveDoc($project, $image, File::TYPE_ILLUSTRATION);
             }
 
             $project->updateTimestamps();
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Mise à jour réussie');
+            $this->addFlash('success', 'Successful update');
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -147,20 +141,21 @@ class ProjectController extends AbstractController
         return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/supprime/image/{id}', name: 'projects_delete_image', methods: ['DELETE'])]
-    public function deleteImage(File $image, Request $request): JsonResponse
+    #[Route('/supprime/file/{id}', name: 'projects_delete_files', methods: ['DELETE'])]
+    public function deleteImage(File $file, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
-            $nom = $image->getNom();
-            unlink($this->getParameter('files_directory') . '/' . $nom);
+
+        if($this->isCsrfTokenValid('delete'.$file->getId(), $data['_token'])){
+            $nom = $file->getNom();
+            unlink($this->getParameter('files_directory').'/'.$nom);
 
             $em = $this->getDoctrine()->getManager();
-            $em->remove($image);
+            $em->remove($file);
             $em->flush();
 
             return new JsonResponse(['success' => 1]);
-        } else {
+        }else{
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }

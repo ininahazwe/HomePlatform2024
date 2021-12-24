@@ -44,8 +44,8 @@
 
                         <div class="applicants-footer">
                             <ul class="option-list">
-                                <li><a href="{{ path('categorie_show', {'slug': categorie.slug }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View Aplication" type="button"><i class="ri-eye-line"></i></button></a></li>
-                                <li><a href="{{ path('categorie_edit', {'id': categorie.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve Aplication" type="button"><i class="ri-edit-circle-fill"></i></button></a></li>
+                                <li><a href="{{ path('categorie_show', {'slug': categorie.slug }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View" type="button"><i class="ri-eye-line"></i></button></a></li>
+                                <li><a href="{{ path('categorie_edit', {'id': categorie.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" type="button"><i class="ri-edit-circle-fill"></i></button></a></li>
                                 <li>{{ include('categorie/_delete_form.html.twig') }}</li>
                             </ul>
                         </div>

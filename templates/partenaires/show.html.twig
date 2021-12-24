@@ -1,26 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-dashboard.html.twig' %}
 
-{% block title %}partenaires{% endblock %}
+{% block title %}Partenaire | {{ partenaire.nom }}{% endblock %}
 
 {% block body %}
-    <h1>partenaires</h1>
+    <h1>Partenaires</h1>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Nom</th>
-                <td>{{ partenaires.nom }}</td>
+                <td>{{ partenaire.nom }}</td>
             </tr>
             <tr>
                 <th>Description</th>
-                <td>{{ partenaires.description }}</td>
+                <td>{{ partenaire.description }}</td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('partenaires_index') }}">back to list</a>
 
-    <a href="{{ path('partenaires_edit', {'id': partenaires.id}) }}">edit</a>
+    <a href="{{ path('partenaires_edit', {'id': partenaire.id}) }}">edit</a>
 
     {{ include('partenaires/_delete_form.html.twig') }}
 {% endblock %}

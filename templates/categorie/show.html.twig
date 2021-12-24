@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-dashboard.html.twig' %}
 
 {% block title %}Categorie{% endblock %}
 
@@ -14,22 +14,6 @@
             <tr>
                 <th>Description</th>
                 <td>{{ categorie.description }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ categorie.slug }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ categorie.id }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ categorie.createdAt ? categorie.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ categorie.updatedAt ? categorie.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

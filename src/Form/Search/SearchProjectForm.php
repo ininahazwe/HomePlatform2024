@@ -34,9 +34,14 @@ class SearchProjectForm extends AbstractType
                     'placeholder' => 'by SDG'
                 ],
                 'class' => Categorie::class,
-                'query_builder' => function(EntityRepository $er){
-                    return $er->createQueryBuilder('c')
-                        ->orderBy('c.nom', 'ASC');
+                'query_builder' => function($repository) {
+                    $ids = $repository->findAll();
+                    $query = $repository->createQueryBuilder('c')
+                        ->select('c')
+                        ->andWhere('c.id IN (:ids)')
+                        ->setParameter('ids', $ids)
+                    ;
+                    return $query;
                 }
             ])
         ;

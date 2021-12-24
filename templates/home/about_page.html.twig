@@ -94,18 +94,18 @@
             </div>
             <div class="row pt-45 justify-content-center">
                 {% for team in teams %}
-                <div class="col-lg-4 col-sm-6">
+                <div class="col-lg-3 col-sm-6">
                     <div class="freelancers-card">
                         {% if team.photo %}
                             {% for photo in team.photo %}
                                 <a href="">
-                                    <img src="{{ asset('uploads/' ~ photo.nom) }}" alt="{{ photo.nom }}">
+                                    {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="{{ photo.nom }}">{% endif %}
                                 </a>
                             {% endfor %}
                         {% endif %}
                         <div class="title">
                             <h3>
-                                <a href="freelancer-details.html">{{ team.nom }} {{ team.prenom }}</a>
+                                <a>{{ team.nom }} {{ team.prenom }}</a>
                             </h3>
                         </div>
                         <p>{{ team.role }}</p>

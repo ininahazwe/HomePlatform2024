@@ -8,7 +8,7 @@
         </div>
 
         <div class="row pt-45">
-            {% for project in projects %}
+            {% for project in projects|slice(0, 4) %}
             <div class="col-lg-6">
                 <div class="recent-job-card">
                     <div class="content">

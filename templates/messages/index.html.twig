@@ -1,0 +1,62 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Messagerie
+{% endblock %}
+
+{% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+            <h1>Messages</h1>
+            <ol class="breadcrumb">
+                <li class="item"><a href="{{ path('home') }}">Home</a></li>
+                <li class="item">Messages</li>
+            </ol>
+        {% if is_granted('ROLE_MENTOR') %}
+        <div class="float-sm-right" style="margin-left: 5px">
+            <a class="default-btn small border-radius-5" href="{{ path('send') }}">Send a new message</a>
+        </div>
+        {% endif %}
+    </div>
+    <!-- End Breadcrumb Area -->
+
+    <!-- Start Messages Area -->
+    <div class="chat-content-area">
+        <div class="sidebar-left">
+            <div class="sidebar">
+                <div class="sidebar-content d-flex chat-sidebar" data-simplebar>
+                    <div class="chat-menu">
+                        <label class="d-block list-group-label mt-0">Messages</label>
+                        <ul class="list-group list-group-user list-unstyled mb-0">
+                            {% for message in app.user.received %}
+                                {% set bold = "" %}
+                                {% if message.isRead == 0 %}
+                                    {% set bold = "fw-bold" %}
+                                {% endif %}
+                                <li>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar me-3">
+                                            {% if message.sender.profile.photo is defined %}
+                                                {% for photo in message.sender.profile.photo %}
+                                                    {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle" width="30px">{% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb" width="30px">
+                                            {% endif %}
+                                        </div>
+                                        <a href="{{ path("read", {id: message.id}) }}">
+                                            <div class="user-name">
+                                                <h6>{{ message.sender.fullname() }}</h6>
+                                                <span class="d-block {{bold}}" style="color: darkgreen">{{ message.title }}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Start Messages Area -->
+{% endblock %}

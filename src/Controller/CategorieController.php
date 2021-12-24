@@ -18,6 +18,7 @@ class CategorieController extends AbstractController
     #[Route('/', name: 'categorie_index', methods: ['GET'])]
     public function index(CategorieRepository $categorieRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_MENTOR');
         return $this->render('categorie/index.html.twig', [
             'categories' => $categorieRepository->findAll(),
         ]);
@@ -53,7 +54,7 @@ class CategorieController extends AbstractController
             $entityManager->persist($categorie);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Ajout réussi');
+            $this->addFlash('success', 'Successfully added');
 
             return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -101,7 +102,7 @@ class CategorieController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'Mise à jour réussie');
+            $this->addFlash('success', 'Successful update');
 
             return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
         }

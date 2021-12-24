@@ -62,7 +62,7 @@ class ProjectType extends AbstractType
                     'placeholder' => 'Choose gallery images',
                     'data-controller' => 'mydropzone'
                 ],
-                'label' => false,
+                'label' => 'Illustration',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
@@ -72,7 +72,7 @@ class ProjectType extends AbstractType
                     'placeholder' => 'Choose the image to illustrate the project',
                     'data-controller' => 'mydropzone'
                 ],
-                'label' => false,
+                'label' => 'Avatar',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,

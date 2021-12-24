@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base-dashboard.html.twig' %}
 
 {% block title %}Project{% endblock %}
 
@@ -12,24 +12,8 @@
                 <td>{{ project.nom }}</td>
             </tr>
             <tr>
-                <th>Slug</th>
-                <td>{{ project.slug }}</td>
-            </tr>
-            <tr>
                 <th>Description</th>
                 <td>{{ project.description }}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ project.id }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ project.createdAt ? project.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

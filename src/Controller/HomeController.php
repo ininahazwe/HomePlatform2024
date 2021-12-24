@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use App\Entity\Edition;
 use App\Entity\File;
 use App\Entity\Project;
+use App\Form\ProjectContactType;
 use App\Form\ProjectType;
 use App\Form\Search\SearchProjectForm;
 use App\Repository\AboutRepository;
@@ -15,17 +16,25 @@ use App\Repository\EditionRepository;
 use App\Repository\PartenairesRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TeamRepository;
+use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(Request $request, AboutRepository $aboutRepository, CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
+    public function index(Stopwatch $stopwatch, CacheInterface $cache,
+        Request $request, AboutRepository $aboutRepository, CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
     {
-        $projects = $projectRepository->findAll();
+        $projects = $projectRepository->getProjectPublished();
         $abouts = $aboutRepository->findAll();
         $partenaires = $partenairesRepository->findAll();
         $categories = $categorieRepository->findLatest();
@@ -35,6 +44,13 @@ class HomeController extends AbstractController
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchProjectForm::class, $data);
         $form->handleRequest($request);
+
+        $stopwatch->start('calcul-long');
+        $resultatCalcul = $cache->get('resultat-calcul-long', function (ItemInterface $item){
+            $item->expiresAfter(10);
+            return $this->fonctionQuiPrendDuTemps();
+        });
+        $stopwatch->stop('calcul-long');
         return $this->render('home/index.html.twig', [
             'categories' => $categories,
             'abouts' => $abouts,
@@ -45,6 +61,12 @@ class HomeController extends AbstractController
         ]);
     }
 
+    private function fonctionQuiPrendDuTemps(): int
+    {
+        sleep(2);
+
+        return 10;
+    }
     #[Route('/sdg', name: 'all_sdg', methods: ['GET'])]
     public function allSdg(CategorieRepository $categorieRepository): Response
     {
@@ -72,7 +94,7 @@ class HomeController extends AbstractController
     #[Route('/about-us', name: 'about-page', methods: ['GET'])]
     public function about(TeamRepository $teamRepository, AboutRepository $aboutRepository): Response
     {
-        $teams = $teamRepository->findAll();
+        $teams = $teamRepository->findByOrder();
 
         return $this->render('home/about_page.html.twig', [
             'about' => $aboutRepository->findOneBy(['id' => 1]),
@@ -106,9 +128,46 @@ class HomeController extends AbstractController
     }
 
     #[Route('/project/{slug}', name: 'project_page', methods: ['GET'])]
-    public function OneProject(Project $project, ProjectRepository $projectRepository): Response
+    public function OneProject(Request $request, Project $project, $slug, ProjectRepository $projectRepository, CacheInterface $cache, Mailer $mailer): Response
     {
-        $projects = $projectRepository->findAll();
+        $project = $cache->get('project'.$slug, function(ItemInterface $item) use($projectRepository, $slug){
+            $item->expiresAfter(20);
+            return $projectRepository->findOneBy(['slug' => $slug]);
+        });
+
+        $form = $this->createForm(ProjectContactType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $contactFormData = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_PROJECT_CONTACT']);
+
+            $loader = new ArrayLoader([
+                'email' => $email->getContenu(),
+            ]);
+
+            $twig = new Environment($loader);
+            $message = $twig->render('email', ['user' => $this->getUser(), 'messageMail' => $contactFormData]);
+
+            $this->addFlash('success', 'Successfully sent.');
+
+            $mailer->send([
+                'recipient_email' => 'yvesininahazwe@gmail.com',
+                'subject' => $email->getSujet(),
+                'html_template' => 'email/email_vide.html.twig',
+                'context' => [
+                    'message' => $message
+                ]
+            ]);
+            $this->addFlash('success', 'Message sent');
+            return $this->redirectToRoute('contact');
+        }
+
+        $projects = $projectRepository->getProjectPublished();
+
         return $this->render('project/project-page.html.twig', [
             'project' => $project,
             'projects' => $projects,
@@ -136,7 +195,7 @@ class HomeController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Ajout réussi');
+            $this->addFlash('success', 'Successfully added');
 
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -161,12 +220,12 @@ class HomeController extends AbstractController
         if ($type == File::TYPE_AVATAR){
             $img->setProjectAvatar($project);
             $img->setType($type);
-            $project->addLogo($img);
+            $project->addAvatar($img);
         }
         if ($type == File::TYPE_ILLUSTRATION){
             $img->setProject($project);
             $img->setType($type);
-            $project->addDocument($img);
+            $project->addImage($img);
         }
     }
 

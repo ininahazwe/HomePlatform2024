@@ -1,0 +1,125 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Messagerie
+{% endblock %}
+
+{% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>Messages</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">Messages</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
+
+    <!-- Start Messages Area -->
+    <div class="chat-content-area">
+        <div class="sidebar-left">
+            <div class="sidebar">
+                <div class="sidebar-content d-flex chat-sidebar" data-simplebar>
+                    <div class="chat-menu">
+                        <label class="d-block list-group-label mt-0">Messages</label>
+                        <ul class="list-group list-group-user list-unstyled mb-0">
+                            {% for message in app.user.received %}
+                                {% set bold = "" %}
+                                {% if message.isRead == 0 %}
+                                    {% set bold = "fw-bold" %}
+                                {% endif %}
+                                <li>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar me-3">
+                                            {% if message.sender.profile.photo is defined %}
+                                                {% for photo in message.sender.profile.photo %}
+                                                    {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle" width="30px">{% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb" width="30px">
+                                            {% endif %}
+                                        </div>
+                                        <a href="{{ path("read", {id: message.id}) }}">
+                                            <div class="user-name">
+                                                <h6>{{ message.sender.fullname() }}</h6>
+                                                <span class="d-block {{bold}}" style="color: darkgreen">{{ message.title }}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-right">
+            <div class="chat-area">
+                <div class="chat-list-wrapper">
+                    <div class="chat-list">
+                        <div class="chat-list-header d-flex align-items-center">
+                            <div class="header-left d-flex align-items-center">
+                                <div class="avatar me-3">
+                                    {% if message.sender.profile.photo is defined %}
+                                        {% for photo in message.sender.profile.photo %}
+                                            {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle" width="63px"; height="auto">{% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb" width="63px">
+                                    {% endif %}
+                                </div>
+                                <h6 class="mb-0">{{ message.sender.fullname() }}</h6>
+                            </div>
+
+                            <div class="header-right text-end w-100">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <span class="favorite d-block">
+                                            <i class="ri-star-line"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="ri-menu-4-line"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                   href="{{ path("sent") }}"><i class="ri-pushpin-2-line"></i> Messages sent
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="chat-container" data-simplebar>
+                            <div class="chat-content">
+                                <div class="chat chat-left">
+                                    <div class="chat-body">
+                                        <div class="chat-message">
+                                            <p>{{ message.message|raw }}</p>
+                                            <span class="time d-block">{{ message.createdAt|date() }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% for reply in message.replies %}
+                            <div class="chat">
+                                <div class="chat-body">
+                                    <div class="chat-message">
+                                        <p>{{reply.message|raw}} </p>
+                                        <span class="time d-block">{{ reply.message.createdAt|date() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a href="{{ path('answer') }}">Answer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

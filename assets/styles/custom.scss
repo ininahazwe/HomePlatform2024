@@ -1,3 +1,16 @@
 .table > :not(:first-child) {
   border-top: 10px solid #F39649 !important;
 }
+
+.invalid-feedback{
+  margin-bottom: 30px;
+  background-color: #f3ded8;
+  border: none;
+  padding: 20px;
+  color: #c00d04;
+  border-radius: 5px;
+}
+
+.alert{
+  z-index: 999;
+}

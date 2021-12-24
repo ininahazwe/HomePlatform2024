@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Home Education{% endblock %}</title>
-        <link rel="icon" href="{{ asset('uploads/design/logo-small.png') }}">
+        <link rel="icon" href="{{ asset('uploads/design/logo.png') }}">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="description" content="Home is association that focuses in sharing educational experiences on international scale.">
         {% block stylesheets %}
@@ -17,8 +17,17 @@
         {% endblock %}
     </head>
     <body>
+        <div class="preloader">
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
         {% include'layouts/navbar.html.twig' %}
-        {% block body %}{% endblock %}
+        {{ include('partials/flashbag.html.twig') }}
+        {% block body %}
+        {% endblock %}
         {% include'layouts/footer.html.twig' %}
     </body>
 </html>

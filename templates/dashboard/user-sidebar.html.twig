@@ -2,7 +2,7 @@
 <div class="sidemenu-area">
     <div class="sidemenu-header">
         <a href="{{ path('home') }}" class="navbar-brand d-flex align-items-center">
-            <img src="{{ asset('uploads/design/logo-small.png') }}" alt="logo">
+            <img src="{{ asset('uploads/design/logo.png') }}" alt="logo" width="124px">
         </a>
 
         <div class="responsive-burger-menu d-block d-lg-none">
@@ -36,6 +36,13 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ path('messages') }}" class="nav-link">
+                    <span class="icon"><i class="ri-chat-1-line"></i></span>
+                    <span class="menu-title">Messages ({{ app.user.received|length }})</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ path('project_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-briefcase-line"></i></span>
                     <span class="menu-title">My Projects</span>
@@ -55,7 +62,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="index.html" class="nav-link">
+                <a href="{{ path('user_delete_account', {'id': app.user.id }) }}" class="nav-link">
                     <span class="icon"><i class="ri-delete-bin-line"></i></span>
                     <span class="menu-title">Delete Profile</span>
                 </a>

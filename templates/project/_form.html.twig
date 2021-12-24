@@ -19,7 +19,6 @@
     </div>
     <div class="col-lg-12">
         <div class="choose-img">
-            <p class="title">Illustration</p>
             {{ form_row(form.avatar) }}
             <p>Maximum file size: 2 MB</p>
         </div>
@@ -31,7 +30,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-6">
                     <div>
                         <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                        <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                        <a href="{{ path('projects_delete_files', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
                     </div>
                 </div>
                 {% endfor %}
@@ -81,18 +80,18 @@
     {% if app.request.attributes.get('_route') == 'project_edit' %}
         <div class="row">
             {% if project.images %}
-                {% for image in project.images %}
+                {% for ill in project.images %}
                     <div class="col-lg-3 col-md-3 col-sm-6">
                         <div>
-                            <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                            <a href="{{ path('projects_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                            <img src="{{ asset('/uploads/'~ill.nom) }}" alt="" width="150">
+                            <a href="{{ path('projects_delete_files', {id: ill.id})}}" data-delete data-token="{{ csrf_token('delete' ~ ill.id )}}"><i class="ri-delete-bin-line"></i></a>
                         </div>
                     </div>
                 {% endfor %}
             {% endif %}
         </div>
     {% endif %}
-    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-12 col-md-12 mt-2">
         <button type="submit" class="default-btn border-radius-5">
             Save <i class="ri-check-line"></i>
         </button>

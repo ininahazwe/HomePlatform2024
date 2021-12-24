@@ -29,6 +29,17 @@
                 <div class="col-lg-4">
                     <div class="job-details-widget-side pr-20">
                         <div class="job-details-widget">
+                            <h3 class="title">Co-authors</h3>
+                            <div class="bar"></div>
+                            <ul class="job-details-widget-tag">
+                                {% if project.auteur %}
+                                    {% for user in project.auteur %}
+                                        <li>{{ user.nom }} | </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="job-details-widget">
                             <h3 class="title">Related SDG</h3>
                             <div class="bar"></div>
                             <ul class="job-details-category">
@@ -129,7 +140,7 @@
                         <h3>Other Projects</h3>
                         <div class="bar"></div>
                         <div class="row">
-                            {% for project in projects %}
+                            {% for project in projects|slice(0, 2) %}
                                 <div class="col-lg-6">
                                     <div class="recent-job-card box-shadow">
                                         <div class="content">
@@ -142,20 +153,7 @@
                                                     {% endfor %}
                                                 {% endif %}
                                             </div>
-
                                             <h3><a href="{{ path('project_page', {'slug': project.slug}) }}">{{ project.nom }}</a></h3>
-
-                                            <ul class="job-list1">
-                                                <div class="job-sub-content">
-                                                    <ul class="job-list2">
-                                                        {% if project.categorie %}
-                                                            {% for cat in project.categorie %}
-                                                                <li class="time">{{ cat.nom }}</li>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </ul>
-                                                </div>
-                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -167,28 +165,4 @@
         </div>
     </div>
     <!-- Job Details Area End -->
-
-    <!-- Employers CV Area -->
-    <div class="employers-cv-area">
-        <div class="container">
-            <div class="employers-cv-bg">
-                <div class="row align-items-center">
-                    <div class="col-lg-8">
-                        <div class="employers-cv-content">
-                            <h2>Let Employers Find You</h2>
-                            <div class="bar"></div>
-                            <p>Advertise your jobs to millions of monthly users and search 15.8 million CV in our database.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="employers-cv-btn">
-                            <a href="mailto:contact@zoben.com">Upload Your CV</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Employers CV Area -->
 {% endblock %}

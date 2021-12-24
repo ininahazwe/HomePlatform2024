@@ -30,15 +30,16 @@ class CategorieRepository extends ServiceEntityRepository
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Categorie
+    public function getCategoriesWithProjects(): array
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        $ids = array();
+        $query = $this->getEntityManager()->getRepository(Project::class)->createQueryBuilder('p')
+            ->orderBy('p.nom', 'ASC')
         ;
+        $result = $query->getQuery()->getResult();
+        foreach($result as $project){
+            $ids[] = $project->getCategorie()->getId();
+        }
+        return $ids;
     }
-    */
 }

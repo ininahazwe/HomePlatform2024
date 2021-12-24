@@ -2,7 +2,7 @@
 <div class="sidemenu-area">
     <div class="sidemenu-header">
         <a href="{{ path('home') }}" class="navbar-brand d-flex align-items-center">
-            <img src="{{ asset('uploads/design/logo-small.png') }}" alt="logo">
+            <img src="{{ asset('uploads/design/logo.png') }}" alt="logo" width="142px">
         </a>
 
         <div class="responsive-burger-menu d-block d-lg-none">
@@ -34,6 +34,13 @@
                     </a>
                 {% endif %}
 
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ path('messages') }}" class="nav-link">
+                    <span class="icon"><i class="ri-chat-1-line"></i></span>
+                    <span class="menu-title">Messages ({{ app.user.received|length }})</span>
+                </a>
             </li>
 
             <li class="nav-item">
@@ -72,34 +79,6 @@
             </li>
 
             <li class="nav-item">
-                <a href="dashboard-packages.html" class="nav-link">
-                    <span class="icon"><i class="ri-stack-fill"></i></span>
-                    <span class="menu-title">Packages</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="dashboard-messages.html" class="nav-link">
-                    <span class="icon"><i class="ri-chat-1-line"></i></span>
-                    <span class="menu-title">Messages</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="dashboard-invoice.html" class="nav-link">
-                    <span class="icon"><i class="ri-price-tag-line"></i></span>
-                    <span class="menu-title">Invoice</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="dashboard-resume-alerts.html" class="nav-link">
-                    <span class="icon"><i class="ri-alert-line"></i></span>
-                    <span class="menu-title">Resume Alerts</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a href="{{ path('app_reset_password') }}" class="nav-link">
                     <span class="icon"><i class="ri-lock-line"></i></span>
                     <span class="menu-title">Change Password</span>
@@ -117,13 +96,6 @@
                 <a href="{{ path('logout') }}" class="nav-link">
                     <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
                     <span class="menu-title">Logout</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="index.html" class="nav-link">
-                    <span class="icon"><i class="ri-delete-bin-line"></i></span>
-                    <span class="menu-title">Delete Profile</span>
                 </a>
             </li>
         </ul>

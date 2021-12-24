@@ -1,2 +1,2 @@
 #!/bin/sh
-rsync -av ./ u102109786@access842112298.webspace-data.io:~/home2021 --include=public/build --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"
+rsync -av ./ u102109786@access842112298.webspace-data.io:~/home2022 --include=vendor --include=node_modules --include=src --exclude-from=.gitignore --exclude=".*"

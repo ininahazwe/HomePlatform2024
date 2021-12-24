@@ -23,6 +23,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     const GENRE_FEMME = 'Woman';
     const GENRE_AUTRE = 'Other';
 
+    const ROLE_CANDIDAT = 'ROLE_CANDIDAT';
+
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -85,6 +87,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $project_editor;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $isDeleted;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="sender", orphanRemoval=true)
+     */
+    private Collection $sent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="recipient", orphanRemoval=true)
+     */
+    private Collection $received;
+
     public function __construct()
     {
         $this->files = new ArrayCollection();
@@ -92,6 +109,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = new \DateTimeImmutable('now');
         $this->groups = new ArrayCollection();
         $this->project_editor = new ArrayCollection();
+        $this->sent = new ArrayCollection();
+        $this->received = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -152,6 +171,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             'Man' => User::GENRE_HOMME,
             'Woman' => User::GENRE_FEMME,
             'Other' => User::GENRE_AUTRE,
+        );
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getRoleNames(): array
+    {
+        return array(
+            'Candidate' => User::ROLE_CANDIDAT,
         );
     }
 
@@ -424,6 +453,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($projectEditor->getEditor() === $this) {
                 $projectEditor->setEditor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function IsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(?bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getSent(): Collection
+    {
+        return $this->sent;
+    }
+
+    public function addSent(Messages $sent): self
+    {
+        if (!$this->sent->contains($sent)) {
+            $this->sent[] = $sent;
+            $sent->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSent(Messages $sent): self
+    {
+        if ($this->sent->removeElement($sent)) {
+            // set the owning side to null (unless already changed)
+            if ($sent->getSender() === $this) {
+                $sent->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getReceived(): Collection
+    {
+        return $this->received;
+    }
+
+    public function addReceived(Messages $received): self
+    {
+        if (!$this->received->contains($received)) {
+            $this->received[] = $received;
+            $received->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceived(Messages $received): self
+    {
+        if ($this->received->removeElement($received)) {
+            // set the owning side to null (unless already changed)
+            if ($received->getRecipient() === $this) {
+                $received->setRecipient(null);
             }
         }
 

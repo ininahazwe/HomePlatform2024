@@ -15,7 +15,7 @@
             <div class="mobile-responsive-menu">
                 <div class="logo">
                     <a href="{{ path('home') }}">
-                        <img src="{{ asset('uploads/design/logo-small.png') }}" alt="logo">
+                        <img src="{{ asset('uploads/design/logo.png') }}" alt="logo" width="124px">
                     </a>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-light ">
                 <a class="navbar-brand" href="{{ path('home') }}">
-                    <img src="{{ asset('uploads/design/logo-small.png') }}" alt="logo">
+                    <img src="{{ asset('uploads/design/logo.png') }}" alt="logo" width="124px">
                 </a>
 
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -40,7 +40,7 @@
                             <a href="{{ path('all_sdg') }}" class="nav-link"><i class="ri-list-settings-line"></i> SDG</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ path('all_sdg') }}" class="nav-link"><i class="ri-pencil-line"></i> Contact us</a>
+                            <a href="{{ path('contact') }}" class="nav-link"><i class="ri-pencil-line"></i> Contact us</a>
                         </li>
                         {% if app.user %}
                             <li class="nav-item">
@@ -58,7 +58,7 @@
                         {% endif %}
 
                         <div class="optional-item">
-                            {% if app.user and app.user.isCandidat() %}
+                            {% if app.user %}
                                 <a href="{{ path('project_new_home') }}" class="default-btn border-radius-5">Post A Project <i class="ri-briefcase-2-line"></i></a>
                             {% else %}
                                 <a href="{{ path('login') }}" class="default-btn border-radius-5">Post A Project <i class="ri-briefcase-2-line"></i></a>
