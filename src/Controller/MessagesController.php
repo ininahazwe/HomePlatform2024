@@ -52,7 +52,7 @@ class MessagesController extends AbstractController
             $em->persist($messageMail);
             $em->flush();
 
-            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_EMAIl']);
+            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_MESSAGE_INTERNE']);
 
             $loader = new ArrayLoader([
                 'email' => $email->getContenu(),
