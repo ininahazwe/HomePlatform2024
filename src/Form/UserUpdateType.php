@@ -63,7 +63,7 @@ class UserUpdateType extends AbstractType
                 'multiple' => true,
                 'label' => 'Roles'
             ])
-            ->add('projects', EntityType::class, [
+            ->add('react', EntityType::class, [
                 'class' => Project::class,
                 'multiple' => true,
                 'choice_label' => 'nom',

@@ -19,32 +19,56 @@ class MessagesRepository extends ServiceEntityRepository
         parent::__construct($registry, Messages::class);
     }
 
-    // /**
-    //  * @return Messages[] Returns an array of Messages objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getResponses($message)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('m.parent = :parent')
+            ->setParameter('parent', $message)
             ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Messages
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function getReceived($user): mixed
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('m.parent IS NULL')
+            ->andWhere('m.recipient = :user OR m.sender = :user')
+            ->setParameter('user', $user)
+            ->orderBy('m.id', 'DESC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult()
+            ;
+
     }
-    */
+
+    /**
+     * @param $user
+     * @return int|string
+     */
+    public function countMsgNotRead($user): int|string
+    {
+        $nb = "0";
+
+        $ids = array();
+        $query = $this->createQueryBuilder('m')
+            ->andWhere('m.is_read = 0')
+            ->andWhere('m.recipient = :user')
+            ->setParameter('user', $user)
+        ;
+        $result = $query->getQuery()->getResult();
+        foreach($result as $message){
+            $ids[] = $message->getId();
+        }
+        if (count($ids) > 0){
+            return count($ids);
+        }
+        return $nb;
+
+    }
 }

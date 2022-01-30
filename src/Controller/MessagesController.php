@@ -31,25 +31,34 @@ class MessagesController extends AbstractController
 
     /**
      * @param Request $request
+     * @param Mailer $mailer
      * @return Response
-     * @throws TransportExceptionInterface
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
+     * @throws TransportExceptionInterface
      */
     #[Route('/send', name: 'send')]
     public function send(Request $request, Mailer $mailer): Response
     {
-        $messageMail = new Messages;
-        $form = $this->createForm(MessagesType::class, $messageMail);
+        $user = $this->getUser();
+        $message = new Messages;
+        $form = $this->createForm(MessagesType::class, $message);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $messageMail->setSender($this->getUser());
+            $message->setSender($user);
+
+            $parentid = $form->get("parentid")->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($messageMail);
+            if($parentid != null){
+                $parent = $em->getRepository(Messages::class)->find($parentid);
+            }
+
+            $message->setParent($parent ?? null);
+            $em->persist($message);
             $em->flush();
 
             $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_MESSAGE_INTERNE']);
@@ -59,16 +68,16 @@ class MessagesController extends AbstractController
             ]);
 
             $twig = new Environment($loader);
-            $message = $twig->render('email', ['user' => $this->getUser(), 'messageMail' => $messageMail]);
+            $messageMail = $twig->render('email', ['user' => $user, 'messageMail' => $message->getMessage(), 'sender' => $user, 'recipient' => $message->getRecipient()]);
 
             $this->addFlash('success', 'Successfully sent.');
 
             $mailer->send([
-                'recipient_email' => $messageMail->getRecipient()->getEmail(),
+                'recipient_email' => $message->getRecipient()->getEmail(),
                 'subject' => $email->getSujet(),
                 'html_template' => 'email/email_vide.html.twig',
                 'context' => [
-                    'message' => $message
+                    'message' => $messageMail
                 ]
             ]);
 
@@ -80,47 +89,45 @@ class MessagesController extends AbstractController
         ]);
     }
 
-    #[Route('/answer', name: 'answer')]
-    public function answer(Request $request, Mailer $mailer): Response
+    #[Route('/reply/{id}', name: 'reply')]
+    public function reply(Request $request, Mailer $mailer, Messages $message): Response
     {
-        $messageMail = new Messages;
-        $form = $this->createForm(MessagesType::class, $messageMail);
+        $user = $this->getUser();
+        $reply = new Messages;
+        $em = $this->getDoctrine()->getManager();
+        $textReply = $request->request->get('reply');
 
-        $form->handleRequest($request);
+        $reply->setSender($user);
+        $reply->setRecipient($message->getSender());
+        $reply->setMessage($textReply);
+        $reply->setTitle('Re: ' . $message->getTitle());
+        $reply->setParent($message);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $messageMail->setSender($this->getUser());
+        $em->persist($reply);
+        $em->flush();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($messageMail);
-            $em->flush();
+        $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_MESSAGE_INTERNE']);
 
-            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_EMAIl']);
-
-            $loader = new ArrayLoader([
-                'email' => $email->getContenu(),
-            ]);
-
-            $twig = new Environment($loader);
-            $message = $twig->render('email', ['user' => $this->getUser(), 'messageMail' => $messageMail]);
-
-            $this->addFlash('success', 'Successfully sent.');
-
-            $mailer->send([
-                'recipient_email' => $messageMail->getRecipient()->getEmail(),
-                'subject' => $email->getSujet(),
-                'html_template' => 'email/email_vide.html.twig',
-                'context' => [
-                    'message' => $message
-                ]
-            ]);
-
-            return $this->redirectToRoute("messages");
-        }
-
-        return $this->render("messages/answer.html.twig", [
-            "form" => $form->createView()
+        $loader = new ArrayLoader([
+            'email' => $email->getContenu(),
         ]);
+
+        $twig = new Environment($loader);
+        $messageMail = $twig->render('email', ['user' => $user, 'messageMail' => $message->getMessage(), 'recipient' => $message->getRecipient()]);
+
+        $this->addFlash('success', 'Successfully sent.');
+
+        $mailer->send([
+            'recipient_email' => $message->getRecipient()->getEmail(),
+            'subject' => $email->getSujet(),
+            'html_template' => 'email/email_vide.html.twig',
+            'context' => [
+                'message' => $messageMail
+            ]
+        ]);
+
+        return $this->redirectToRoute('read',['id' => $message->getId()]);
+
     }
 
     #[Route('/received', name: 'received')]
@@ -143,7 +150,15 @@ class MessagesController extends AbstractController
         $em->persist($message);
         $em->flush();
 
-        return $this->render('messages/read.html.twig', compact("message"));
+        $responses = $em->getRepository(Messages::class)->getResponses($message);
+        $received = $em->getRepository(Messages::class)->getReceived($this->getUser());
+
+        return $this->render('messages/read.html.twig', [
+            'message' => $message,
+            'received' => $received,
+            'responses' => $responses,
+        ]);
+
     }
 
     #[Route('/delete/{id}', name: 'delete')]
@@ -155,4 +170,5 @@ class MessagesController extends AbstractController
 
         return $this->redirectToRoute("received");
     }
+
 }

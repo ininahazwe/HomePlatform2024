@@ -20,6 +20,7 @@ class MessagesType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
+                'required' => false,
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -31,6 +32,7 @@ class MessagesType extends AbstractType
             ])
             ->add('recipient', EntityType::class, [
                 "class" => User::class,
+                'required' => false,
                 "choice_label" => "fullname",
                 "attr" => [
                     "class" => "form-control"
@@ -51,6 +53,7 @@ class MessagesType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Messages::class,
+            'csrf_protection' => false,
         ]);
     }
 }

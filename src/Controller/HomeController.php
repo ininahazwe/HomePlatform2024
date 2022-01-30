@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use App\Entity\Edition;
 use App\Entity\File;
 use App\Entity\Project;
+use App\Form\ContactType;
 use App\Form\ProjectContactType;
 use App\Form\ProjectType;
 use App\Form\Search\SearchProjectForm;
@@ -20,6 +21,7 @@ use App\Service\Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -67,6 +69,7 @@ class HomeController extends AbstractController
 
         return 10;
     }
+
     #[Route('/sdg', name: 'all_sdg', methods: ['GET'])]
     public function allSdg(CategorieRepository $categorieRepository): Response
     {
@@ -174,7 +177,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/projects/new', name: 'project_new_home', methods: ['GET','POST'])]
+    #[Route('/project/new', name: 'project_new_home', methods: ['GET','POST'])]
     public function newProject(Request $request, ProjectRepository $projectRepository): Response
     {
         $project = new Project();
@@ -235,4 +238,36 @@ class HomeController extends AbstractController
         return $this->renderForm('home/mentions.html.twig', [
         ]);
     }
+
+    #[Route('/contact', name: 'contact')]
+    public function contact(Request $request, MailerInterface $mailer): Response
+    {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $contactFormData = $form->getData();
+
+            $message = (new Email())
+                ->from($contactFormData['email'])
+                ->to('home.internationalprojects@gmail.com')
+                ->subject('New message from contact from')
+                ->text('De : '.$contactFormData['nom'].\PHP_EOL.
+                    'Email : '.$contactFormData['email'].\PHP_EOL.
+                    'Subject : '.$contactFormData['subject'].\PHP_EOL.
+                    'Message : '.$contactFormData['message'],
+                    'text/plain');
+
+            $mailer->send($message);
+
+            $this->addFlash('success', 'Message sent');
+
+            return $this->redirectToRoute('contact', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('contact/index.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+
 }

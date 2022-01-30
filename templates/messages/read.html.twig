@@ -104,19 +104,26 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            {% for reply in message.replies %}
-                            <div class="chat">
-                                <div class="chat-body">
-                                    <div class="chat-message">
-                                        <p>{{reply.message|raw}} </p>
-                                        <span class="time d-block">{{ reply.message.createdAt|date() }}</span>
+                                {% for response in responses %}
+                                <div class="chat">
+                                    <div class="chat-body">
+                                        <div class="chat-message">
+                                            <p>{{response.message|raw}} </p>
+                                            <span class="time d-block">{{ response.createdAt|date() }}</span>
+                                        </div>
                                     </div>
                                 </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
                         </div>
-                        <a href="{{ path('answer') }}">Answer</a>
+                        <div class="chat-list-footer">
+                            <form class="d-flex align-items-center" method="post" action="{{ path("reply", {id: message.id}) }}">
+
+                                <textarea type="text" class="form-control" name='reply' placeholder="Type your answer..."></textarea>
+
+                                <button type="submit" class="send-btn d-inline-block">Send <i class="ri-send-plane-line"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

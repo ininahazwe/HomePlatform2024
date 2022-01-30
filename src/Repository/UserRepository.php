@@ -66,6 +66,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $mdp;
     }
 
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

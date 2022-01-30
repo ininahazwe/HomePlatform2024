@@ -159,4 +159,9 @@ class Messages
 
         return $this;
     }
+    public function dashboardAdmin(): string
+    {
+        return "(5)";
+    }
+
 }

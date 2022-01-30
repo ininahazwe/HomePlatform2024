@@ -31,6 +31,7 @@ import './js/tweenMax.min';
 import './js/select2';
 import './js/sticky-sidebar.min';
 import './js/custom';
+import './js/react/components/Projects';
 
 const $ = require('jquery');
 global.$ = global.jQuery = $;

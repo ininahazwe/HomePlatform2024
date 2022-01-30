@@ -24,7 +24,7 @@
             <li class="nav-item">
                 <a href="{{ path('messages') }}" class="nav-link">
                     <span class="icon"><i class="ri-chat-1-line"></i></span>
-                    <span class="menu-title">Messages ({{ app.user.received|length }})</span>
+                    <span class="menu-title">Messages ({{ render(controller('App\\Controller\\DashboardController::messageNotReadAdmin')) }})</span>
                 </a>
             </li>
 

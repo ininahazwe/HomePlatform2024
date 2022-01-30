@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -59,11 +60,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read:project"})
      */
     private ?string $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read:project"})
      */
     private ?string $prenom;
 
@@ -83,7 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $groups;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="Editor", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="editor", cascade={"persist"})
      */
     private Collection $project_editor;
 
@@ -101,6 +104,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="recipient", orphanRemoval=true)
      */
     private Collection $received;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $isMentor;
 
     public function __construct()
     {
@@ -527,6 +535,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $received->setRecipient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsMentor(): ?bool
+    {
+        return $this->isMentor;
+    }
+
+    public function setIsMentor(?bool $isMentor): self
+    {
+        $this->isMentor = $isMentor;
 
         return $this;
     }
