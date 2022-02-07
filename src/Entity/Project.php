@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     attributes={
             "order"={"createdAt":"DESC"},
  *     },
- *     paginationItemsPerPage=2,
+ *     paginationItemsPerPage=1,
  *     normalizationContext={"groups"={"read:project"}},
  *     collectionOperations={"get"},
  *     itemOperations={"get"},
@@ -33,6 +33,7 @@ class Project
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read:project"})
+     * @Groups({"read:full:category"})
      */
     private ?string $nom;
 
@@ -92,6 +93,7 @@ class Project
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="project_avatar", cascade={"persist"})
      * ORM\JoinColumn(onDelete="CASCADE")
+     * @Groups({"read:project"})
      */
     private Collection $avatar;
 

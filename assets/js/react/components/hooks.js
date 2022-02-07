@@ -15,7 +15,7 @@ export function usePaginatedFetch(url){
         const responseData = await response.json()
 
         if (response.ok){
-            setItems(responseData['hydra:member'])
+            setItems(items => [...items, ...responseData['hydra:member']])
             setCount(responseData['hydra:totalItems'])
             if(responseData['hydra:view'] && responseData['hydra:view']['hydra:next']){
                 setNext(responseData['hydra:view']['hydra:next'])
@@ -33,6 +33,6 @@ export function usePaginatedFetch(url){
         load,
         loading,
         count,
-        hadMore:next !== null
+        hadMore: next !== null
     }
 }

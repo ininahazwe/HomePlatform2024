@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     collectionOperations={"get"},
  *     itemOperations={
  *      "get"={
- *          "normalization_context"={"groups"={"read:comment", "read:full:category"}
+ *          "normalization_context"={"groups"={"read:comment", "read:full:category"}}
  *          }
  *      },
  * )

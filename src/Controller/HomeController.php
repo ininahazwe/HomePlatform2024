@@ -180,6 +180,8 @@ class HomeController extends AbstractController
     #[Route('/project/new', name: 'project_new_home', methods: ['GET','POST'])]
     public function newProject(Request $request, ProjectRepository $projectRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
+
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
