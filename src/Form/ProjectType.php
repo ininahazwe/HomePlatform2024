@@ -137,7 +137,7 @@ class ProjectType extends AbstractType
                 'label' => 'Tags',
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'select-tags'
+                    'class' => 'select-tags-edit'
                 ]
             ])
         ;

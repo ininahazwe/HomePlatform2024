@@ -16,12 +16,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
  * @ApiResource(
  *     attributes={
-            "order"={"createdAt":"DESC"},
+        "order"={"createdAt":"DESC"}
  *     },
- *     paginationItemsPerPage=1,
+ *     paginationItemsPerPage=4,
  *     normalizationContext={"groups"={"read:project"}},
  *     collectionOperations={"get"},
- *     itemOperations={"get"},
+ *     itemOperations={
+ *      "get"={
+ *          "normalization_context"={"groups"={"read:project", "read:full:project"}}
+ *       }
+ *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"categorie": "exact"})
  */
@@ -33,44 +37,41 @@ class Project
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"read:project"})
-     * @Groups({"read:full:category"})
      */
     private ?string $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Gedmo\Slug(fields={"nom"})
+     * @Groups({"read:project"})
      */
     private ?string $slug;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read:project"})
+     * @Groups({"read:full:project"})
      */
     private ?string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="project", cascade={"persist"})
      * ORM\JoinColumn(onDelete="CASCADE")
-     * @Groups({"read:project"})
      */
     private Collection $images;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="react")
+     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="projects")
      * @Groups({"read:project"})
      */
     private Collection $categorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="react")
-     * @Groups({"read:project"})
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="projects")
      */
     private Collection $auteur;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="project")
-     * @Groups({"read:project"})
      */
     private Collection $tags;
 
@@ -86,7 +87,6 @@ class Project
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read:project"})
      */
     private ?string $intro;
 

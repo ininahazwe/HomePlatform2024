@@ -24,8 +24,10 @@ class MessagesController extends AbstractController
     #[Route('/', name: 'messages')]
     public function index(MessagesRepository $messagesRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         return $this->render('messages/index.html.twig', [
-            'messages' => $messagesRepository->findAll(),
+            'received' => $messagesRepository->getReceived($this->getUser())
         ]);
     }
 
@@ -43,7 +45,9 @@ class MessagesController extends AbstractController
     {
         $user = $this->getUser();
         $message = new Messages;
-        $form = $this->createForm(MessagesType::class, $message);
+        $form = $this->createForm(MessagesType::class, $message, [
+            'user' => $this->getUser(),
+        ]);
 
         $form->handleRequest($request);
 

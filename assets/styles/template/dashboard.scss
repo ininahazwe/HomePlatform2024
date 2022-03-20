@@ -67,14 +67,14 @@
             padding: 0 0 65px;
             list-style-type: none;
             margin-bottom: 0;
-            
+
             .nav-item {
                 .nav-link {
                     color: #7e7e7e;
                     padding: 12px 30px 12px;
                     position: relative;
                     z-index: 1;
-                   
+
 
                     .icon {
                         color: var(--titleColor);
@@ -88,7 +88,7 @@
                     &:hover {
                         background-color: #fafafa;
                         color: #00CA99;
-                        
+
                         .icon {
                             transform: rotateY(-180deg);
                             color: #00CA99;
@@ -99,7 +99,7 @@
                     .nav-link {
                         background-color: #fafafa;
                         color: #00CA99;
-                        
+
                         .icon {
                             color: var(--mainColor);
                         }
@@ -121,7 +121,7 @@ Dashboard Area CSS
     padding-right: 30px;
     padding-left: 310px;
     padding-top: 135px;
-    
+
     .navbar-area {
         position: fixed;
         background-color: #ffffff;
@@ -138,7 +138,7 @@ Dashboard Area CSS
             .navbar {
                 .others-options {
                     margin-left: auto;
-                    
+
                     .profile-nav-item {
                         .dropdown-bs-toggle {
                             padding: 0;
@@ -146,7 +146,7 @@ Dashboard Area CSS
                             font-weight: 400;
                             position: relative;
                             padding-right: 25px;
-                
+
                             &::after {
                                 display: none;
                             }
@@ -164,7 +164,7 @@ Dashboard Area CSS
                                 top: 1px;
                                 color: var(--bodyColor);
                                 transition: var(--transition);
-                
+
                                 &::before {
                                     display: none;
                                 }
@@ -203,13 +203,13 @@ Dashboard Area CSS
                                 visibility: hidden;
                                 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .05);
                                 background-color: var(--whiteColor);
-    
+
                                 .dropdown-header {
                                     padding: 0;
                                     border-bottom: 1px solid #f2f4f9;
                                     margin-left: -15px;
                                     margin-right: -15px;
-                                    
+
                                     .figure {
                                         position: relative;
                                         img {
@@ -234,17 +234,17 @@ Dashboard Area CSS
                                         padding-left: 0;
                                         list-style-type: none;
                                         margin-bottom: 0;
-    
+
                                         .nav-item {
                                             margin-left: 0;
-    
+
                                             .nav-link {
                                                 color: var(--bodyColor);
                                                 padding: 5px 15px 5px 38px;
                                                 position: relative;
                                                 font-size: 15px;
                                                 font-weight: 400;
-                                                
+
                                                 span {
                                                     color: var(--bodyColor);
                                                     display: block;
@@ -274,12 +274,12 @@ Dashboard Area CSS
                                     margin: 10px -15px 0;
                                     padding: 10px 15px 0;
                                     border-top: 1px solid #eeeeee;
-    
+
                                     ul {
                                         padding-left: 0;
                                         list-style-type: none;
                                         margin-bottom: 0;
-    
+
                                         .nav-item {
                                             .nav-link {
                                                 color: red;
@@ -299,7 +299,7 @@ Dashboard Area CSS
                                                     position: absolute;
                                                     left: 15px;
                                                     top: 7px;
-                                                   
+
                                                 }
                                                 &:hover {
                                                     i {
@@ -338,7 +338,7 @@ Dashboard Area CSS
             }
         }
     }
-   
+
     .responsive-burger-menu {
         cursor: pointer;
         transition: var(--transition);
@@ -354,7 +354,7 @@ Dashboard Area CSS
             margin: 5px 0;
             transition: all .50s ease-in-out;
         }
-        &.active {                
+        &.active {
             span {
                 &.top-bar {
                     transform: rotate(45deg);
@@ -372,7 +372,7 @@ Dashboard Area CSS
         }
     }
     .side-nav-responsive {
-        .side-nav-inner { 
+        .side-nav-inner {
             .side-nav {
                 .option-item {
                     margin-left: auto;
@@ -385,7 +385,7 @@ Dashboard Area CSS
                             font-weight: 400;
                             position: relative;
                             padding-right: 25px;
-                
+
                             &::after {
                                 display: none;
                             }
@@ -403,7 +403,7 @@ Dashboard Area CSS
                                 top: 1px;
                                 color: var(--bodyColor);
                                 transition: var(--transition);
-                
+
                                 &::before {
                                     display: none;
                                 }
@@ -442,16 +442,16 @@ Dashboard Area CSS
                                 visibility: hidden;
                                 box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .05);
                                 background-color: var(--whiteColor);
-        
+
                                 .dropdown-header {
                                     padding: 0;
                                     border-bottom: 1px solid #f2f4f9;
                                     margin-left: -15px;
                                     margin-right: -15px;
-                                    
+
                                     .figure {
                                         position: relative;
-        
+
                                         img {
                                             width: 80px;
                                             height: 80px;
@@ -474,17 +474,17 @@ Dashboard Area CSS
                                         padding-left: 0;
                                         list-style-type: none;
                                         margin-bottom: 0;
-        
+
                                         .nav-item {
                                             margin-left: 0;
-        
+
                                             .nav-link {
                                                 color: var(--bodyColor);
                                                 padding: 5px 15px 5px 38px;
                                                 position: relative;
                                                 font-size: 15px;
                                                 font-weight: 400;
-                                                
+
                                                 span {
                                                     color: var(--bodyColor);
                                                     display: block;
@@ -514,12 +514,12 @@ Dashboard Area CSS
                                     margin: 10px -15px 0;
                                     padding: 10px 15px 0;
                                     border-top: 1px solid #eeeeee;
-        
+
                                     ul {
                                         padding-left: 0;
                                         list-style-type: none;
                                         margin-bottom: 0;
-        
+
                                         .nav-item {
                                             .nav-link {
                                                 color: red;
@@ -527,7 +527,7 @@ Dashboard Area CSS
                                                 position: relative;
                                                 font-size: 15px;
                                                 font-weight: 500;
-                                                
+
                                                 span {
                                                     color: red;
                                                     display: block;
@@ -539,7 +539,7 @@ Dashboard Area CSS
                                                     position: absolute;
                                                     left: 15px;
                                                     top: 7px;
-                                                   
+
                                                 }
                                                 &:hover {
                                                     i {
@@ -576,7 +576,7 @@ Dashboard Area CSS
         }
         .others-options {
             margin-left: auto;
-            
+
             .profile-nav-item {
                 .dropdown-bs-toggle {
                     padding: 0;
@@ -584,7 +584,7 @@ Dashboard Area CSS
                     font-weight: 400;
                     position: relative;
                     padding-right: 25px;
-        
+
                     &::after {
                         display: none;
                     }
@@ -602,7 +602,7 @@ Dashboard Area CSS
                         top: 1px;
                         color: var(--bodyColor);
                         transition: var(--transition);
-        
+
                         &::before {
                             display: none;
                         }
@@ -647,7 +647,7 @@ Dashboard Area CSS
                             border-bottom: 1px solid #f2f4f9;
                             margin-left: -15px;
                             margin-right: -15px;
-                            
+
                             .figure {
                                 position: relative;
 
@@ -683,7 +683,7 @@ Dashboard Area CSS
                                         position: relative;
                                         font-size: 15px;
                                         font-weight: 400;
-                                        
+
                                         span {
                                             color: var(--bodyColor);
                                             display: block;
@@ -726,7 +726,7 @@ Dashboard Area CSS
                                         position: relative;
                                         font-size: 15px;
                                         font-weight: 500;
-                                        
+
                                         span {
                                             color: red;
                                             display: block;
@@ -738,7 +738,7 @@ Dashboard Area CSS
                                             position: absolute;
                                             left: 15px;
                                             top: 7px;
-                                           
+
                                         }
                                         &:hover {
                                             i {
@@ -762,7 +762,7 @@ Dashboard Area CSS
     .copyrights-area {
         padding-top: 5px;
         padding-bottom: 35px;
-        
+
         p {
             line-height: initial;
             margin-bottom: 0;
@@ -794,7 +794,7 @@ Dashboard Area CSS
         padding-right: 15px;
         font-size: 25px;
         font-weight: 500;
-        
+
         &::before {
             content: '';
             position: absolute;
@@ -816,12 +816,12 @@ Dashboard Area CSS
         padding-bottom: 0;
         position: relative;
         top: 1px;
-        
+
         .item {
             color: var(--bodyColor);
             margin-right: 25px;
             position: relative;
-           
+
 
             a {
                 display: block;
@@ -859,7 +859,7 @@ Dashboard Area CSS
     padding: 20px;
     color: #5f9025;
     border-radius: 5px;
-    
+
     .close {
         transition: var(--transition);
         background-color: transparent;
@@ -883,7 +883,7 @@ Dashboard Area CSS
         &:nth-child(2) {
             .stats-fun-fact-box {
                 background-color: #64bc36;
-    
+
                 .icon-box {
                     color: #64bc36;
                 }
@@ -892,7 +892,7 @@ Dashboard Area CSS
         &:nth-child(3) {
             .stats-fun-fact-box {
                 background-color: #ffae00;
-    
+
                 .icon-box {
                     color: #ffae00;
                 }
@@ -901,7 +901,7 @@ Dashboard Area CSS
         &:nth-child(4) {
             .stats-fun-fact-box {
                 background-color: #f3103c;
-    
+
                 .icon-box {
                     color: #f3103c;
                 }
@@ -942,7 +942,7 @@ Dashboard Area CSS
         color: var(--whiteColor);
         display: block;
         margin-bottom: 5px;
-       
+
         font-weight: 400;
     }
     h3 {
@@ -985,8 +985,8 @@ Dashboard Area CSS
             padding-top: 25px;
             padding-bottom: 25px;
             font-weight: 400;
-           
-            
+
+
             .icon {
                 height: 40px;
                 width: 40px;
@@ -1077,7 +1077,7 @@ Dashboard Area CSS
             padding-right: 170px;
             padding-top: 25px;
             padding-bottom: 25px;
-            
+
             .icon {
                 height: 40px;
                 width: 40px;
@@ -1143,7 +1143,7 @@ Dashboard Area CSS
                     margin-right: 12px;
                     font-size: 14px;
                     font-weight: 400;
-                    
+
                     &:last-child {
                         margin-right: 0;
 
@@ -1212,14 +1212,14 @@ Dashboard Area CSS
             display: inline-block;
             color: #6084a4;
             font-weight: 500;
-            
+
         }
     }
     span {
         font-weight: 500;
         color: #6084a4;
-        
-       
+
+
     }
 }
 .invoice-table {
@@ -1231,10 +1231,10 @@ Dashboard Area CSS
                 text-align: center;
                 vertical-align: middle;
                 border-bottom: 1px solid #dee2e6 !important;
-                
+
                 font-weight: bold;
                 padding: 15px;
-               
+
             }
         }
         tbody {
@@ -1247,7 +1247,7 @@ Dashboard Area CSS
 
                 &.total, &.total-price {
                     color: var(--bodyColor);
-                    
+
                 }
                 strong {
                     font-weight: 500;
@@ -1344,7 +1344,7 @@ Dashboard Area CSS
             position: absolute;
             right: 0;
             top: 0;
-            
+
             .option-list {
                 padding: 0;
                 margin-bottom: 0;
@@ -1423,7 +1423,7 @@ Dashboard Area CSS
                 display: block;
                 margin-bottom: 15px;
                 color: var(--titleColor);
-               
+
                 font-weight: 500;
             }
             .form-control {
@@ -1467,7 +1467,7 @@ Dashboard Area CSS
     }
     .profile-box {
         position: relative;
-        border-radius: 5px;    
+        border-radius: 5px;
         display: flex;
         align-items: center;
         border-bottom: 1px dashed #eeeeee;
@@ -1499,7 +1499,7 @@ Dashboard Area CSS
                 padding: 10px 25px 10px 48px;
                 position: relative;
                 border-radius: 30px;
-               
+
                 font-weight: 500;
             }
             i {
@@ -1520,7 +1520,7 @@ Dashboard Area CSS
         }
         .text {
             margin-left: 30px;
-            
+
             p {
                 margin-bottom: 0;
             }
@@ -1654,7 +1654,7 @@ Dashboard Area CSS
                 display: block;
                 margin-bottom: 15px;
                 color: var(--titleColor);
-               
+
                 font-weight: 500;
             }
             .form-control {
@@ -1737,7 +1737,7 @@ Dashboard Area CSS
 
         table {
             margin-bottom: 0;
-    
+
             thead {
                 background: #E5FAF5;
                 tr {
@@ -1853,9 +1853,9 @@ Dashboard Area CSS
     box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
     border-radius: 5px;
     padding: 30px;
-    
+
     form {
-        
+
         h3 {
             padding-left: 5px;
             margin-bottom: 20px;
@@ -1870,7 +1870,7 @@ Dashboard Area CSS
                 margin-bottom: 15px;
                 color: var(--titleColor);
                 font-weight: 500;
-                
+
             }
             .form-control {
                 border-radius: 0;
@@ -1883,12 +1883,12 @@ Dashboard Area CSS
                 color: #808080;
                 font-size: 15px;
                 font-weight: 400;
-                
-                
+
+
                 &::placeholder {
                     color: #808080;
                     transition: var(--transition);
-                    
+
                 }
                 &:focus {
                     background-color: transparent;
@@ -1936,14 +1936,14 @@ Dashboard Area CSS
 
         table {
             margin-bottom: 0;
-    
+
             thead {
                 tr {
                     border: none;
                     border-bottom: 1px solid #e7e7e7;
                     th {
                         border: none;
-                        border-bottom-width: 0px;
+                        border-bottom-width: 0;
                         vertical-align: middle;
                         padding: 15px 25px;
                         white-space: nowrap;
@@ -2028,7 +2028,7 @@ Dashboard Area CSS
                                     height: 35px;
                                     width: 35px;
                                     line-height: 38px;
-                                   
+
                                     border-radius: 50px;
                                     transition: var(--transition);
 
@@ -2083,11 +2083,11 @@ Dashboard Area CSS
                         box-shadow: unset;
                         font-size: 14px;
                         font-weight: 400;
-                        
+
                         &:focus {
                             box-shadow: unset;
                             background-color: #eef5f9;
-        
+
                             &::placeholder {
                                 color: transparent !important;
                             }
@@ -2153,9 +2153,9 @@ Dashboard Area CSS
                         padding-bottom: 5px;
                         position: relative;
                         border-bottom: 1px solid #eeeeee;
-                       
+
                         font-weight: 500;
-                        
+
                         &::before {
                             width: 70px;
                             height: 1px;
@@ -2178,7 +2178,7 @@ Dashboard Area CSS
             .chat-list {
                 background-color: var(--whiteColor);
                 box-shadow: 1px 5px 24px 0 rgba(68, 102, 242, .05);
-                
+
                 .simplebar-scrollbar {
                     &::before {
                         background: #aaaaaa;
@@ -2236,10 +2236,10 @@ Dashboard Area CSS
                                     color: #C7CFD6;
                                     position: relative;
                                     top: -1px;
-                                    
+
                                     &.active {
                                         color: #FDAC41;
-    
+
                                         i {
                                             &::before {
                                                 content: "\f186";
@@ -2255,7 +2255,7 @@ Dashboard Area CSS
                                         color: #727E8C;
                                         font-size: 22px;
                                         line-height: 15px;
-                        
+
                                         &::after {
                                             display: none;
                                         }
@@ -2273,7 +2273,7 @@ Dashboard Area CSS
                                         transform: unset !important;
                                         left: auto !important;
                                         right: 0 !important;
-                        
+
                                         &.show {
                                             margin-top: 25px;
                                             opacity: 1;
@@ -2284,18 +2284,18 @@ Dashboard Area CSS
                                             padding: 5px 15px 5px 36px;
                                             position: relative;
                                             font-size: 14px;
-                                            
+
                                             i {
                                                 color: var(--mainColor);
                                                 transition: var(--transition);
                                                 position: absolute;
                                                 left: 15px;
                                                 top: 6px;
-                                               
+
                                             }
                                             &.active, &:active {
                                                 color: var(--titleColor);
-                                                background-color: transparent;
+                                                //background-color: transparent;
                                                 background-color: #f8f9fa;
                                             }
                                             &:hover {
@@ -2314,7 +2314,7 @@ Dashboard Area CSS
                     height: calc(100vh - 340px);
                     background-color: #E3E6F1;
                     padding: 25px 20px;
-                    
+
                     .chat-content {
                         text-align: center;
 
@@ -2324,7 +2324,7 @@ Dashboard Area CSS
                             }
                             .chat-body {
                                 overflow: hidden;
-    
+
                                 .chat-message {
                                     position: relative;
                                     float: right;
@@ -2338,7 +2338,7 @@ Dashboard Area CSS
                                     background-color: #3578e5;
                                     border-radius: 5px;
                                     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .3);
-    
+
                                     p {
                                         color: var(--whiteColor);
                                         margin-bottom: 0;
@@ -2373,6 +2373,9 @@ Dashboard Area CSS
                                         color: #727E8C;
                                         background-color: var(--whiteColor);
                                         box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .3);
+                                        word-break: break-all;
+                                        overflow-wrap: break-word;
+                                        width: 100%;
 
                                         p {
                                             color: #727E8C;
@@ -2509,7 +2512,7 @@ Dashboard Area CSS
                     vertical-align: middle;
                     padding: 15px 25px;
                     white-space: nowrap;
-                    
+
                     color: var(--titleColor);
                     font-weight: 500;
                 }
@@ -2527,7 +2530,7 @@ Dashboard Area CSS
                     padding: 15px 25px;
                     font-weight: 400;
                     font-size: 15px;
-                    
+
                     .option-list {
                         padding: 0;
                         margin-bottom: 0;
@@ -2536,7 +2539,7 @@ Dashboard Area CSS
                             list-style-type: none;
                             display: inline-block;
                             margin-right: 5px;
-        
+
                             &:last-child {
                                 margin-right: 0;
                             }
@@ -2548,10 +2551,10 @@ Dashboard Area CSS
                                 height: 35px;
                                 width: 35px;
                                 line-height: 35px;
-                                
+
                                 border-radius: 50px;
                                 transition: var(--transition);
-        
+
                                 &:hover {
                                     background: var(--mainColor);
                                     color: var(--whiteColor);
@@ -2604,7 +2607,7 @@ Dashboard Area CSS
 
     form {
         padding: 25px;
-        
+
         .form-group {
             margin-bottom: 20px;
             position: relative;
@@ -2625,12 +2628,12 @@ Dashboard Area CSS
                 color: #808080;
                 font-size: 15px;
                 font-weight: 400;
-                
-                
+
+
                 &::placeholder {
                     color: #808080;
                     transition: var(--transition);
-                    
+
                 }
                 &:focus {
                     background-color: transparent;
@@ -2809,7 +2812,7 @@ Dashboard Area CSS
             width: 100%;
             padding: 20px 15px;
         }
-        
+
         .mobile-responsive-nav {
             .mean-container {
                 .mean-bar {
@@ -2827,8 +2830,8 @@ Dashboard Area CSS
                 top: -27px;
             }
         }
-        
-         
+
+
         .copyrights-area {
             text-align: center;
             padding-top: 0;
@@ -3163,8 +3166,8 @@ Dashboard Area CSS
                 top: -27px;
             }
         }
-        
-         
+
+
         .copyrights-area {
             text-align: center;
             padding-top: 0;
@@ -3291,7 +3294,7 @@ Dashboard Area CSS
         padding-top: 110px;
         padding-right: 15px;
         padding-left: 15px;
-        
+
         .navbar-area {
             left: 0;
             width: 100%;
@@ -3327,13 +3330,13 @@ Dashboard Area CSS
                         ul {
                             font-size: 15px;
                             border: none !important;
-    
+
                             li {
                                 a {
                                     color: #000000;
                                     border-top-color: #DBEEFD;
                                     text-transform: capitalize;
-    
+
                                     i {
                                         display: none;
                                     }
@@ -3377,7 +3380,7 @@ Dashboard Area CSS
                             background: #888;
                         }
                         /* Handle on hover */
-                        &::-webkit-scrollbar-thumb:hover {  
+                        &::-webkit-scrollbar-thumb:hover {
                             background: #555;
                         }
                     }
@@ -3460,7 +3463,7 @@ Dashboard Area CSS
     }
     .single-applicants-card {
         padding: 15px;
-        
+
         .image {
             img {
                 max-width: 50px;
@@ -3503,7 +3506,7 @@ Dashboard Area CSS
     }
     .main-dashboard-content {
         padding-left: 250px;
-        
+
         .navbar-area {
             left: 220px;
             width: calc(100% - 220px);
@@ -3576,10 +3579,10 @@ Dashboard Area CSS
             }
         }
     }
-    
+
     .single-applicants-card {
         padding: 15px;
-        
+
         .image {
             img {
                 max-width: 50px;
@@ -3610,6 +3613,6 @@ Dashboard Area CSS
         }
     }
 
-   
+
 }
 

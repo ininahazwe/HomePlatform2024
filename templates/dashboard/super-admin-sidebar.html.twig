@@ -14,14 +14,14 @@
 
     <div class="sidemenu-body">
         <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
-            <li class="nav-item active">
+            <li class="nav-item" data-info="dashboard">
                 <a href="{{ path('dashboard') }}" class="nav-link">
                     <span class="icon"><i class="ri-home-line"></i></span>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="profile_new, profile_show">
                 {% if app.user.profile %}
                 <a href="{{ path('profile_show', {'id': app.user.profile.id}) }}" class="nav-link">
                     <span class="icon"><i class="ri-user-line"></i></span>
@@ -35,91 +35,98 @@
                 {% endif %}
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="messages">
                 <a href="{{ path('messages') }}" class="nav-link">
                     <span class="icon"><i class="ri-chat-1-line"></i></span>
                     <span class="menu-title">Messages ({{ render(controller('App\\Controller\\DashboardController::messageNotReadAdmin')) }})</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="edition_index">
                 <a href="{{ path('edition_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-record-mail-line"></i></span>
                     <span class="menu-title">Editions</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="projects_for_admin">
                 <a href="{{ path('projects_for_admin') }}" class="nav-link">
                     <span class="icon"><i class="ri-briefcase-line"></i></span>
                     <span class="menu-title">Projects</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="categorie_index">
                 <a href="{{ path('categorie_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-file-list-line"></i></span>
                     <span class="menu-title">SDGs</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="partenaires_index">
                 <a href="{{ path('partenaires_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-bookmark-line"></i></span>
                     <span class="menu-title">Partners</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="dictionnaire_index">
                 <a href="{{ path('dictionnaire_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-list-check"></i></span>
                     <span class="menu-title">Dictionnaire</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="about_index">
                 <a href="{{ path('about_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-page-separator"></i></span>
                     <span class="menu-title">About</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="user_index">
                 <a href="{{ path('user_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-user-3-line"></i></span>
                     <span class="menu-title">Users</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="group_index">
                 <a href="{{ path('group_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-group-line"></i></span>
                     <span class="menu-title">Groups</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="group_index">
+                <a href="{{ path('email_index') }}" class="nav-link">
+                    <span class="icon"><i class="ri-mail-line"></i></span>
+                    <span class="menu-title">Emails</span>
+                </a>
+            </li>
+
+            <li class="nav-item" data-info="team_index">
                 <a href="{{ path('team_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-stack-line"></i></span>
                     <span class="menu-title">Team members</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="tag_index">
                 <a href="{{ path('tag_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-list-ordered"></i></span>
                     <span class="menu-title">Tags</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="app_reset_password">
                 <a href="{{ path('app_reset_password') }}" class="nav-link">
                     <span class="icon"><i class="ri-lock-line"></i></span>
                     <span class="menu-title">Change Password</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="logout">
                 <a href="{{ path('logout') }}" class="nav-link">
                     <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
                     <span class="menu-title">Logout</span>

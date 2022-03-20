@@ -2,7 +2,7 @@
 <div class="form-group">{{ form_row(form.nom) }}</div>
 <div class="form-group">{{ form_row(form.description) }}</div>
 {{ form_row(form.logo) }}
-        {% if app.request.attributes.get('_route') == 'partenaire_edit' %}
+    {% if app.request.attributes.get('_route') == 'partenaires_edit' %}
         <p>Logos</p>
         {% for image in partenaire.logo %}
             <div>

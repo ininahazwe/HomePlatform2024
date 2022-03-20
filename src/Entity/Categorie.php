@@ -2,32 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
- * @ApiResource(
- *     attributes={
-            "order"={"createdAt":"DESC"}
- *     },
- *     paginationItemsPerPage=2,
- *     normalizationContext={"groups"={"read:category"}},
- *     collectionOperations={"get"},
- *     itemOperations={
- *      "get"={
- *          "normalization_context"={"groups"={"read:comment", "read:full:category"}}
- *          }
- *      },
- * )
- * @ApiFilter(SearchFilter::class, properties={"categorie": "exact"})
  */
 class Categorie
 {
@@ -36,7 +22,6 @@ class Categorie
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read:category"})
      * @Groups({"read:project"})
      */
     private ?string $nom;
@@ -49,20 +34,16 @@ class Categorie
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"read:category"})
      */
     private ?string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="categorie", cascade={"persist"})
-     * @Groups({"read:category"})
-     * @Groups({"read:project"})
      */
     private Collection $logo;
 
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="categorie")
-     * @Groups({"read:full:category"})
      */
     private Collection $projects;
 

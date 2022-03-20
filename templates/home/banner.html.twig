@@ -5,31 +5,31 @@
                 <div class="banner-content-two">
                     <h1 class="wow fadeInLeft" data-wow-delay="000ms" data-wow-duration="1000ms">Searching For A Projects? Find the <b>Perfect One</b></h1>
                     <div class="banner-form-two wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
-                        {{ form_start(form) }}
-                        <div class="row align-items-center">
-                            <div class="col-lg-8 col-md-12">
-                                <div class="form-group">
-                                    {{ form_row(form.q) }}
-                                    <i class="ri-search-line"></i>
+                        <form action="{{ path('all_projects') }}" method="get">
+                            <div class="row align-items-center">
+                                <div class="col-lg-8 col-md-12">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <input type="text" id="q" name="q" class="form-control form-control" placeholder="Keywords / Project Title">
+                                        </div>
+                                        <i class="ri-search-line"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12">
+                                    <button type="submit" class="submit-btn border-radius-5">Find Projects</button>
                                 </div>
                             </div>
-
-                            <div class="col-lg-4 col-md-12">
-                                <a href="{{ path('all_projects') }}" type="submit" class="submit-btn border-radius-5">
-                                    Find Projects
-                                </a>
-                            </div>
-                        </div>
-                        {{  form_end(form, {'render_rest': false}) }}
+                        </form>
                     </div>
 
-                    <div class="popular-searches-tag wow fadeInLeft" data-wow-delay="200ms" data-wow-duration="1000ms">
+                    {#<div class="popular-searches-tag wow fadeInLeft" data-wow-delay="200ms" data-wow-duration="1000ms">
                         <span class="title">Popular Searches : </span>
                         <a>SDG</a>,
                         <a>Development</a>,
                         <a>Digital</a>,
                         <a>Substainable</a>
-                    </div>
+                    </div>#}
                 </div>
             </div>
 

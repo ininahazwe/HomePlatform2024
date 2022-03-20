@@ -36,11 +36,24 @@ class ProjectRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function getProjectPublished(): mixed
+    public function getProjectPublished($project = null): mixed
     {
         $query = $this->createQueryBuilder('p')
             ->where('p.isPublished = 1')
         ;
+        if($project){
+            $ids = array();
+            foreach ($project->getCategorie() as $categorie){
+                $ids[] = $categorie->getId();
+            }
+            $query->leftJoin('p.categorie', 'cat');
+            $query->andWhere($query->expr()->in('cat.id', $ids));
+            $query->andWhere('p.id != :id')
+                ->addOrderBy('p.id', 'DESC')
+                ->setMaxResults(2)
+                ->setParameter('id', $project->getId());
+        }
+
         return $query->getQuery()->getResult();
     }
 

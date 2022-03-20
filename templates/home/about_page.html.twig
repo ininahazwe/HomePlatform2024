@@ -92,27 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row pt-45 justify-content-center">
-                {% for team in teams %}
-                <div class="col-lg-3 col-sm-6">
-                    <div class="freelancers-card">
-                        {% if team.photo %}
-                            {% for photo in team.photo %}
-                                <a href="">
-                                    {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="{{ photo.nom }}">{% endif %}
-                                </a>
-                            {% endfor %}
-                        {% endif %}
-                        <div class="title">
-                            <h3>
-                                <a>{{ team.nom }} {{ team.prenom }}</a>
-                            </h3>
-                        </div>
-                        <p>{{ team.role }}</p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+            <home-teams />
         </div>
     </div>
 {% endblock %}

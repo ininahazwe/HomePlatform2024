@@ -169,7 +169,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('contact');
         }
 
-        $projects = $projectRepository->getProjectPublished();
+        $projects = $projectRepository->getProjectPublished($project);
 
         return $this->render('project/project-page.html.twig', [
             'project' => $project,

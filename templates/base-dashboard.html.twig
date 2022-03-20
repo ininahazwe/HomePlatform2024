@@ -39,6 +39,23 @@
     {% endblock %}
     {% include 'layouts/footer-admin.html.twig' %}
 </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {#<script type="text/javascript">
+        $(function () {
+            const url = "{{ app.request.attributes.get('_route') }}";
 
+            $('.sidemenu-body .sidemenu-nav').each(function () {
+                const infoUrl = $(this).data('info');
+                const result = infoUrl.search(url);
+
+                //if (url === infoUrl) {
+                if (result === -1) {
+                    $(this).removeClass('active');
+                } else {
+                    $(this).addClass('active');
+                }
+            });
+        });
+    </script>#}
 </body>
 </html>

@@ -17,28 +17,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="row pt-45 justify-content-center">
-            {% for edition in editions %}
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-                    <div class="blog-img">
-                        <a href="{{ path('edition_page', {'slug': edition.slug }) }}">
-                            {% if edition.avatar %}
-                                {% for logo in edition.avatar %}
-                                    <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
-                                {% endfor %}
-                            {% endif %}
-                        </a>
-                        <a href="{{ path('edition_page', {'slug': edition.slug }) }}" class="tag">{{ edition.city }}</a>
-                    </div>
-                    <div class="content">
-                        <h3><a href="{{ path('edition_page', {'slug': edition.slug }) }}">{{ edition.nom }}</a></h3>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        <home-editions />
     </div>
 </div>
 <!-- Blog Area End -->

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FileRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FileRepository::class)
@@ -19,6 +20,7 @@ class File
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read:project", "read:team", "read:edition"})
      */
     private ?string $nom;
 

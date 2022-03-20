@@ -1,18 +1,18 @@
 {
     "devDependencies": {
+        "@babel/plugin-transform-runtime": "^7.17.0",
         "@babel/preset-react": "^7.16.7",
-        "@popperjs/core": "^2.10.2",
-        "@symfony/stimulus-bridge": "^2.0.0",
+        "@hotwired/stimulus": "^3.0.0",
+        "@popperjs/core": "^2.11.2",
+        "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/ux-dropzone": "file:vendor/symfony/ux-dropzone/Resources/assets",
-        "@symfony/webpack-encore": "^1.0.0",
-        "axios": "^0.25.0",
+        "@symfony/webpack-encore": "^1.7.0",
         "bootstrap": "^5.1.3",
         "core-js": "^3.0.0",
         "jquery": "^3.6.0",
-        "prop-types": "^15.8.1",
         "regenerator-runtime": "^0.13.2",
-        "sass": "^1.43.4",
-        "sass-loader": "^12.3.0",
+        "sass": "^1.49.7",
+        "sass-loader": "^12.0.0",
         "stimulus": "^2.0.0",
         "webpack-notifier": "^1.6.0"
     },
@@ -26,14 +26,14 @@
     },
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.16.7",
-        "@babel/plugin-transform-runtime": "^7.16.10",
-        "autoprefixer": "^10.4.0",
-        "postcss-loader": "^6.2.0",
+        "@babel/runtime": "^7.17.2",
+        "prop-types": "^15.8.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-router-dom": "^6.2.1",
         "remixicon": "^2.5.0",
         "select2": "^4.1.0-rc.0",
-        "tom-select": "^2.0.0-rc.5"
+        "autoprefixer": "^10.4.0",
+        "postcss-loader": "^6.2.0"
     }
 }

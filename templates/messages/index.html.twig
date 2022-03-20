@@ -11,11 +11,11 @@
                 <li class="item"><a href="{{ path('home') }}">Home</a></li>
                 <li class="item">Messages</li>
             </ol>
-        {% if is_granted('ROLE_MENTOR') %}
+
         <div class="float-sm-right" style="margin-left: 5px">
             <a class="default-btn small border-radius-5" href="{{ path('send') }}">Send a new message</a>
         </div>
-        {% endif %}
+
     </div>
     <!-- End Breadcrumb Area -->
 

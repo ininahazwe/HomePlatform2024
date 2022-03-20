@@ -18,6 +18,7 @@ class MessagesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $user = $options['user'];
         $builder
             ->add('title', TextType::class, [
                 'required' => false,
@@ -36,7 +37,41 @@ class MessagesType extends AbstractType
                 "choice_label" => "fullname",
                 "attr" => [
                     "class" => "form-control"
-                ]
+                ],
+                'query_builder' => function($repository) use ($user){
+                $query = $repository->createQueryBuilder('u');
+                if($user->isSuperAdmin()){
+                    $query->select('u')
+                        ->andWhere('u.id != :id')
+                        ->setParameter('id', $user->getId());
+                } elseif ($user->isAdmin()){
+                    $query->select('u')
+                        ->andWhere('u.id != :id')
+                        ->setParameter('id', $user->getId())
+                    ;
+                } elseif ($user->isMentor()){
+                    $query->select('u')
+                        ->andWhere('u.id != :id')
+                        ->setParameter('id', $user->getId())
+                    ;
+                } elseif ($user->isCandidat()){
+                    $groupIds = [];
+                    foreach ($user->getGroups() as $group){
+                        $groupIds[] = $group->getId();
+                    }
+                    $query->select('u')
+                        ->leftJoin('u.groups', 'groups')
+                        ->andWhere($query->expr()->in('groups.id', $groupIds))
+                        ->andWhere('u.id != :id')
+                        ->setParameter('id', $user->getId())
+                    ;
+
+                } else {
+                    return null;
+                }
+
+                return $query;
+                }
             ])
             ->add('parentid', HiddenType::class, [
                 'mapped' => false
@@ -54,6 +89,9 @@ class MessagesType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Messages::class,
             'csrf_protection' => false,
+        ]);
+        $resolver->setRequired([
+            'user',
         ]);
     }
 }

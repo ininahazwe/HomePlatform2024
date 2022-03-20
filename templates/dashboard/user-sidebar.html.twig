@@ -14,14 +14,14 @@
 
     <div class="sidemenu-body">
         <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
-            <li class="nav-item active">
+            <li class="nav-item" data-info="dashboard">
                 <a href="{{ path('dashboard') }}" class="nav-link">
                     <span class="icon"><i class="ri-home-line"></i></span>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="profile_show, profile_new">
                 {% if app.user.profile %}
                     <a href="{{ path('profile_show', {'id': app.user.profile.id}) }}" class="nav-link">
                         <span class="icon"><i class="ri-user-line"></i></span>
@@ -35,33 +35,33 @@
                 {% endif %}
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="messages">
                 <a href="{{ path('messages') }}" class="nav-link">
                     <span class="icon"><i class="ri-chat-1-line"></i></span>
                     <span class="menu-title">Messages ({{ render(controller('App\\Controller\\DashboardController::messageNotReadAdmin')) }})</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="project_index">
                 <a href="{{ path('project_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-briefcase-line"></i></span>
                     <span class="menu-title">My Projects</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-info="app_forgot_password_request">
                 <a href="{{ path('app_forgot_password_request') }}" class="nav-link">
                     <span class="icon"><i class="ri-lock-line"></i></span>
                     <span class="menu-title">Change Password</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" data-info="logout">
                 <a href="{{ path('logout') }}" class="nav-link">
                     <span class="icon"><i class="ri-logout-circle-r-line"></i></span>
                     <span class="menu-title">Logout</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" data-info="user_delete_account">
                 <a href="{{ path('user_delete_account', {'id': app.user.id }) }}" class="nav-link">
                     <span class="icon"><i class="ri-delete-bin-line"></i></span>
                     <span class="menu-title">Delete Profile</span>

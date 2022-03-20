@@ -40,7 +40,7 @@ class MessagesRepository extends ServiceEntityRepository
             ->andWhere('m.parent IS NULL')
             ->andWhere('m.recipient = :user OR m.sender = :user')
             ->setParameter('user', $user)
-            ->orderBy('m.id', 'DESC')
+            ->addOrderBy('m.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;
