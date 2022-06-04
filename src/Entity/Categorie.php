@@ -14,6 +14,20 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * @ORM\Entity(repositoryClass=CategorieRepository::class)
+ * @ApiResource(
+ *     attributes={
+        "order"={"createdAt":"DESC"}
+ *     },
+ *     paginationItemsPerPage=4,
+ *     normalizationContext={"groups"={"read:cat"}},
+ *     collectionOperations={"get"},
+ *     itemOperations={
+ *      "get"={
+ *          "normalization_context"={"groups"={"read:cat", "read:full:cat"}}
+ *       }
+ *     }
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"project": "exact"})
  */
 class Categorie
 {
@@ -22,28 +36,32 @@ class Categorie
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read:project"})
+     * @Groups({"read:project", "read:cat"})
      */
     private ?string $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Gedmo\Slug(fields={"nom"})
+     * @Groups({"read:cat"})
      */
     private ?string $slug;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"read:cat"})
      */
     private ?string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="categorie", cascade={"persist"})
+     * @Groups({"read:cat"})
      */
     private Collection $logo;
 
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="categorie")
+     * @Groups({"read:cat"})
      */
     private Collection $projects;
 

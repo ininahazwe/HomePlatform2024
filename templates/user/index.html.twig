@@ -1,0 +1,61 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Users directory{% endblock %}
+
+{% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>Users</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">Users</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
+
+    <!-- Start Resume Alerts Area -->
+    <div class="resume-alerts-area">
+        <div class="resume-alerts-table table-responsive">
+            <div class="d-flex flex-row justify-content-between">
+                <h2>Users</h2>
+                <a class="default-btn border-radius-5" href="{{ path('user_create') }}">Add</a>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Full name</th>
+                    <th scope="col">Profile</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Registered At</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.nom }} {{ user.prenom }}</td>
+                        <td>
+                            {% if user.profile %}
+                                <a href="{{ path('profile_show', {'id': user.profile.id}) }}"><i class="ri-eye-line" type="button"></i></a>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.getRoleName() }}</td>
+                        <td>{{ user.createdAt|date('d-m-Y') }}</td>
+                        <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                        <td>
+                            <ul class="option-list">
+                                <li><a href="{{ path('user_edit', {'id': user.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
+                                <li>{{ include('user/_delete_form.html.twig') }}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Start Resume Alerts Area -->
+{% endblock %}

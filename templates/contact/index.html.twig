@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block body %}
+    <div class="inner-banner">
+        <div class="container">
+            <div class="inner-title text-center">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>
+                        <a href="{{ path('home') }}">Home</a>
+                    </li>
+                    <li>Contact Us</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Contact Area -->
+    <div class="contact-area pt-100 pb-70">
+        <div class="container">
+            <div class="contact-form">
+                <h3>Leave A Message</h3>
+
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            {{ form_row(form.subject, {'attr': {'class': 'form-control'}}) }}
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">
+                            {{ form_row(form.message, {'attr': {'class': 'form-control'}}) }}
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="agree-label">
+                            <label for="chb1">
+                                {{ form_row(form.agreeTerms) }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 text-center">
+                        <button type="submit" class="default-btn border-radius-5">Send Message</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

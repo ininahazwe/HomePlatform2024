@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+<div class="user-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="coming-soon-area ptb-100">
+                    <div class="d-table">
+                        <div class="d-table-cell">
+                            <div class="container">
+                                <div class="coming-soon-content">
+                                    <h1>Already a homer ?</h1>
+                                    <a href="{{ path('login') }}"><button type="submit" class="default-btn two disabled" style="pointer-events: all; cursor: pointer;">
+                                            Log in</button>
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="user-all-form">
+                    <div class="contact-form">
+                        <h3> Register</h3>
+                        <div class="bar"></div>
+                        {{ form_start(registrationForm) }}
+                            <div class="row">
+                                <div class="col-lg-12 ">
+                                    <div class="form-group">
+                                        {{ form_row(registrationForm.nom) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 ">
+                                    <div class="form-group">
+                                        {{ form_row(registrationForm.prenom) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 ">
+                                    <div class="form-group">
+                                        {{ form_row(registrationForm.civilite) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 ">
+                                    <div class="form-group">
+                                        {{ form_row(registrationForm.email) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{ form_row(registrationForm.password, {
+                                        label: 'Password'
+                                        }) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 form-condition">
+                                    <div class="agree-label">
+                                        {{ form_row(registrationForm.agreeTerms) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12 text-center">
+                                    <button type="submit" class="default-btn">Register</button>
+                                </div>
+                            </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% form_theme registrationForm _self %}
+{% block _registration_form_agreeTerms_widget %}
+    <input type="checkbox" id="registration_form_agreeTerms" name="registration_form[agreeTerms]" required="required" class="form-check-input" value="1">
+    <label class="form-check-label required" for="registration_form_agreeTerms">
+        I agree to <a href="{{ path('mentions') }}">the terms of use</a>
+    </label>
+
+{% endblock %}

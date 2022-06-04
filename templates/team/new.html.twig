@@ -1,0 +1,13 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}New team member{% endblock %}
+
+{% block body %}
+
+    <div class="post-a-new-job-box">
+        <h3>Post New Team Member</h3>
+        <div class="bar"></div>
+        {{ include('team/_form.html.twig') }}
+    </div>
+
+{% endblock %}

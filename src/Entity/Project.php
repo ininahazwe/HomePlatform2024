@@ -36,7 +36,7 @@ class Project
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read:project"})
+     * @Groups({"read:project", "read:cat"})
      */
     private ?string $nom;
 

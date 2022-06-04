@@ -1,0 +1,11 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Edit Email{% endblock %}
+
+{% block body %}
+    <div class="post-a-new-job-box">
+        <h3>Edit email</h3>
+        <div class="bar"></div>
+        {{ include('email/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+{% endblock %}

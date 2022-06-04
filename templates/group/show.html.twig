@@ -1,0 +1,41 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Group{% endblock %}
+
+{% block body %}
+    <div class="post-a-new-job-box">
+        <h3>{{ group.nom }}</h3>
+    </div>
+    <div class="resume-alerts-area">
+        <div class="resume-alerts-table table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Members list</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ group.nom }}</td>
+                        <td>{{ group.description }}</td>
+                        <td>
+                            <ul>
+                                {% for user in group.members %}
+                                <li>{{ user.fullname }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="option-list">
+                                <li><a href="{{ path('group_mail', {'id': group.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Send a group mail" type="button"><i class="ri-mail-line"></i></button></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Home Education | Dashboard{% endblock %}
+
+{% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>Howdy, {{ app.user }}</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">Dashboard</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
+
+    {% if not app.user.profile %}
+        <div class="container pb-5">
+            <div class="employers-cv-bg">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="employers-cv-content">
+                            <h2>We would like to learn a little bit about you</h2>
+                            <div class="bar"></div>
+                            <p>Please tell us more</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="employers-cv-btn">
+                            <a href="{{ path('profile_new') }}">Fill in your profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!-- Start Dashboard Fun Fact Area -->
+    <div class="dashboard-fun-fact-area">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stats-fun-fact-box">
+                    <div class="icon-box">
+                        <i class="ri-briefcase-line"></i>
+                    </div>
+                    <span class="sub-title">Posted Projects</span>
+                    <a href="{{ path('all_projects') }}"><h3>{{ projects|length }}</h3></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stats-fun-fact-box">
+                    <div class="icon-box">
+                        <i class="ri-file-list-line"></i>
+                    </div>
+                    <span class="sub-title">Posted SDG</span>
+                    <a href="{{ path('all_sdg') }}"><h3>{{ categories|length }}</h3></a>
+                </div>
+            </div>
+
+            {% if message|length > 0 %}
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="stats-fun-fact-box">
+                    <div class="icon-box">
+                        <i class="ri-file-list-line"></i>
+                    </div>
+                    <span class="sub-title">New messages</span>
+                    <a href="{{ path('messages') }}"><h3>({{ render(controller('App\\Controller\\DashboardController::messageNotReadAdmin')) }})</h3></a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- End Dashboard Fun Fact Area -->
+    {% if projects %}
+    <!-- Start Recent Jobs Area -->
+    <div class="dashboard-jobs-box">
+        <h2>Projects Applied Recently</h2>
+
+        <div class="row">
+            {% for project in projects|slice(0, 4) %}
+            <div class="col-lg-6">
+                <div class="recent-job-card box-shadow">
+                    <div class="content">
+                        <div class="recent-job-img">
+                            <a href="{{ path('project_page', {'slug': project.slug }) }}">
+                                {% if project.avatar %}
+                                    {% for logo in project.avatar %}
+                                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
+                                    {% endfor %}
+                                {% endif %}
+                            </a>
+                        </div>
+
+                        <h3><a href="{{ path('project_page', {'slug': project.slug }) }}">{{ project.nom }}</a></h3>
+
+                        <div class="job-sub-content">
+                            <ul class="job-list2">
+                                {% for cat in project.categorie %}
+                                    <li class="time">{{ cat.nom }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% if app.user.isAdmin %}
+                    <a href="{{ path('project_edit', {'id': project.id }) }}" class="bookmark-btn"><i class="ri-edit-2-line"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- End Recent Jobs Area -->
+    {% endif %}
+    <!-- Start Notifications and Invoices Area -->
+{% endblock %}

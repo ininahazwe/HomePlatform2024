@@ -1,0 +1,30 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Edition{% endblock %}
+
+{% block body %}
+    <h1>Edition</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ edition.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ edition.description|raw }}</td>
+            </tr>
+            <tr>
+                <th>Video</th>
+                <td>{{ edition.video }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('edition_index') }}">back to list</a>
+
+    <a href="{{ path('edition_edit', {'id': edition.id}) }}">edit</a>
+
+    {{ include('edition/_delete_form.html.twig') }}
+{% endblock %}

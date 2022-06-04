@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="form-group col-lg-6">{{ form_row(form.titre) }}</div>
+    <div class="form-group col-lg-6">{{ form_row(form.titre2) }}</div>
+    <div class="form-group col-lg-6">{{ form_row(form.description) }}</div>
+    <div class="form-group col-lg-6">{{ form_row(form.description2) }}</div>
+    <div class="form-group col-lg-12">{{ form_row(form.intro) }}</div>
+    <div class="form-group col-lg-6">{{ form_row(form.video) }}</div>
+    <div class="form-group col-lg-6">{{ form_row(form.accroche) }}</div>
+</div>
+
+
+{{ form_row(form.images) }}
+    {% if app.request.attributes.get('_route') == 'about_edit' %}
+        <p>Logos</p>
+        <div class="row">
+            {% for image in about.images %}
+                <div class="col-lg-3 col-md-3 col-sm-6">
+                    <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
+                    <a href="{{ path('categories_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+<button type="submit" class="default-btn btn-sm border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

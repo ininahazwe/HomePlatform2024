@@ -1,0 +1,13 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block body %}
+<div class="post-a-new-job-box">
+    <h3>Edit my profile</h3>
+    <div class="bar"></div>
+
+    {{ include('profile/_form.html.twig', {'button_label': 'Update'}) }}
+</div>
+    <script src="{{ asset('js/images.js') }}"></script>
+{% endblock %}

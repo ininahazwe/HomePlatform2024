@@ -1,0 +1,13 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}New Group{% endblock %}
+
+{% block body %}
+
+    <div class="post-a-new-job-box">
+        <h3>Post New Group</h3>
+        <div class="bar"></div>
+        {{ include('group/_form.html.twig') }}
+    </div>
+
+{% endblock %}

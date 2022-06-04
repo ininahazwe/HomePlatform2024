@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    {% if app.request.attributes.get('_route') == 'profile_edit' %}
+        <div class="title">My picture</div>
+        <div class="row">
+            {% if profile.photo %}
+                {% for image in profile.photo %}
+                    <div class="col-lg-3 col-md-3 col-sm-6">
+                        <figure class="image">
+                            <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}">
+                            <a class="" href="{{ path('profile_delete_files', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"><span class="la la-trash"></span></a>
+                        </figure>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+<button type="submit" class="default-btn btn-sm border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

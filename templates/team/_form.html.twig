@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="form-group">{{ form_row(form.nom) }}</div>
+<div class="form-group">{{ form_row(form.prenom) }}</div>
+<div class="form-group">{{ form_row(form.role) }}</div>
+{{ form_row(form.photo) }}
+    {% if app.request.attributes.get('_route') == 'team_edit' %}
+        <p>Photo</p>
+        {% for image in team.photo %}
+        <div class="col-lg-3 col-md-3 col-sm-6">
+            <div>
+                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
+                <a href="{{ path('about_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+<button type="submit" class="default-btn btn-sm border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

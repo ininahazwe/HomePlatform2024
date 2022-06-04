@@ -15,25 +15,6 @@
                 </div>
             </div>
         </div>
-        <div class="row pt-45 justify-content-center">
-            {% for partenaire in partenaires %}
-                <div class="col-lg-3 col-sm-6">
-                    <div class="freelancers-card">
-                        <a>
-                            {% if partenaire.logo %}
-                                {% for photo in partenaire.logo %}
-                                    {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}"alt="avatar">{% endif %}
-                                {% endfor %}
-                            {% else %}
-                                <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb">
-                            {% endif %}
-                        </a>
-                        <div class="title">
-                            <h3>{{ partenaire.nom }}</h3>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        <home-partenaires />
     </div>
 </div>

@@ -23,22 +23,23 @@ function Editions(){
     )
 }
 
-function Edition({edition}){
+const Edition = React.memo(({edition}) => {
     return(
         <div className="col-lg-4 col-md-6">
             <div className="blog-card">
-                <div className="blog-img">
-                    {edition.avatar.map(avatar => <img key={avatar.id} src={`./uploads/${avatar.nom}`} alt={avatar.nom} />)}
-                    <a className="tag">{edition.city}</a>
-                </div>
-                <div className="content">
-                    <h3>{edition.nom}</h3>
-                </div>
+                <a href={`/editions/${edition.slug}`}>
+                    <div className="blog-img">
+                        {edition.avatar.map(avatar => <img key={avatar.id} src={`./uploads/${avatar.nom}`} alt={avatar.nom} />)}
+                        <div className="tag">{edition.city}</div>
+                    </div>
+                    <div className="content">
+                        <h3>{edition.nom}</h3>
+                    </div>
+                </a>
             </div>
         </div>
     )
-
-}
+})
 
 class EditionsElement extends HTMLElement {
 

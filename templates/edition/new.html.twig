@@ -1,0 +1,12 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}New Edition{% endblock %}
+
+{% block body %}
+
+    <div class="post-a-new-job-box">
+        <h3>Post New Edition</h3>
+        <div class="bar"></div>
+        {{ include('edition/_form.html.twig') }}
+    </div>
+{% endblock %}

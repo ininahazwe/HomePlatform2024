@@ -20,7 +20,7 @@ class File
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read:project", "read:team", "read:edition"})
+     * @Groups({"read:project", "read:team", "read:edition", "read:partenaire", "read:about", "read:cat"})
      */
     private ?string $nom;
 

@@ -24,6 +24,9 @@ import './bootstrap';
 import './js/projects/projects';
 import './js/projects/teams';
 import './js/projects/editions';
+import './js/projects/partenaires';
+import './js/projects/about';
+import './js/projects/categories';
 
 import './js/meanmenu.min';
 import './js/dropzone.min';

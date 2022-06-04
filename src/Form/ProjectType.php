@@ -128,18 +128,22 @@ class ProjectType extends AbstractType
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
                 'multiple' => true,
-                'choice_label' => 'nom',
                 'required' => false,
-                'query_builder' => function (EntityRepository $er){
+                'choice_label' => 'nom',
+
+                'query_builder' => function(EntityRepository $er){
                     return $er->createQueryBuilder('t')
                         ->orderBy('t.nom', 'ASC');
                 },
                 'label' => 'Tags',
                 'by_reference' => false,
                 'attr' => [
-                    'class' => 'select-tags-edit'
+                    //'class' => 'form-control js-example-tokenizer'
+                    'class' => 'select-tags'
+
                 ]
             ])
+
         ;
     }
 

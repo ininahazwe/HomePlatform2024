@@ -1,0 +1,124 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>My Profile</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">My Profile</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
+    <div class="freelancer-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="freelancer-details-profile">
+                        {% if app.user.profile and app.user.profile.photo|length %}
+                            {% for photo in app.user.profile.photo %}
+                                {% if loop.first %}<img class="" src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" width="40px">{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <img class="" src="{{ asset('images/user-img/avataaars.png') }}" alt="image" width="40px">
+                        {% endif %}
+                        <h3>{{ profile.user.fullname|capitalize }}</h3>
+                        {% if app.user.profile %}
+                        <div class="freelancer-details-btn">
+                            <a href="{{ path('profile_edit', {'id': profile.id }) }}" class="default-btn"><i class="ri-edit-line"></i></a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="candidates-details-content">
+                        <div class="content">
+                            <h3>About</h3>
+                            <div class="bar"></div>
+                            <p>{{ profile.description|raw }}</p>
+                        </div>
+                        {% if profile.user.projects %}
+                        <div class="candidates-details-experience">
+                            <h3>My projects</h3>
+                            <div class="bar"></div>
+                            {% for project in profile.user.projects %}
+                            <div class="experience-card">
+                                {% if project.avatar %}
+                                    {% for logo in project.avatar %}
+                                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
+                                    {% endfor %}
+                                {% endif %}
+                                <h3>{{ project.nom }}</h3>
+                                <span>
+                                    {{ project.categorie|join }}
+                                </span>
+                                <ul class="experience-list">
+                                    <li><i class="ri-time-line"></i> {{ project.createdAt|date('d-m-Y') }} </li>
+                                    <li><i class="ri-user-2-line"></i> {{ project.auteur|join }}</li>
+                                </ul>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% if profile.skills %}
+                        <div class="candidates-skill">
+                            <h3>Skills</h3>
+                            <div class="bar"></div>
+                            <ul class="candidates-skill-tag">
+                                {% for skill in profile.skills %}<li><a href="" target="_blank">{{ skill.nom }}</a></li>{% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="job-details-widget-side pl-20">
+                        <div class="job-details-widget">
+                            <h3 class="title">Infos</h3>
+                            <div class="bar"></div>
+                            <ul class="job-details-category">
+                                <li>School: <span>{{ profile.school|capitalize }}</span></li>
+                                <p>Location: <span>{{ profile.city|capitalize }}</span></p>
+                            </ul>
+
+                            <div class="job-details-social">
+                                <span>My social media:</span>
+                                <ul class="social-icon">
+                                    {% if profile.facebook %}
+                                    <li>
+                                        <a href="{{ profile.facebook }}" target="_blank">
+                                            <i class="ri-facebook-fill"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if profile.instagram %}
+                                    <li>
+                                        <a href="{{ profile.instagram }}" target="_blank">
+                                            <i class="ri-instagram-fill"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if profile.twitter %}
+                                    <li>
+                                        <a href="{{ profile.twitter }}" target="_blank">
+                                            <i class="ri-twitter-fill"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if profile.lindedin %}
+                                    <li>
+                                        <a href="{{ profile.lindedin }}" target="_blank">
+                                            <i class="ri-linkedin-fill"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

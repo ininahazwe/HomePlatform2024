@@ -1,0 +1,26 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Dictionnaire{% endblock %}
+
+{% block body %}
+    <h1>Dictionnaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Type</th>
+                <td>{{ dictionnaire.type }}</td>
+            </tr>
+            <tr>
+                <th>Value</th>
+                <td>{{ dictionnaire.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('dictionnaire_index') }}">back to list</a>
+
+    <a href="{{ path('dictionnaire_edit', {'id': dictionnaire.id}) }}">edit</a>
+
+    {{ include('dictionnaire/_delete_form.html.twig') }}
+{% endblock %}

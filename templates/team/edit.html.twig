@@ -1,0 +1,12 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Edit Team{% endblock %}
+
+{% block body %}
+    <div class="post-a-new-job-box">
+        <h3>Edit Team member</h3>
+        <div class="bar"></div>
+        {{ include('team/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+    <script src="{{ asset('js/images.js') }}"></script>
+{% endblock %}

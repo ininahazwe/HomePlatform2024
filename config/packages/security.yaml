@@ -60,6 +60,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/dashboard, roles: ROLE_CANDIDAT }
+         - { path: ^/api, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
     role_hierarchy:
         ROLE_CANDIDAT:

@@ -6,14 +6,9 @@
     <link rel="icon" href="{{ asset('uploads/design/logo.png') }}">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Home is association that focuses in sharing educational experiences on international scale.">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-
-    {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-        {{ include('layouts/select.html.twig') }}
-        <script src="{{ asset('js/wow.min.js') }}"></script>
     {% endblock %}
 </head>
 <body>
@@ -39,23 +34,23 @@
     {% endblock %}
     {% include 'layouts/footer-admin.html.twig' %}
 </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    {#<script type="text/javascript">
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ include('layouts/select.html.twig') }}
+        <script src="{{ asset('js/wow.min.js') }}"></script>
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    <script>
         $(function () {
-            const url = "{{ app.request.attributes.get('_route') }}";
 
-            $('.sidemenu-body .sidemenu-nav').each(function () {
-                const infoUrl = $(this).data('info');
-                const result = infoUrl.search(url);
+            $('.select-tags').select2({
+                tags: true,
+                tokenSeparators: [',', ' ']
+            })
+        })
+    </script>
 
-                //if (url === infoUrl) {
-                if (result === -1) {
-                    $(this).removeClass('active');
-                } else {
-                    $(this).addClass('active');
-                }
-            });
-        });
-    </script>#}
 </body>
 </html>

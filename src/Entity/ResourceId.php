@@ -13,7 +13,7 @@ trait ResourceId
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read:project", "read:team", "read:edition"})
+     * @Groups({"read:project", "read:team", "read:edition", "read:about", "read:partenaire", "read:cat"})
      */
     private ?int $id;
 

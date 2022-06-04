@@ -25,15 +25,14 @@ class SearchProjectForm extends AbstractType
                 ]
             ])
             ->add('categories', EntityType::class, [
-                'required' => false,
+                'class' => Categorie::class,
+                'multiple' => true,
                 'label' => false,
-                'expanded' => false,
-                'multiple'=> true,
+                'expanded' => true,
                 'attr' => [
-                    'class' => 'form-select form-control select-tags',
+                    'class' => 'form-control',
                     'placeholder' => 'by SDG'
                 ],
-                'class' => Categorie::class,
                 'query_builder' => function($repository) {
                     $ids = $repository->findAll();
                     $query = $repository->createQueryBuilder('c')

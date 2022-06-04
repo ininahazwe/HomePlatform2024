@@ -18,18 +18,18 @@ function Projects(){
                     project={p}
                 />
             )}
-            {hasMore && <button disabled={loading} onClick={load}>Charger plus de commentaire</button> }
+            {hasMore && <button disabled={loading} onClick={load}>See more</button> }
         </div>
     )
 }
 
-function Project({project}){
+const Project = React.memo(({project}) => {
     return(
         <div className="col-lg-6">
             <div className="recent-job-card">
                 <div className="content">
                     <div className="recent-job-img">
-                        {project.avatar.map(logo => <img key={logo.id} src={`./uploads/${logo.nom}`} style={{width: 70}} />)}
+                        {project.avatar.map(logo => <img key={logo.id} src={`./uploads/${logo.nom}`} style={{width: 70}} alt="project"/>)}
                     </div>
                     <h3>{project.nom}</h3>
                     <ul className="job-list1">
@@ -43,8 +43,7 @@ function Project({project}){
             </div>
         </div>
     )
-
-}
+})
 
 class ProjectsElement extends HTMLElement {
 

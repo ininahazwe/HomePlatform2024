@@ -1,54 +1,39 @@
-{% extends 'base-dashboard.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Edition index{% endblock %}
+{% block title %}All Home editions{% endblock %}
 
 {% block body %}
-    <!-- Breadcrumb Area -->
-    <div class="breadcrumb-area">
-        <h1>Editions list</h1>
-        <ol class="breadcrumb">
-            <li class="item"><a href="{{ path('home') }}">Home</a></li>
-            <li class="item">Editions list</li>
-        </ol>
-    </div>
-    <!-- End Breadcrumb Area -->
 
-    <div class="all-applicants-box">
-        <div class="d-flex flex-row justify-content-between">
-            <h2>Editions list</h2>
-            <a class="default-btn border-radius-5" href="{{ path('edition_new') }}">Add</a>
-        </div>
-
-        <div class="row">
-            {% for edition in editions %}
-                <div class="col-lg-6 col-md-12">
-                    <div class="single-applicants-card">
-                        <div class="image">
-                            <a href="#">
-                                {% if edition.avatar %}
-                                    {% for logo in edition.avatar %}
-                                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
-                                    {% endfor %}
-                                {% endif %}
+    <div class="browse-jobs-area pt-100 pb-70">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Our trainings to Transform Our World</h2>
+                <div class="bar m-auto"></div>
+                <p class="m-auto">The Sustainable Development Goals are the blueprint to achieve a better and more sustainable future for all.</p>
+            </div>
+            <!-- Company Area -->
+            <div class="row pt-45 justify-content-center">
+                {% for edition in editions %}
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog-card">
+                            <a href="{{ path('edition_page', {'slug': edition.slug }) }}">
+                                <div class="blog-img">
+                                    {% if edition.avatar %}
+                                        {% for logo in edition.avatar %}
+                                            <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="tag">{{ edition.city }}</div>
+                                </div>
+                                <div class="content">
+                                    <h3>{{ edition.nom }}</h3>
+                                </div>
                             </a>
                         </div>
-
-                        <div class="content">
-                            <h3>
-                                <a href="{{ path('edition_show', {'slug': edition.slug}) }}">{{ edition.nom }}</a>
-                            </h3>
-
-                            <div class="applicants-footer">
-                                <ul class="option-list">
-                                    <li><a href="{{ path('edition_show', {'slug': edition.slug }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View" type="button"><i class="ri-eye-line"></i></button></a></li>
-                                    <li><a href="{{ path('edition_edit', {'id': edition.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" type="button"><i class="ri-edit-circle-fill"></i></button></a></li>
-                                    <li>{{ include('edition/_delete_form.html.twig') }}</li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+    <!-- Company Area End -->
 {% endblock %}

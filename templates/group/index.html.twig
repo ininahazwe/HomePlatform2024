@@ -1,0 +1,54 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Group of users{% endblock %}
+
+{% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>Group</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">Group</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
+
+    <!-- Start Resume Alerts Area -->
+    <div class="resume-alerts-area">
+        <div class="resume-alerts-table table-responsive">
+            <div class="d-flex flex-row justify-content-between">
+                <h2>Group</h2>
+                <a class="default-btn border-radius-5" href="{{ path('group_new') }}">Add</a>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for group in groups %}
+                    <tr>
+                        <td>{{ group.nom }}</td>
+                        <td>{{ group.description }}</td>
+                        <td>
+                            <ul class="option-list">
+                                <li><a href="{{ path('group_show', {'slug': group.slug}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
+                                <li><a href="{{ path('group_edit', {'id': group.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
+                                <li>{{ include('group/_delete_form.html.twig') }}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

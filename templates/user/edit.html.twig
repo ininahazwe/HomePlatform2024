@@ -1,0 +1,13 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+
+    <div class="post-a-new-job-box">
+        <h3>Edit User</h3>
+        <div class="bar"></div>
+        {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+
+{% endblock %}

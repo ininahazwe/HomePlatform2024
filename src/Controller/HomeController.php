@@ -82,7 +82,7 @@ class HomeController extends AbstractController
     public function allEditions(EditionRepository $editionRepository): Response
     {
         return $this->render('edition/allEditions.html.twig', [
-            'categories' => $editionRepository->findAll(),
+            'editions' => $editionRepository->findAll(),
         ]);
     }
 

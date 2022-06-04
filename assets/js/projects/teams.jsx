@@ -23,11 +23,11 @@ function Teams(){
     )
 }
 
-function Team({team}){
+const Team = React.memo(({team}) => {
     return(
         <div className="col-lg-3 col-sm-6">
             <div className="freelancers-card">
-                {team.photo.map(photo => <img key={photo.id} src={`./uploads/${photo.nom}`} />)}
+                {team.photo.map(photo => <img key={photo.id} src={`./uploads/${photo.nom}`} alt="team"/>)}
                 <div className="title">
                     <h3>{team.nom} {team.prenom}</h3>
                 </div>
@@ -35,8 +35,7 @@ function Team({team}){
             </div>
         </div>
     )
-
-}
+})
 
 class TeamsElement extends HTMLElement {
 
