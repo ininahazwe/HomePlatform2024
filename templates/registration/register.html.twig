@@ -7,32 +7,32 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-<div class="user-area pt-100 pb-70">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="coming-soon-area ptb-100">
-                    <div class="d-table">
-                        <div class="d-table-cell">
-                            <div class="container">
-                                <div class="coming-soon-content">
-                                    <h1>Already a homer ?</h1>
-                                    <a href="{{ path('login') }}"><button type="submit" class="default-btn two disabled" style="pointer-events: all; cursor: pointer;">
-                                            Log in</button>
-                                    </a>
+    <div class="user-area pt-100 pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="coming-soon-area ptb-100">
+                        <div class="d-table">
+                            <div class="d-table-cell">
+                                <div class="container">
+                                    <div class="coming-soon-content">
+                                        <h1>Already a homer ?</h1>
+                                        <a href="{{ path('login') }}">
+                                            <button type="submit" class="default-btn two disabled" style="pointer-events: all; cursor: pointer;">Log in</button>
+                                        </a>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="user-all-form">
-                    <div class="contact-form">
-                        <h3> Register</h3>
-                        <div class="bar"></div>
-                        {{ form_start(registrationForm) }}
+                <div class="col-lg-6">
+                    <div class="user-all-form">
+                        <div class="contact-form">
+                            <h3> Register</h3>
+                            <div class="bar"></div>
+                            {{ form_start(registrationForm) }}
                             <div class="row">
                                 <div class="col-lg-12 ">
                                     <div class="form-group">
@@ -76,13 +76,23 @@
                                     <button type="submit" class="default-btn">Register</button>
                                 </div>
                             </div>
-                        {{ form_end(registrationForm) }}
+                            {{ form_end(registrationForm) }}
+                            <div class="col-12">
+                                <div class="sub-title">
+                                    <span>Or</span>
+                                </div>
+                            </div>
+                            <div class="login-with-account">
+                                <ul>
+                                    <li><a href="{{ path('connect_google') }}"><i class="ri-google-line"></i>Register with Google</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% form_theme registrationForm _self %}

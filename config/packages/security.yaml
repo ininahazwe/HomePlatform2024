@@ -20,6 +20,8 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator:
+                - App\Security\GoogleAuthenticator
             form_login:
                 # "login" is the name of the route created previously
                 login_path: login
@@ -47,7 +49,7 @@ security:
                   # by default, the feature is enabled by checking a
                   # checkbox in the login form (see below), uncomment the
                   # following line to always enable it.
-                  #always_remember_me: true
+                #always_remember_me: true
 
 
             # activate different ways to authenticate
@@ -59,7 +61,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/dashboard, roles: ROLE_CANDIDAT }
+        - { path: ^/dashboard, roles: ROLE_CANDIDAT }
+        # - { path: ^/api, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
     role_hierarchy:
         ROLE_CANDIDAT:

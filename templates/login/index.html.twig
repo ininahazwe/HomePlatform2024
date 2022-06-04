@@ -44,12 +44,28 @@
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                     <div class="col-lg-12 col-md-12 text-center">
                                         <button type="submit" class="default-btn disabled" style="pointer-events: all; cursor: pointer;">
-                                            Log In Now
+                                            Log in now
                                         </button>
-                                        or
-                                        <a href="{{ path('app_register') }}" class="default-btn disabled" style="pointer-events: all; cursor: pointer;">
-                                            Register
-                                        </a>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="sub-title">
+                                            <span>Or</span>
+                                        </div>
+                                    </div>
+                                    <div class="login-with-account">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('connect_google') }}">
+                                                    <i class="ri-google-line"></i>
+                                                    Login with Google
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="sub-title">
+                                            <span><a href="{{ path('app_register') }}"> Register </a></span>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
