@@ -9,7 +9,7 @@ This files table contents are outlined below>>>>>
 
 *******************************************
 *******************************************
-** - Default CSS Style 
+** - Default CSS Style
 ** - Section Title Style
 ** - Navbar Area Style
 ** - Main Banner Area CSS Style
@@ -174,7 +174,7 @@ img {
         z-index: -1;
         transition: var(--transition);
     }
-    
+
     &:hover {
         color: var(--whiteColor);
         &::before {
@@ -201,7 +201,7 @@ Default CSS End
 ===================================*/
 
 /*================================
-Section Title Style 
+Section Title Style
 ===================================*/
 .section-title {
     h2 {
@@ -248,7 +248,7 @@ Section Title Style
       -webkit-transform: translateX(0);
       transform: translateX(0);
     }
-  
+
     to {
       -webkit-transform: translateX(88px);
       transform: translateX(88px);
@@ -435,7 +435,7 @@ Navbar Area
                                                     li {
                                                         a {
                                                             color: var(--titleColor);
-                                                            
+
                                                             &:hover, &:focus, &.active {
                                                                 color: var(--mainColor);
                                                             }
@@ -448,7 +448,7 @@ Navbar Area
                                                             li {
                                                                 a {
                                                                     color: var(--titleColor);
-                                                                    
+
                                                                     &:hover, &:focus, &.active {
                                                                         color: var(--mainColor);
                                                                     }
@@ -902,7 +902,7 @@ Main Banner Area
             text-align: center;
             border-radius: 50px;
             img {
-               width: 45px; 
+               width: 45px;
             }
         }
         .shape2 {
@@ -938,7 +938,7 @@ Main Banner Area
             text-align: center;
             border-radius: 50px;
             img {
-               width: 45px; 
+               width: 45px;
             }
         }
         .shape5 {
@@ -962,7 +962,7 @@ Main Banner Area
             text-align: center;
             border-radius: 50px;
             img {
-               width: 40px; 
+               width: 40px;
             }
         }
         .shape7 {
@@ -976,7 +976,7 @@ Main Banner Area
             text-align: center;
             border-radius: 50px;
             img {
-               width: 40px; 
+               width: 40px;
             }
         }
     }
@@ -1044,7 +1044,7 @@ Main Banner Area
     .form-group {
         position: relative;
         border-right: 1px solid #E3E3E3;
-        padding-right: 10px;
+        //padding-right: 10px;
         &.select-group {
             border: none;
             padding-right: 0;
@@ -1787,7 +1787,7 @@ Browse Job Area
                 padding-left: 20px;
                 color: var(--mainColor);
                 &::before {
-                    width: 13px; 
+                    width: 13px;
                     opacity: 1;
                 }
             }
@@ -1818,7 +1818,7 @@ Job Post Area
     .form-group {
         position: relative;
         &.select-group {
-            .form-control { 
+            .form-control {
                 padding-left: 17px;
             }
         }
@@ -1983,7 +1983,7 @@ Job Post Area
                 }
             }
         }
-       
+
     }
     .bookmark-btn {
         position: absolute;
@@ -2143,7 +2143,7 @@ Pricing Area
                 z-index: -1;
                 transition: var(--transition);
             }
-            
+
             &:hover {
                 color: var(--whiteColor);
                 &::before {
@@ -2659,9 +2659,9 @@ Company Area
                             color: var(--whiteColor);
                         }
                     }
-                }  
+                }
             }
-        } 
+        }
     }
     .company-details-play {
         background-size: cover;
@@ -2940,7 +2940,7 @@ Find Job Area
         .find-jobs-img {
             transform: translateY(-10px);
         }
-        .content { 
+        .content {
             h3 {
                 a {
                     color: var(--mainColor);
@@ -3882,13 +3882,13 @@ Candidates Area
             border-radius: 30px;
             background: #E3EFE9;
         }
-      
+
         .ui-slider .ui-slider-range {
             top: 0px;
             height: 5px;
             background: var(--mainColor);
         }
-      
+
         .ui-state-default, .ui-widget-content .ui-state-default {
             position: absolute;
             top: 3px;
@@ -3903,12 +3903,12 @@ Candidates Area
             outline: none;
             box-shadow: none;
         }
-      
+
         .input-outer {
             display: flex;
             justify-content: center;
         }
-      
+
         .amount-outer {
             position: relative;
             display: flex;
@@ -4107,9 +4107,9 @@ Candidates Area
                             color: var(--whiteColor);
                         }
                     }
-                }  
+                }
             }
-        } 
+        }
     }
     .content-info {
         padding: 30px;
@@ -4435,7 +4435,7 @@ Candidates Area
                     max-width: 65px;
                 }
             }
-            
+
             .sub-title {
                 align-items: center;
                 margin: 0 0 5px;
@@ -4662,7 +4662,7 @@ Testimonials Area End
 ===================================*/
 
 /*=================================
-Faq Area 
+Faq Area
 ===================================*/
 .faq-accordion {
     margin-bottom: 30px;
@@ -4912,9 +4912,9 @@ Employers Job Area
                             color: var(--whiteColor);
                         }
                     }
-                }  
+                }
             }
-        } 
+        }
     }
     .employers-details-play {
         background-size: cover;
@@ -5037,7 +5037,7 @@ Employers Job Area End
         }
     }
     &:hover {
-        .blog-img { 
+        .blog-img {
             a {
                 img {
                     transform: scale(1.03) rotate(-1.0deg);
@@ -5054,6 +5054,8 @@ Employers Job Area End
     }
 }
 .blog-preview-img {
+    display: flex;
+    justify-content: center;
     margin-bottom: 30px;
     img {
         border-radius: 20px;
@@ -5271,7 +5273,7 @@ Employers Job Area End
                     }
                 }
             }
-           
+
         }
     }
     .blog-details-list-two {
@@ -5354,9 +5356,9 @@ Employers Job Area End
                                 color: var(--whiteColor);
                             }
                         }
-                    }  
+                    }
                 }
-            } 
+            }
         }
         .tag {
             float: right;
@@ -5424,7 +5426,7 @@ Employers Job Area End
             border-radius: 0 5px 5px 0;
             &:hover {
                 background: var(--titleColor);
-            }           
+            }
         }
     }
     .side-bar-categories {
@@ -5463,7 +5465,7 @@ Employers Job Area End
                         }
                     }
                 }
-            }              
+            }
         }
     }
     .side-bar-widget-tag {
@@ -5918,7 +5920,7 @@ Contact Area
             }
         }
         .login-with-account {
-           
+
             ul {
                 list-style-type: none;
                 margin-bottom: 0;
@@ -5970,7 +5972,7 @@ Contact Area End
 ===================================*/
 
 /*=================================
-Map Area 
+Map Area
 ====================================*/
 .map-area {
     .container-fluid {
@@ -6083,9 +6085,9 @@ Job Details Area
                                 color: var(--whiteColor);
                             }
                         }
-                    }  
+                    }
                 }
-            } 
+            }
         }
         .job-details-map iframe {
             display: block;
@@ -6300,9 +6302,9 @@ Job Details Area
                             color: var(--whiteColor);
                         }
                     }
-                }  
+                }
             }
-        } 
+        }
     }
     .job-details-play {
         background-size: cover;
@@ -6538,7 +6540,7 @@ Coming Soon Area
                     margin-right: 0;
                     &::before {
                         display: none;
-                    }  
+                    }
                 }
                 &:first-child {
                     margin-left: 0;
@@ -6667,7 +6669,7 @@ Footer Area
                 }
                 &:hover {
                     color: var(--mainColor);
-                    letter-spacing: 0.25px; 
+                    letter-spacing: 0.25px;
                     &::before {
                         transform: scale(1);
                     }
@@ -6676,7 +6678,7 @@ Footer Area
             &:hover {
                 a {
                     color: var(--mainColor);
-                    letter-spacing: 0.25px; 
+                    letter-spacing: 0.25px;
                 }
             }
         }
@@ -6791,7 +6793,7 @@ Footer Area End
 }
 
 /*=================================
-Go Top Area 
+Go Top Area
 ====================================*/
 .go-top {
     position: fixed;
@@ -6835,7 +6837,7 @@ Go Top Area
         i {
             transform: translateY(-5px);
         }
-        &::before { 
+        &::before {
             border-color: var(--titleColor);
         }
     }
@@ -6851,7 +6853,7 @@ Go Top Area End
 ====================================*/
 
 /*==================================
-Preloader CSS 
+Preloader CSS
 =====================================*/
 .preloader {
     position: fixed;
@@ -6861,7 +6863,7 @@ Preloader CSS
     height: 100%;
     z-index: 99999;
     background: var(--mainColor);
-} 
+}
 .spinner {
     width: 40px;
     height: 40px;
@@ -6869,7 +6871,7 @@ Preloader CSS
     background-color: var(--whiteColor);
     margin: 100px auto;
     animation: rotate-in 1.2s infinite ease-in-out;
-}  
+}
 /*==================================
 Preloader CSS End
 =====================================*/
@@ -6888,7 +6890,7 @@ Preloader CSS End
               transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     }
 }
-  
+
 @keyframes rotate-in {
     0% {
         -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
@@ -6909,13 +6911,13 @@ Preloader CSS End
       -webkit-transform: scale(1);
       transform: scale(1);
     }
-  
+
     75% {
       -webkit-transform: scale(1.3);
       transform: scale(1.3);
       opacity: 1;
     }
-  
+
     100% {
       -webkit-transform: scale(1.5);
       transform: scale(1.5);

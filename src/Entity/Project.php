@@ -55,7 +55,6 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="project", cascade={"persist"})
-     * ORM\JoinColumn(onDelete="CASCADE")
      */
     private Collection $images;
 
@@ -92,7 +91,6 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=File::class, mappedBy="project_avatar", cascade={"persist"})
-     * ORM\JoinColumn(onDelete="CASCADE")
      * @Groups({"read:project"})
      */
     private Collection $avatar;

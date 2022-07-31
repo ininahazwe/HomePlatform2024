@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use App\Service\Mailer;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class ProjectController extends AbstractController
     public function allProjects(ProjectRepository $projectRepository): Response
     {
         return $this->render('project/findAll.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $projectRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -40,6 +41,7 @@ class ProjectController extends AbstractController
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -58,7 +60,12 @@ class ProjectController extends AbstractController
 
             $this->addFlash('success', 'Successfully added');
 
-            return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+            if($user->isSuperAdmin()){
+                return $this->redirectToRoute('projects_for_admin', [], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+            }
+
         }
 
         return $this->renderForm('project/new.html.twig', [
@@ -99,10 +106,11 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: 'project_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Project $project): Response
+    public function edit(Request $request, Project $project, ManagerRegistry $doctrine): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('avatar')->getData();
@@ -116,11 +124,15 @@ class ProjectController extends AbstractController
 
             $project->updateTimestamps();
 
-            $this->getDoctrine()->getManager()->flush();
+            $doctrine->getManager()->flush();
 
             $this->addFlash('success', 'Successful update');
 
-            return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+            if($user->isSuperAdmin()){
+                return $this->redirectToRoute('projects_for_admin', [], Response::HTTP_SEE_OTHER);
+            } else {
+                return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->renderForm('project/edit.html.twig', [

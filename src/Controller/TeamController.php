@@ -21,7 +21,7 @@ class TeamController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_MENTOR');
 
         return $this->render('team/index.html.twig', [
-            'teams' => $teamRepository->findAll(),
+            'teams' => $teamRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 

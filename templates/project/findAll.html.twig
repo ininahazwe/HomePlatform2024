@@ -18,6 +18,7 @@
                     <th scope="col">Category</th>
                     <th scope="col">Authors</th>
                     <th scope="col">Editor</th>
+                    <th scope="col">Created at</th>
                     <th scope="col">Actions</th>
                 </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td>
                             {{ project.editor }}
                         </td>
+                        <td>{{ project.createdAt|date('d-m-Y') }}</td>
                         <td>
                             <ul class="option-list">
                                 <li><a href="{{ path('project_show', {'slug': project.slug}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>

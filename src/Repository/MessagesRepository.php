@@ -22,9 +22,9 @@ class MessagesRepository extends ServiceEntityRepository
     public function getResponses($message)
     {
         return $this->createQueryBuilder('m')
+            ->orderBy('m.id', "DESC")
             ->andWhere('m.parent = :parent')
             ->setParameter('parent', $message)
-            ->orderBy('m.id', 'ASC')
             ->getQuery()
             ->getResult()
             ;
@@ -37,10 +37,11 @@ class MessagesRepository extends ServiceEntityRepository
     public function getReceived($user): mixed
     {
         return $this->createQueryBuilder('m')
+            ->orderBy('m.id', "DESC")
             ->andWhere('m.parent IS NULL')
             ->andWhere('m.recipient = :user OR m.sender = :user')
             ->setParameter('user', $user)
-            ->addOrderBy('m.id', 'DESC')
+            //->orderBy('m.id', 'ASC')
             ->getQuery()
             ->getResult()
             ;

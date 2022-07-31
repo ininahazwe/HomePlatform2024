@@ -34,3 +34,11 @@
 .freelancers-card img {
   max-height: 80px !important;
 }
+
+.select2-container--default .select2-selection--multiple{
+  background-color: transparent !important;
+  border: none !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple{
+  border: none !important;
+}

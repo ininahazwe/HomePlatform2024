@@ -25,7 +25,7 @@ class UserController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_MENTOR');
 
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $userRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 

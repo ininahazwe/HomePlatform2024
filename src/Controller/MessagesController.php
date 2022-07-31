@@ -7,6 +7,7 @@ use App\Entity\Messages;
 use App\Form\MessagesType;
 use App\Repository\MessagesRepository;
 use App\Service\Mailer;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +32,11 @@ class MessagesController extends AbstractController
         ]);
     }
 
+
     /**
      * @param Request $request
      * @param Mailer $mailer
+     * @param ManagerRegistry $doctrine
      * @return Response
      * @throws LoaderError
      * @throws RuntimeError
@@ -41,7 +44,7 @@ class MessagesController extends AbstractController
      * @throws TransportExceptionInterface
      */
     #[Route('/send', name: 'send')]
-    public function send(Request $request, Mailer $mailer): Response
+    public function send(Request $request, Mailer $mailer, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
         $message = new Messages;
@@ -56,7 +59,7 @@ class MessagesController extends AbstractController
 
             $parentid = $form->get("parentid")->getData();
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $doctrine->getManager();
             if($parentid != null){
                 $parent = $em->getRepository(Messages::class)->find($parentid);
             }
@@ -93,12 +96,18 @@ class MessagesController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     #[Route('/reply/{id}', name: 'reply')]
-    public function reply(Request $request, Mailer $mailer, Messages $message): Response
+    public function reply(Request $request, Mailer $mailer, Messages $message, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
         $reply = new Messages;
-        $em = $this->getDoctrine()->getManager();
+        $em = $doctrine->getManager();
         $textReply = $request->request->get('reply');
 
         $reply->setSender($user);
@@ -147,10 +156,10 @@ class MessagesController extends AbstractController
     }
 
     #[Route('/read/{id}', name: 'read')]
-    public function read(Messages $message, Request $request): Response
+    public function read(Messages $message, Request $request, ManagerRegistry $doctrine): Response
     {
         $message->setIsRead(true);
-        $em = $this->getDoctrine()->getManager();
+        $em = $doctrine->getManager();
         $em->persist($message);
         $em->flush();
 
@@ -166,9 +175,9 @@ class MessagesController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(Messages $message): Response
+    public function delete(Messages $message, ManagerRegistry $doctrine): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $doctrine->getManager();
         $em->remove($message);
         $em->flush();
 

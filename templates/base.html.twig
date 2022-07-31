@@ -6,6 +6,7 @@
         <link rel="icon" href="{{ asset('uploads/design/logo.png') }}">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="description" content="Home is association that focuses in sharing educational experiences on international scale.">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -17,17 +18,29 @@
         {% endblock %}
     </head>
     <body>
-        <div class="preloader">
+        {#<div class="preloader">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="spinner"></div>
                 </div>
             </div>
-        </div>
+        </div>#}
         {% include'layouts/navbar.html.twig' %}
         {{ include('partials/flashbag.html.twig') }}
         {% block body %}
         {% endblock %}
         {% include'layouts/footer.html.twig' %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+        <script>
+            $(document).ready(function() {
+                $('.select-tags').select2({
+                    placeholder: "Select a category",
+                    allowClear: true
+                });
+            });
+        </script>
     </body>
 </html>

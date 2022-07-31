@@ -54,33 +54,6 @@
                             </ul>
                         </div>
                         <div class="job-details-widget">
-                            <div class="job-details-social">
-                            <span>Share Post:</span>
-                            <ul class="social-icon">
-                                <li>
-                                    <a href="https://www.facebook.com/" target="_blank">
-                                        <i class="ri-facebook-fill"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.instagram.com/" target="_blank">
-                                        <i class="ri-instagram-fill"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://twitter.com/" target="_blank">
-                                        <i class="ri-twitter-fill"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.linkedin.com/" target="_blank">
-                                        <i class="ri-linkedin-fill"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        </div>
-                        <div class="job-details-widget">
                             <div class="row">
                                 {% for cat in categories %}
                                     <div class="col-lg-3 col-6 col-md-3 mb-3">
@@ -93,6 +66,14 @@
                                         </a>
                                     </div>
                                 {% endfor %}
+                            </div>
+                        </div>
+                        <div class="job-details-widget">
+                            <div class="job-details-social">
+                                <span>Share</span>
+                                <ul class="social-icon">
+                                    <li><div class="addthis_inline_share_toolbox"></div></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -148,4 +129,5 @@
         </div>
     </div>
     <!-- Job Details Area End -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e66c576aeb9725"></script>
 {% endblock %}

@@ -20,7 +20,7 @@ class CategorieController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_MENTOR');
         return $this->render('categorie/index.html.twig', [
-            'categories' => $categorieRepository->findAll(),
+            'categories' => $categorieRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 

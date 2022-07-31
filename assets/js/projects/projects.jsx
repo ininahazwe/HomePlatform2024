@@ -31,7 +31,7 @@ const Project = React.memo(({project}) => {
                     <div className="recent-job-img">
                         {project.avatar.map(logo => <img key={logo.id} src={`./uploads/${logo.nom}`} style={{width: 70}} alt="project"/>)}
                     </div>
-                    <h3>{project.nom}</h3>
+                    <h3><a href={`/project/${project.slug}`}>{project.nom}</a></h3>
                     <ul className="job-list1">
                         <div className="job-sub-content">
                             <ul className="job-list2">

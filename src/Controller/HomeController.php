@@ -18,9 +18,11 @@ use App\Repository\PartenairesRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TeamRepository;
 use App\Service\Mailer;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +30,9 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\Loader\ArrayLoader;
 
 class HomeController extends AbstractController
@@ -117,12 +122,25 @@ class HomeController extends AbstractController
     #[Route('/projects', name: 'all_projects', methods: ['GET'])]
     public function allProjects(Request $request, ProjectRepository $projectRepository): Response
     {
-        $data = new SearchDataProject();
+        /*$data = new SearchDataProject();
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchProjectForm::class, $data);
         $form->handleRequest($request);
 
-        $projects = $projectRepository->findSearch($data);
+        $projects = $projectRepository->findSearch($data);*/
+
+        $projects = $projectRepository->findBy(['isPublished' => true], ['createdAt' => 'desc']);
+
+        $form = $this->createForm(SearchProjectForm::class);
+
+        $search = $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $projects = $projectRepository->search(
+                $search->get('mots')->getData(),
+                $search->get('categorie')->getData()
+            );
+        }
 
         return $this->render('project/AllProjects.html.twig', [
             'projects' => $projects,
@@ -130,6 +148,13 @@ class HomeController extends AbstractController
         ]);
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws TransportExceptionInterface
+     * @throws InvalidArgumentException
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     #[Route('/project/{slug}', name: 'project_page', methods: ['GET'])]
     public function OneProject(Request $request, Project $project, $slug, ProjectRepository $projectRepository, CacheInterface $cache, Mailer $mailer): Response
     {

@@ -92,4 +92,22 @@ class ProjectRepository extends ServiceEntityRepository
 
         return $query;
     }
+
+    /**
+     * Recherche les projects en fonction du formulaire
+     */
+    public function search($mots = null, $categorie = null){
+        $query = $this->createQueryBuilder('p');
+        $query->where('p.isPublished = 1');
+        if($mots != null){
+            $query->andWhere('MATCH_AGAINST(p.nom, a.description) AGAINST (:mots boolean)>0')
+                ->setParameter('mots', $mots);
+        }
+        if($categorie != null){
+            $query->leftJoin('p.categorie', 'c');
+            $query->andWhere('c.id = :id')
+                ->setParameter('id', $categorie);
+        }
+        return $query->getQuery()->getResult();
+    }
 }

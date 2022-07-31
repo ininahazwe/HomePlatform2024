@@ -29,6 +29,7 @@
                 <div class="blog-articel">
                     <p>{{ edition.description|raw }}</p>
                 </div>
+                {% if edition.video %}
                 <div class="company-details-content">
                     <div class="company-details-play" style="background-image: url('{{ asset('uploads/' ~ edition.avatar.first) }}');">
                         <a href="{{edition.video}}" class="play-btn">
@@ -36,6 +37,7 @@
                         </a>
                     </div>
                 </div>
+                {% endif %}
                 <div class="blog-portfolio">
                     <h3>Photos gallery</h3>
                     <div class="bar"></div>
@@ -58,27 +60,8 @@
                         <div class="col-lg-9 col-sm-9">
                             <div class="article-social-icon">
                                 <ul class="social-icon">
-                                    <li class="title">Share Post</li>
-                                    <li>
-                                        <a href="https://www.facebook.com/" target="_blank">
-                                            <i class="ri-facebook-fill"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com/" target="_blank">
-                                            <i class="ri-instagram-fill"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com/" target="_blank">
-                                            <i class="ri-twitter-fill"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.linkedin.com/" target="_blank">
-                                            <i class="ri-linkedin-fill"></i>
-                                        </a>
-                                    </li>
+                                    <li class="title">Share</li>
+                                    <li><div class="addthis_inline_share_toolbox"></div></li>
                                 </ul>
                             </div>
                         </div>
@@ -90,4 +73,6 @@
             </div>
         </div>
     </div>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e66c576aeb9725"></script>
 {% endblock %}

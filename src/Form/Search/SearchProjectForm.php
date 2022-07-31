@@ -28,10 +28,11 @@ class SearchProjectForm extends AbstractType
                 'class' => Categorie::class,
                 'multiple' => true,
                 'label' => false,
-                'expanded' => true,
+                'required' => false,
+                'choice_label' => 'nom',
+                'by_reference' => false,
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'by SDG'
+                    'class' => 'select-tags',
                 ],
                 'query_builder' => function($repository) {
                     $ids = $repository->findAll();

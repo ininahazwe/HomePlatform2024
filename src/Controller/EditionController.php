@@ -21,7 +21,7 @@ class EditionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_MENTOR');
 
         return $this->render('edition/index.html.twig', [
-            'editions' => $editionRepository->findAll(),
+            'editions' => $editionRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 

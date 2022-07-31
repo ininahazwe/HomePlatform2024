@@ -1,4 +1,49 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="default-btn btn-sm border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="row">
+
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.nom) }}
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.prenom) }}
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.civilite) }}
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.email) }}
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+            {{ form_row(form.roles) }}
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <div class="form-group">
+            {{ form_row(form.react) }}
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+            {{ form_row(form.groups) }}
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 mt-2">
+        <button type="submit" class="default-btn border-radius-5">
+            Save <i class="ri-check-line"></i>
+        </button>
+    </div>
+</div>
+{{ form_end(form, {'render_rest': false}) }}

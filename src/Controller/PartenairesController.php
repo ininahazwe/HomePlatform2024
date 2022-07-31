@@ -21,7 +21,7 @@ class PartenairesController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_SUPER_ADMIN');
 
         return $this->render('partenaires/index.html.twig', [
-            'partenaires' => $partenairesRepository->findAll(),
+            'partenaires' => $partenairesRepository->findBy([], ['id' => 'DESC']),
         ]);
     }
 
