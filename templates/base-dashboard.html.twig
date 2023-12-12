@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="description" content="Home is association that focuses in sharing educational experiences on international scale.">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -19,16 +21,11 @@
             </div>
         </div>
     </div>
-    {% if app.user.isCandidat() %}{{ include('dashboard/user-sidebar.html.twig') }}{% endif %}
-    {% if app.user.isMentor() %}{{ include('dashboard/mentor-sidebar.html.twig') }}{% endif %}
-    {% if app.user.isAdmin() %}{{ include('dashboard/admin-sidebar.html.twig') }}{% endif %}
-    {% if app.user.isSuperAdmin() %}{{ include('dashboard/super-admin-sidebar.html.twig') }}{% endif %}
+
+    {{ render(controller('App\\Controller\\TemplateController::sidebarDashBoard')) }}
 
     <div class="main-dashboard-content d-flex flex-column">
-        {% if app.user.isCandidat() %}{{ include('layouts/navbar-user.html.twig') }}{% endif %}
-        {% if app.user.isMentor() %}{{ include('layouts/navbar-mentor.html.twig') }}{% endif %}
-        {% if app.user.isAdmin() %}{{ include('layouts/navbar-admin.html.twig') }}{% endif %}
-        {% if app.user.isSuperAdmin() %}{{ include('layouts/navbar-super-admin.html.twig') }}{% endif %}
+        {{ render(controller('App\\Controller\\TemplateController::navDashBoard')) }}
         {{ include('partials/flashbag.html.twig') }}
         {% block body %}
         {% endblock %}
@@ -38,18 +35,37 @@
         {{ encore_entry_script_tags('app') }}
         {{ include('layouts/select.html.twig') }}
         <script src="{{ asset('js/wow.min.js') }}"></script>
-    {% endblock %}
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
-    <script>
-        $(document).ready(function() {
-            $('.select-tags').select2({
-                placeholder: "Select a category",
-                allowClear: true
-            });
-        });
-    </script>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+        <script>
+            $(document).ready(function() {
+                $('.select-tags').select2({
+                    placeholder: "Select",
+                    allowClear: true
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+
+            $(function () {
+                const url = "{{ app.request.attributes.get('_route') }}";
+
+                $('.sidemenu-area .sidemenu-nav li').each(function () {
+                    const infoUrl = $(this).data('info');
+                    const result = infoUrl.search(url);
+
+                    //if (url === infoUrl) {
+                    if (result === -1) {
+                        $(this).removeClass('active');
+                    } else {
+                        $(this).addClass('active');
+                    }
+                });
+            });
+        </script>
+    {% endblock %}
 </body>
 </html>

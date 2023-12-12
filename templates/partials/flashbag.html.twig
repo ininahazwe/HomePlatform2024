@@ -1,9 +1,32 @@
-{% for type, messages in app.flashes %}
-    {% for message in messages %}
+{#{% for type, message in app.flashes %}
+    {% for message in message %}
         <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     {% endfor %}
-{% endfor %}
+{% endfor %}#}
 
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                //position: 'top-end',
+                showConfirmButton: false,
+                showCloseButton: true,
+                timer: 8000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: '{{ type }}',
+                title: '{{ message }}'
+            })
+        </script>
+    {% endfor %}
+{% endfor %}

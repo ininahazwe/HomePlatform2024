@@ -21,6 +21,10 @@ import { Tooltip, Toast,  Popover } from "bootstrap";
 // start the Stimulus application
 import './bootstrap';
 
+import Filter from "./js/filter"
+
+new Filter(document.querySelector('.js-filter'))
+
 import './js/projects/projects';
 import './js/projects/teams';
 import './js/projects/editions';
@@ -28,24 +32,42 @@ import './js/projects/partenaires';
 import './js/projects/about';
 import './js/projects/categories';
 
-import './js/meanmenu.min';
-import './js/dropzone.min';
-import './js/form-validator.min';
-import './js/jquery';
-import './js/jquery-ui';
-import './js/jquery.ajaxchimp.min';
-import './js/jquery.appear.min';
-import './js/jquery.magnific-popup.min';
-import './js/metismenu.min';
-import './js/odometer.min';
-import './js/owl.carousel.min';
-import './js/range-slider.min';
-import './js/selectize.min';
-import './js/simplebar.min';
-import './js/tweenMax.min';
-//import './js/select2';
-import './js/sticky-sidebar.min';
-import './js/custom';
+import './js/all';
+
+import './js/validate'
+import './js/form_validator'
+import './js/form-validator-reset-password'
+
+import 'datatables.net';
+import 'datatables.net-bs4';
+
+$(document).ready(function () {
+
+    let tables = ['#datatable', '#datatable1', '#datatable2', '#datatable3'];
+    tables.forEach(function (item) {
+        if ($(item).attr('id')) {
+            $(item).DataTable({
+                "order": [[1, 'asc']],
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+            });
+        }
+    });
+
+    window.setTimeout(function () {
+        $(".message-box").fadeOut(1000);
+    }, 7000);
+
+});
 
 /*$(document).ready(function() {
     $('.select-tags-edit').select2({

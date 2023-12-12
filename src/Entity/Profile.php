@@ -31,7 +31,9 @@ class Profile
     private ?Dictionnaire $level;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="profile", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * @ORM\JoinColumn(nullable=false)
      */
     private ?User $user;
 
@@ -48,27 +50,32 @@ class Profile
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $facebook;
+    private ?string $facebook;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $instagram;
+    private ?string $instagram;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $twitter;
+    private ?string $twitter;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lindedin;
+    private ?string $lindedin;
 
     /**
      * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="profiles_skills")
      */
-    private $skills;
+    private Collection $skills;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $degree;
 
     public function __construct()
     {
@@ -245,6 +252,18 @@ class Profile
     public function removeSkill(Tag $skill): self
     {
         $this->skills->removeElement($skill);
+
+        return $this;
+    }
+
+    public function getDegree(): ?string
+    {
+        return $this->degree;
+    }
+
+    public function setDegree(?string $degree): self
+    {
+        $this->degree = $degree;
 
         return $this;
     }

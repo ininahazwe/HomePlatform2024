@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Dictionnaire;
 use App\Form\DictionnaireType;
 use App\Repository\DictionnaireRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,14 +25,14 @@ class DictionnaireController extends AbstractController
     }
 
     #[Route('/new', name: 'dictionnaire_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerRegistry $doctrine): Response
     {
         $dictionnaire = new Dictionnaire();
         $form = $this->createForm(DictionnaireType::class, $dictionnaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($dictionnaire);
             $entityManager->flush();
 
@@ -55,14 +56,14 @@ class DictionnaireController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'dictionnaire_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Dictionnaire $dictionnaire): Response
+    public function edit(Request $request, Dictionnaire $dictionnaire, ManagerRegistry $doctrine): Response
     {
         $form = $this->createForm(DictionnaireType::class, $dictionnaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $dictionnaire->updateTimestamps();
-            $this->getDoctrine()->getManager()->flush();
+            $doctrine->getManager()->flush();
 
             $this->addFlash('success', 'Successful update');
 
@@ -75,15 +76,13 @@ class DictionnaireController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'dictionnaire_delete', methods: ['POST'])]
-    public function delete(Request $request, Dictionnaire $dictionnaire): Response
+    #[Route('/delete/ajax/{id}', name: 'dictionnaire_delete')]
+    public function delete(Request $request, Dictionnaire $dictionnaire, ManagerRegistry $doctrine): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$dictionnaire->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($dictionnaire);
-            $entityManager->flush();
-        }
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($dictionnaire);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('dictionnaire_index', [], Response::HTTP_SEE_OTHER);
+        return new Response(1);
     }
 }

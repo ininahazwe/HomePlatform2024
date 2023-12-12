@@ -5,6 +5,8 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,11 +30,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"categorie": "exact"})
+ * @ApiFilter(NumericFilter::class, properties={"statut"})
+ * @ApiFilter(OrderFilter::class, properties={"createdAt"}, arguments={"orderParameterName"="order"})
  */
 class Project
 {
     use ResourceId;
     use Timestapable;
+
+    const STATUT_PUBLISHED_HOMEPAGE = 1;
+    const STATUT_UNPUBLISHED_HOMEPAGE = 2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -80,9 +87,10 @@ class Project
     private ?string $video;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read:project"})
      */
-    private ?bool $isPublished;
+    private ?int $statut;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -111,12 +119,33 @@ class Project
     }
 
     /**
+     * @return int[]
+     */
+    public static function getStatusName(): array
+    {
+        return array(
+                'Published' => Project::STATUT_PUBLISHED_HOMEPAGE,
+                'Unpublished' => Project::STATUT_UNPUBLISHED_HOMEPAGE
+        );
+    }
+    /**
      * @return string
      */
     public function __toString(): string {
         return $this->nom;
     }
 
+    public function getStatut(): ?int
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?int $statut): self
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
 
     public function getSlug(): ?string
     {
@@ -260,18 +289,6 @@ class Project
     public function setVideo(?string $video): self
     {
         $this->video = $video;
-
-        return $this;
-    }
-
-    public function getIsPublished(): ?bool
-    {
-        return $this->isPublished;
-    }
-
-    public function setIsPublished(?bool $isPublished): self
-    {
-        $this->isPublished = $isPublished;
 
         return $this;
     }

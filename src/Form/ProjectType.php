@@ -11,7 +11,6 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,6 +20,8 @@ class ProjectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $user = $options['user'];
+
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Title',
@@ -43,12 +44,8 @@ class ProjectType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('isPublished', ChoiceType::class, [
-                'label' => 'Publish ?',
-                'choices' => [
-                    'Publie' => true,
-                    'Non publié' => false
-                ]
+            ->add('statut', ChoiceType::class, [
+                    'choices' => Project::getStatusName()
             ])
             ->add('video', TextType::class, [
                 'label' => 'Video link',
@@ -62,7 +59,6 @@ class ProjectType extends AbstractType
                     'placeholder' => 'Choose gallery images',
                     'data-controller' => 'mydropzone'
                 ],
-                'label' => 'Illustration',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
@@ -97,12 +93,24 @@ class ProjectType extends AbstractType
                 'class' => User::class,
                 'multiple' => true,
                 'compound' => false,
-                'choice_label' => 'nom',
+                'choice_label' => function (User $user) {
+                    return $user->getFullname();
+                },
                 'required' => true,
                 'label' => 'Contributors',
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.nom', 'ASC');
+                'query_builder' => function ($repository) use ($user) {
+                    $ids = $repository->getGroupMembersByUser($user);
+                    if (!$user->isCandidat()) {
+                        return $repository->createQueryBuilder('u')
+                            ->select('u')
+                            ->orderBy('u.email', 'ASC');
+                    } else {
+                        return $repository->createQueryBuilder('u')
+                            ->select('u')
+                            ->orderBy('u.email', 'ASC')
+                            ->andWhere('u.id in (:ids)')
+                            ->setParameter('ids', $ids);
+                    }
                 },
                 'by_reference' => false,
                 'attr' => [
@@ -113,12 +121,24 @@ class ProjectType extends AbstractType
                 'class' => User::class,
                 'multiple' => false,
                 'compound' => false,
-                'choice_label' => 'nom',
+                'choice_label' => function (User $user) {
+                    return $user->getFullname();
+                },
                 'required' => false,
                 'label' => 'Editor',
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.nom', 'ASC');
+                'query_builder' => function ($repository) use ($user) {
+                    $ids = $repository->getGroupMembersByUser($user);
+                    if (!$user->isCandidat()) {
+                        return $repository->createQueryBuilder('u')
+                            ->select('u')
+                            ->orderBy('u.email', 'ASC');
+                            } else {
+                        return $repository->createQueryBuilder('u')
+                            ->select('u')
+                            ->orderBy('u.email', 'ASC')
+                            ->andWhere('u.id in (:ids)')
+                            ->setParameter('ids', $ids);
+                    }
                 },
                 'by_reference' => true,
                 'attr' => [
@@ -151,6 +171,10 @@ class ProjectType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Project::class,
+        ]);
+
+        $resolver->setRequired([
+            'user'
         ]);
     }
 }

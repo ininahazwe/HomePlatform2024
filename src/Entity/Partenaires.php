@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\PartenairesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,6 +29,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       }
  *     }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "nom": "partial"})
+ * @ApiFilter(NumericFilter::class, properties={"status"})
+ * @ApiFilter(OrderFilter::class, properties={"ordre"}, arguments={"orderParameterName"="order"})
  */
 class Partenaires
 {
@@ -54,12 +61,23 @@ class Partenaires
      */
     private ?string $slug;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read:partenaire"})
+     */
+    private ?bool $status;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read:partenaire"})
+     */
+    private ?int $ordre;
+
     public function __construct()
     {
         $this->logo = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable('now');
     }
-
 
     public function getNom(): ?string
     {
@@ -118,5 +136,29 @@ class Partenaires
     public function getSlug(): ?string
     {
         return $this->slug;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(?int $ordre): self
+    {
+        $this->ordre = $ordre;
+
+        return $this;
     }
 }

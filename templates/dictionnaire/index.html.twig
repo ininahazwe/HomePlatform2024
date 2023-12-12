@@ -32,7 +32,7 @@
 
                 <tbody>
                 {% for dictionnaire in dictionnaires %}
-                <tr>
+                <tr id="view{{ dictionnaire.id }}">
                     <td>{{ dictionnaire.type }}</td>
                     <td>{{ dictionnaire.value }}</td>
                     <td>

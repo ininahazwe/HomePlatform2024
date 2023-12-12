@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/partenaires')]
+#[Route('/cms/partenaires')]
 class PartenairesController extends AbstractController
 {
     #[Route('/', name: 'partenaires_index', methods: ['GET'])]

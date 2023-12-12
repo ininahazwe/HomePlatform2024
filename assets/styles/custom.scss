@@ -1,5 +1,5 @@
 .table > :not(:first-child) {
-  border-top: 10px solid #F39649 !important;
+  border-top: 10px solid #ebebeb !important;
 }
 
 .invalid-feedback{
@@ -31,9 +31,14 @@
   display:none;
 }
 
+.freelancers-card{
+  height: 200px;
+}
 .freelancers-card img {
   max-height: 80px !important;
 }
+
+//select2
 
 .select2-container--default .select2-selection--multiple{
   background-color: transparent !important;
@@ -41,4 +46,67 @@
 }
 .select2-container--default.select2-container--focus .select2-selection--multiple{
   border: none !important;
+}
+
+//CkEditor
+
+.cke_chrome {
+  border: 1px solid whitesmoke !important;
+}
+.cke_tok {
+  border: none !important;
+}
+.cke_bottom{
+  border: none !important;
+}
+
+//button
+
+.default-btn-red {
+  padding: 12px 30px;
+  color: var(--whiteColor);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  text-transform: capitalize;
+  background-color: var(--redColor);
+  border: none;
+  outline: none;
+  font-weight: 500;
+}
+
+//images
+
+.sdg-icon{
+  height: 60px;
+}
+
+.img-size{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.delete-image{
+  background: white;
+  border: none;
+}
+
+.delete-image-container{
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 250px
+}
+
+//Datatable
+table.dataTable {
+  border-collapse: collapse !important;
+}
+
+//checkbox input
+
+.form-check-input[type=checkbox] {
+  border-radius: 10px !important;
+  border: 1px solid #ECEDF2;
 }

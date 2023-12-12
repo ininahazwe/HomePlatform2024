@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Profile;
 use App\Entity\Tag;
+use App\Entity\User;
 use App\Form\TagType;
 use App\Repository\ProjectRepository;
 use App\Repository\TagRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,12 +38,21 @@ class TagController extends AbstractController
     }
 
     #[Route('/new/ajax/{label}', name: 'tag_new_ajax', methods: ['POST'])]
-    public function ajout(Request $request, $label): Response
+    public function ajout(Request $request, $label, ManagerRegistry $doctrine): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
+        $entityManager = $doctrine->getManager();
+        $profileId = $request->get('profile', false);
+        $profile = $entityManager->getRepository(Profile::class)->find($profileId);
         $tag = new Tag();
         $tag->setNom(trim(strip_tags($label)));
+
+        /** @var User $user */
+        //$tag->addProfilesSkill($this->getUser()->getProfile());
+
+        if($profile){
+            $tag->addProfilesSkill($profile);
+        }
+
         $entityManager->persist($tag);
         $entityManager->flush();
 

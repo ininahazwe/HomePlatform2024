@@ -9,13 +9,16 @@
 <div class="form-group">{{ form_row(form.type) }}</div>
 {{ form_row(form.logo) }}
     {% if app.request.attributes.get('_route') == 'categorie_edit' %}
-        <p>Logos</p>
-        {% for image in categorie.logo %}
-            <div>
-                <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                <a href="{{ path('categories_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}">Supprimer</a>
+        <div class="title">Illustration icon</div>
+            <div class="row mb-5">
+            {% for image in categorie.logo %}
+                <div class="col-lg-3 col-md-3 col-sm-6 delete-image-container" style="background-image: url('{{ asset('/uploads/' ~ image.nom) }}');" id="view{{ image.id }}">
+                    <a href="#" class="delete-sweetalert" data-id="{{ image.id }}" data-url="{{ path('categorie_delete_files', {'id': image.id}) }}">
+                        <button class="delete-image" data-text="Delete"><i class="ri-delete-bin-line"></i></button>
+                    </a>
+                </div>
+            {% endfor %}
             </div>
-        {% endfor %}
     {% endif %}
     <button type="submit" class="default-btn btn-sm border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

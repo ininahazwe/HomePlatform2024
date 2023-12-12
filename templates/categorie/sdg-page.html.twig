@@ -57,7 +57,7 @@
                             <div class="row">
                                 {% for cat in categories %}
                                     <div class="col-lg-3 col-6 col-md-3 mb-3">
-                                        <a href="{{ path('sdg_page', {'slug': categorie.slug}) }}">
+                                        <a href="{{ path('sdg_page', {'slug': cat.slug }) }}">
                                             {% if cat.logo %}
                                                 {% for logo in cat.logo %}
                                                     <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
@@ -71,9 +71,7 @@
                         <div class="job-details-widget">
                             <div class="job-details-social">
                                 <span>Share</span>
-                                <ul class="social-icon">
-                                    <li><div class="addthis_inline_share_toolbox"></div></li>
-                                </ul>
+                                <div class="sharethis-inline-share-buttons"></div>
                             </div>
                         </div>
                     </div>
@@ -87,7 +85,7 @@
                             <p>{{ categorie.description }}</p>
                         </div>
 
-                        {% if categorie.video %}
+                        {% if categorie.video is not empty %}
                         <h3>Video</h3>
                         <div class="bar"></div>
                         <div class="job-details-play">
@@ -97,26 +95,24 @@
                         </div>
                         {% endif %}
 
-                        {% if categorie.projects %}
+                        {% if projects is not empty%}
                         <h3>Related Projects</h3>
                         <div class="bar"></div>
                         <div class="row">
-                            {% for project in categorie.projects %}
+                            {% for project in projects %}
                                 <div class="col-lg-6">
                                     <div class="recent-job-card box-shadow">
                                         <div class="content">
-                                            <div class="recent-job-img">
-                                                <a href="{{ path('sdg_page', {'slug': categorie.slug}) }}">
+                                            <a href="{{ path('project_page', {'slug': project.slug}) }}">
+                                                <div class="recent-job-img">
                                                     {% if project.avatar %}
                                                         {% for logo in project.avatar %}
-                                                            {% if loop.first %}
-                                                                <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
-                                                            {% endif %}
+                                                            {% if loop.first %}<img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">{% endif %}
                                                         {% endfor %}
                                                     {% endif %}
-                                                </a>
-                                            </div>
+                                                </div>
                                             <h3>{{ project.nom }}</h3>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -129,5 +125,6 @@
         </div>
     </div>
     <!-- Job Details Area End -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e66c576aeb9725"></script>
+{#    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62e66c576aeb9725"></script>#}
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=62bebd846e3eb20012baf8ea&product=inline-share-buttons" async="async"></script>
 {% endblock %}

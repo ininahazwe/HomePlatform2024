@@ -1288,8 +1288,10 @@ Dashboard Area CSS
 
     .image {
         position: absolute;
-        top: 20px;
-        left: 20px;
+        top: 10px;
+        left: 10px;
+        max-height: 40px;
+        overflow: hidden;
 
         img {
             border-radius: 5px;

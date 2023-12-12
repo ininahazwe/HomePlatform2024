@@ -1,0 +1,33 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Manage my account{% endblock %}
+
+{% block body %}
+<div class="browse-jobs-area-two pt-100 pb-70">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>My account management</h2>
+            <div class="bar m-auto"></div>
+        </div>
+        {{ form_start(form, { 'attr': {'class': 'default-form', 'action' :  path('account_delete', {'id': user.id}) } }) }}
+        {{ form_row(form.motif) }}
+        <div class="autreMotif" style="display: none;">
+            {{ form_row(form.autreMotif) }}
+            <br/>
+        </div>
+        <button class="default-btn border-radius-5">{{ button_label|default('Delete my account') }}</button>
+        {{ form_end(form) }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+        <script>
+            $('input[name="desinscription[motif]"]').on('click', function() {
+
+                if ($(this).val() == 5){
+                    $('.autreMotif').show();
+                }else{
+                    $('.autreMotif').hide();
+                }
+            })
+        </script>
+    </div>
+</div>
+{% endblock %}

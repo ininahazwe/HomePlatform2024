@@ -17,15 +17,15 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="freelancer-details-profile">
-                        {% if app.user.profile and app.user.profile.photo|length %}
-                            {% for photo in app.user.profile.photo %}
+                        {% if profile and profile.photo|length %}
+                            {% for photo in profile.photo %}
                                 {% if loop.first %}<img class="" src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" width="40px">{% endif %}
                             {% endfor %}
                         {% else %}
                             <img class="" src="{{ asset('images/user-img/avataaars.png') }}" alt="image" width="40px">
                         {% endif %}
                         <h3>{{ profile.user.fullname|capitalize }}</h3>
-                        {% if app.user.profile %}
+                        {% if profile %}
                         <div class="freelancer-details-btn">
                             <a href="{{ path('profile_edit', {'id': profile.id }) }}" class="default-btn"><i class="ri-edit-line"></i></a>
                         </div>
@@ -48,13 +48,19 @@
                                         <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" width="70px">
                                     {% endfor %}
                                 {% endif %}
-                                <h3>{{ project.nom }}</h3>
+                                <h3><a href="{{ path('project_page', {'slug': project.slug}) }}">{{ project.nom }}</a></h3>
                                 <span>
-                                    {{ project.categorie|join }}
+                                    {% for cat in project.categorie %}
+                                        {{ cat }} {% if not loop.last %}-{% endif %}
+                                    {% endfor %}
                                 </span>
                                 <ul class="experience-list">
                                     <li><i class="ri-time-line"></i> {{ project.createdAt|date('d-m-Y') }} </li>
-                                    <li><i class="ri-user-2-line"></i> {{ project.auteur|join }}</li>
+                                    <li><i class="ri-user-2-line"></i>
+                                        {% for auteur in project.auteur %}
+                                            {{ auteur }} {% if not loop.last %}-{% endif %}
+                                        {% endfor %}
+                                    </li>
                                 </ul>
                             </div>
                             {% endfor %}

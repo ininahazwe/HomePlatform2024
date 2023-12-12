@@ -1,0 +1,131 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Chat with {{ user.getFullname() }}{% endblock %}
+
+{% block body %}
+<div class="breadcrumb-area">
+    <h1>Messages</h1>
+    <ol class="breadcrumb">
+        <li class="item"><a href="{{ path('home') }}.html">Home</a></li>
+        <li class="item">Messages</li>
+    </ol>
+</div>
+
+<div class="chat-content-area">
+    <div class="sidebar-left">
+        {{ include('message/sidebar.html.twig') }}
+    </div>
+    <div class="content-right">
+        <div class="chat-area">
+            <div class="chat-list-wrapper">
+                <div class="chat-list">
+                    <div class="chat-list-header d-flex align-items-center">
+                        <div class="header-left d-flex align-items-center">
+                            <div class="avatar me-3">
+                                {% if user.profile and user.profile.getPhoto()|length %}
+                                    {% for avatar in user.profile.getPhoto() %}
+                                        {% if avatar.type is same as 1 %}
+                                            {% if loop.first %}
+                                                <img src="{{ asset('uploads/' ~ avatar.nom) }}" class="rounded-circle" alt="{{ user.getFullname() }}">
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <svg viewBox="0 0 36 36" fill="none" role="img" xmlns="http://www.w3.org/2000/svg" width="50" height="50"><title>{{ user.getFullname()|capitalize }}</title><mask id="mask__beam" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36"><rect width="36" height="36" fill="#FFFFFF" rx="72"></rect></mask><g mask="url(#mask__beam)"><rect width="36" height="36" fill="#dde3ca"></rect><rect x="0" y="0" width="36" height="36" transform="translate(3 5) rotate(261 18 18) scale(1)" fill="#487aa1" rx="36"></rect><g transform="translate(-5 1) rotate(-1 18 18)"><path d="M13,19 a1,0.75 0 0,0 10,0" fill="#FFFFFF"></path><rect x="13" y="14" width="1.5" height="2" rx="1" stroke="none" fill="#FFFFFF"></rect><rect x="21" y="14" width="1.5" height="2" rx="1" stroke="none" fill="#FFFFFF"></rect></g></g></svg>
+                                {% endif %}
+                            </div>
+                            <h6 class="mb-0">{{ user.getFullname() }}</h6>
+                        </div>
+
+                        <div class="header-right text-end w-100">
+                            <ul class="list-unstyled mb-0">
+                                {#<li>
+                                    <span class="favorite d-block">
+                                        <i class="ri-star-line"></i>
+                                    </span>
+                                </li>
+                                <li>
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ri-menu-4-line"></i></button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item d-flex align-items-center" href="dashboard-messages.html"><i class="ri-pushpin-2-line"></i> Pin to Top</a>
+                                            <a class="dropdown-item d-flex align-items-center" href="dashboard-messages.html"><i class="ri-delete-bin-line"></i> Delete Chat</a>
+                                            <a class="dropdown-item d-flex align-items-center" href="dashboard-messages.html"><i class="ri-lock-line"></i> Block</a>
+                                        </div>
+                                    </div>
+                                </li>#}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="chat-container" data-simplebar>
+                        <div class="chat-content" id="messages">
+                            {{ render(controller('App\\Controller\\MessagesController::allMessages',{ 'user': user })) }}
+                        </div>
+                    </div>
+
+                    <div class="chat-list-footer">
+                        <form class="d-flex align-items-center" method="post" action="{{ path("reply", {id: user.id}) }}">
+                            {#<div class="btn-box d-flex align-items-center me-3">
+                                <button class="emoji-btn d-inline-block me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Emoji" type="button"><i class="ri-user-smile-line"></i></button>
+
+                                <button class="file-attachment-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="File Attachment" type="button"><i class="ri-attachment-2"></i></button>
+                            </div>#}
+
+                            <textarea class="form-control type_msg" placeholder="Type your message..." id="message" name='reply'></textarea>
+
+                            <button type="submit" class="send-btn d-inline-block submit-btn" id="btn-send-message">Send <i class="ri-send-plane-line"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    let newMessage = document.getElementById('message').value;
+    $('#message').on('keyup', function(e) {
+        newMessage = document.getElementById('message').value;
+    });
+
+    function refreshMessagesSended() {
+        $.ajax({
+            url: "{{ path('ajax_all_messages', {'id': user.getId()}) }}", // Ton fichier ou se trouve ton chat
+            type: 'POST',
+            success:
+                function(retour){
+                    $('#messages').html(retour); // rafraichi toute ta DIV "bien sur il lui faut un id "
+
+                    element = document.getElementById('messages');
+                    element.scrollTop = element.scrollHeight;
+                }
+        });
+
+    };
+    setInterval(refreshMessagesSended, 3885);
+
+    $('#btn-send-message').on('click',function (e) {
+        if(newMessage.length == 0){
+            alert( 'Message can\'t be empty');
+            return false;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '{{ path('reply', {'id': user.getId()}) }}',
+            data: {
+                reply: newMessage,
+                ajax : 1
+            },
+            success: function() {
+                refreshMessagesSended();
+                newMessage = "";
+                $('#message').val('');
+            },
+        });
+        return false;
+    });
+</script>
+{% endblock %}

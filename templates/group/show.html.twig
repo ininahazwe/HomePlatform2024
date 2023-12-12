@@ -1,10 +1,13 @@
 {% extends 'base-dashboard.html.twig' %}
 
-{% block title %}Group{% endblock %}
+{% block title %}Group | {{ group.nom }}{% endblock %}
 
 {% block body %}
-    <div class="post-a-new-job-box">
+    <div class="post-a-new-job-box d-flex justify-content-between align-items-center">
         <h3>{{ group.nom }}</h3>
+        <div style="margin-right: 10px">
+            <a class="default-btn small border-radius-5" href="{{ path('users_import', {'id': group.id }) }}"><i class="ri-add-line"></i> Add users</a>
+        </div>
     </div>
     <div class="resume-alerts-area">
         <div class="resume-alerts-table table-responsive">
@@ -13,8 +16,9 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Members list</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Members</th>
+                        <th scope="col">Mail history</th>
+                        <th scope="col">Send mail</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,6 +30,11 @@
                                 {% for user in group.members %}
                                 <li>{{ user.fullname }}</li>
                                 {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul class="option-list">
+                                <li><a href="{{ path('historique', {'id': group.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Send a group mail" type="button"><i class="ri-list-check"></i></button></a></li>
                             </ul>
                         </td>
                         <td>

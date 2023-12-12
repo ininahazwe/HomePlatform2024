@@ -1,0 +1,43 @@
+<script>
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'theme-btn btn-style-four m-2 small',
+            cancelButton: 'theme-btn btn-style-eight m-2 small'
+        },
+        buttonsStyling: false
+    })
+
+    $('.delete').on('click',function (e) {
+        const id = $(this).data('id');
+        const url = $(this).data('url');
+        const self = $(this);
+        e.preventDefault();
+        swalWithBootstrapButtons.fire({
+            title: 'êtes-vous sûr de vouloir supprimer cet élément ?',
+            text: "cette action est irréversible!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Je confirme !',
+            cancelButtonText: 'J\'abandonne !'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    success: function (data) {
+
+                        console.log(data);
+                        if(data == 1){
+                            self.parents('#view'+ id).remove();
+                            Swal.fire(
+                                    'Supprimé!',
+                                    'L\'élément a été supprimé de la base de données.',
+                                    'success'
+                            )
+                        }
+
+                    }
+                });
+            }
+        })
+    })
+</script>

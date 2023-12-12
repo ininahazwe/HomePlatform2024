@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import {usePaginatedFetch} from "./hooks";
 
 function Projects(){
-    const {items: projects, load, loading, hasMore} = usePaginatedFetch('/api/projects')
+    const {items: projects, load, loading, hasMore} = usePaginatedFetch('/api/projects?statut=1&order[createdAt]=DESC')
 
     useEffect(() => {
         load()
@@ -12,7 +12,7 @@ function Projects(){
     return(
         <div className="row pt-45">
             {loading && 'loading...'}
-            {projects.map(p =>
+            {projects.slice(0, 4).map(p =>
                 <Project
                     key={p.id}
                     project={p}
@@ -31,7 +31,7 @@ const Project = React.memo(({project}) => {
                     <div className="recent-job-img">
                         {project.avatar.map(logo => <img key={logo.id} src={`./uploads/${logo.nom}`} style={{width: 70}} alt="project"/>)}
                     </div>
-                    <h3><a href={`/project/${project.slug}`}>{project.nom}</a></h3>
+                    <h3><a href={`/project/${project.slug}`}>{project.nom.slice(0, 50)}</a></h3>
                     <ul className="job-list1">
                         <div className="job-sub-content">
                             <ul className="job-list2">

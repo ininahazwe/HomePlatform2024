@@ -30,6 +30,9 @@ class CategorieRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * @return array
+     */
     public function getCategoriesWithProjects(): array
     {
         $ids = array();
@@ -38,7 +41,7 @@ class CategorieRepository extends ServiceEntityRepository
         ;
         $result = $query->getQuery()->getResult();
         foreach($result as $project){
-            $ids[] = $project->getCategorie()->getId();
+            $ids[] = $project->getCategorie();
         }
         return $ids;
     }

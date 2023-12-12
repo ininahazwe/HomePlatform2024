@@ -3,55 +3,79 @@
 {% block title %}All Projects{% endblock %}
 
 {% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>Projects</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">Projects</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
+
     {% if projects|length > 0 %}
-    <div class="resume-alerts-area">
-        <div class="resume-alerts-table table-responsive">
-            <div class="d-flex flex-row justify-content-between">
-                <h2>Projects</h2>
-                <a class="default-btn border-radius-5" href="{{ path('project_new') }}">Add</a>
+        <div class="manage-jobs-box">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h3>Projects</h3>
+                    <div class="bar"></div>
+                </div>
+                <div>
+                    <a class="default-btn small border-radius-5" href="{{ path('project_new') }}"><i class="ri-add-line"></i> Add</a>
+                </div>
             </div>
 
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">SDG(s)</th>
-                    <th scope="col">Authors</th>
-                    <th scope="col">Editor</th>
-                    <th scope="col">Created at</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                {% for project in projects %}
+            <div class="manage-jobs-table table-responsive">
+                <table class="table table-bordered" id="datatable">
+                    <thead>
                     <tr>
-                        <td><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom }}</a></td>
-                        <td>
-                            {% for cat in project.categorie %}
-                                {{ cat.nom }}<br>
-                            {% endfor %}
-                        </td>
-                        <td>
-                            {% for user in project.auteur %}
-                                {{ user.fullname }}<br>
-                            {% endfor %}
-                        </td>
-                        <td>{{ project.editor }}</td>
-                        <td>{{ project.createdAt|date('d-m-Y') }}</td>
-                        <td>
-                            <ul class="option-list">
-                                <li><a href="{{ path('project_show', {'slug': project.slug}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
-                                {% if app.user == project.editor %}<li><a href="{{ path('project_edit', {'id': project.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>{% endif %}
-                                <li>{{ include('project/_delete_form.html.twig') }}</li>
-                            </ul>
-                        </td>
+                        <th scope="col">Title</th>
+                        <th scope="col">Authors</th>
+                        <th scope="col">Editor</th>
+                        <th scope="col">Created at</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                    {% for project in projects %}
+                        <tr id="view{{ project.id }}">
+                            <td><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom }}</a></td>
+                            <td>
+                                {% for user in project.auteur %}
+                                    {{ user.fullname }}<br>
+                                {% endfor %}
+                            </td>
+                            <td>{{ project.editor }}</td>
+                            <td>{{ project.createdAt|date('d-m-Y') }}</td>
+                            <td>
+                                <div class="buttons">
+                                    {% if project.statut == 0 %}
+                                        <a href="#" data-statut="statut-project-{{project.id}}"
+                                           data-url="{{ path('project_statut', {'id': project.id, 'statut' : 1 }) }}"
+                                           class="btn-statut status">Unpublished</a>
+                                    {% else %}
+                                        <a href="#" data-statut="statut-project-{{project.id}}"
+                                           data-url="{{ path('project_statut', {'id': project.id, 'statut' : 0 }) }}"
+                                           class="btn-statut status">Published</a>
+                                    {% endif %}
+                                </div>
+
+                            </td>
+                            <td>
+                                <ul class="option-list">
+                                    <li><a href="{{ path('project_show', {'slug': project.slug}) }}" target="_blank"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
+                                    <li><a href="{{ path('project_edit', {'id': project.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
+                                    <li>{{ include('project/_delete_form.html.twig') }}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
         {% else %}
             <div class="container pb-5">
                 <div class="employers-cv-bg">
@@ -73,5 +97,5 @@
                 </div>
             </div>
     {% endif %}
-
+    {{ include('partials/statut.html.twig') }}
 {% endblock %}

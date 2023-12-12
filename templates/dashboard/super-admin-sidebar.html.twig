@@ -22,8 +22,8 @@
             </li>
 
             <li class="nav-item" data-info="profile_new, profile_show">
-                {% if app.user.profile %}
-                <a href="{{ path('profile_show', {'id': app.user.profile.id}) }}" class="nav-link">
+                {% if profile %}
+                <a href="{{ path('profile_show', {'id': profile.id}) }}" class="nav-link">
                     <span class="icon"><i class="ri-user-line"></i></span>
                     <span class="menu-title">My profile</span>
                 </a>
@@ -85,7 +85,7 @@
             </li>
 
             <li class="nav-item" data-info="user_index">
-                <a href="{{ path('user_index') }}" class="nav-link">
+                <a href="{{ path('all_users') }}" class="nav-link">
                     <span class="icon"><i class="ri-user-3-line"></i></span>
                     <span class="menu-title">Users</span>
                 </a>
@@ -116,13 +116,6 @@
                 <a href="{{ path('tag_index') }}" class="nav-link">
                     <span class="icon"><i class="ri-list-ordered"></i></span>
                     <span class="menu-title">Tags</span>
-                </a>
-            </li>
-
-            <li class="nav-item" data-info="app_reset_password">
-                <a href="{{ path('app_reset_password') }}" class="nav-link">
-                    <span class="icon"><i class="ri-lock-line"></i></span>
-                    <span class="menu-title">Change Password</span>
                 </a>
             </li>
 

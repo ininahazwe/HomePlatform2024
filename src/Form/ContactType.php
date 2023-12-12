@@ -20,19 +20,22 @@ class ContactType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Please enter your name'
                 ],
-                'required' => true
+                'required' => true,
+                'label' => 'Name'
             ])
             ->add('subject',TextType::class, [
                 'attr' => [
                     'placeholder' => 'Please enter your subject'
                 ],
-                'required' => true
+                'required' => true,
+                'label' => 'Subject'
             ])
             ->add('email',EmailType::class, [
                 'attr' => [
                     'placeholder' => 'Please enter your email'
                 ],
-                'required' => true
+                'required' => true,
+                'label' => 'E-mail'
             ])
             ->add('message', TextareaType::class, [
                 'required' => true,

@@ -19,6 +19,15 @@ class EditionRepository extends ServiceEntityRepository
         parent::__construct($registry, Edition::class);
     }
 
+    public function getEditionsOrdered()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.year', "DESC")
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Edition[] Returns an array of Edition objects
     //  */

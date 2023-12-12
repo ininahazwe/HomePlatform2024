@@ -24,10 +24,10 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="single-applicants-card">
                         <div class="image">
-                            <a href="#">
+                            <a href="#" class="sdg-icon">
                                 {% if partenaire.logo %}
                                     {% for logo in partenaire.logo %}
-                                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
+                                        <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}" class="img-size">
                                     {% endfor %}
                                 {% endif %}
                             </a>

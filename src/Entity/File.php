@@ -17,6 +17,7 @@ class File
     const TYPE_AVATAR = 1;
     const TYPE_ILLUSTRATION = 4;
     const TYPE_LOGO = 5;
+    const TYPE_MESSAGE = 6;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -83,6 +84,11 @@ class File
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="avatar")
      */
     private ?Project $project_avatar;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Messages::class, inversedBy="file")
+     */
+    private ?Messages $messages;
 
     public function __construct() {
         $this->createdAt = new \DateTimeImmutable('now');
@@ -246,5 +252,17 @@ class File
     }
     public function __toString(): string {
         return $this->nom;
+    }
+
+    public function getMessages(): ?Messages
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?Messages $messages): self
+    {
+        $this->messages = $messages;
+
+        return $this;
     }
 }

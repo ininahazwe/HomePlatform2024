@@ -1,0 +1,35 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}ChatBox{% endblock %}
+
+{% block body %}
+
+<div class="breadcrumb-area">
+    <h1>Messages</h1>
+    <ol class="breadcrumb">
+        <li class="item"><a href="{{ path('home') }}.html">Home</a></li>
+        <li class="item">Messages</li>
+    </ol>
+</div>
+
+<div class="chat-content-area">
+    <div class="sidebar-left">
+        {{ include('message/sidebar.html.twig') }}
+    </div>
+    <div class="content-right">
+        <div class="chat-area">
+            <div class="chat-list-wrapper">
+                <div class="chat-list">
+                    <div class="chat-list-header d-flex align-items-center">
+                        <div class="header-left d-flex align-items-center">
+                            Click on any message or new contact...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

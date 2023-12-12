@@ -23,6 +23,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
+                    'require' => 'require',
                     'class' => 'form-control',
                     'required' => true,
                 ]
@@ -43,6 +44,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('civilite',  ChoiceType::class, [
                 'choices' => User::getGenreName(),
+                'placeholder' => 'Choose',
                 'attr' => [
                     'class' => 'form-control',
                     'required' => true,
@@ -59,7 +61,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter a password',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 8,
                         'minMessage' => 'Your password must contain at least {{ limit }} caracters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,

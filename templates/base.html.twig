@@ -2,34 +2,35 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Home Education{% endblock %}</title>
+        <title>{% block title %}Home Education | To become an agent of change{% endblock %}</title>
         <link rel="icon" href="{{ asset('uploads/design/logo.png') }}">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <meta name="description" content="Home is association that focuses in sharing educational experiences on international scale.">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/animejs"></script>
+        <script src="{{ asset('js/wow.min.js') }}"></script>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-           {# {{ include('layouts/select.html.twig') }}#}
-            <script src="{{ asset('js/wow.min.js') }}"></script>
-        {% endblock %}
     </head>
     <body>
-        {#<div class="preloader">
+        <div class="preloader">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="spinner"></div>
                 </div>
             </div>
-        </div>#}
+        </div>
         {% include'layouts/navbar.html.twig' %}
         {{ include('partials/flashbag.html.twig') }}
         {% block body %}
         {% endblock %}
         {% include'layouts/footer.html.twig' %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -37,8 +38,20 @@
         <script>
             $(document).ready(function() {
                 $('.select-tags').select2({
-                    placeholder: "Select a category",
+                    placeholder: "Select",
                     allowClear: true
+                });
+            });
+        </script
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Utilisation de anime.js pour animer l'élément avec l'ID "monElement"
+                anime({
+                    targets: '#monElement',
+                    translateX: 250,
+                    duration: 2000,
+                    loop: true
                 });
             });
         </script>

@@ -1,0 +1,36 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Group | {{ group.nom }}{% endblock %}
+
+{% block body %}
+    <div class="post-a-new-job-box d-flex justify-content-between align-items-center">
+        <h3>Mail history to {{ group.nom }} group</h3>
+        <div style="margin-right: 10px">
+            <a class="default-btn small border-radius-5" href="{{ path('users_import', {'id': group.id }) }}"><i class="ri-add-line"></i> Add users</a>
+        </div>
+    </div>
+    <div class="resume-alerts-area">
+        <div class="resume-alerts-table table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Sender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for message in messages %}
+                    <tr>
+                        <td>{{ message.createdAt|date() }}</td>
+                        <td>{{ message.title }}</td>
+                        <td>{{ message.message }}</td>
+                        <td>{{ message.sender }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

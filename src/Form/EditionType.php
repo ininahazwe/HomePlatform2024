@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Edition;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,10 +27,24 @@ class EditionType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('year', TextType::class, [
+                    'attr' => [
+                            'class' => 'form-control'
+                    ]
+            ])
             ->add('intro', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ]
+            ])
+            ->add('ordre')
+            ->add('status', ChoiceType::class, [
+                'label' => 'Status',
+                'choices' => [
+                    'Published' => true,
+                    'Unpublished' => false
+                ]
+
             ])
             ->add('description', CKEditorType::class, [
                 'attr' => [

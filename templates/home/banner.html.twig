@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="banner-content-two">
-                    <h1 class="wow fadeInLeft" data-wow-delay="000ms" data-wow-duration="1000ms">Searching For A Projects? Find the <b>Perfect One</b></h1>
+                    <h1 class="wow fadeInLeft" data-wow-delay="000ms" data-wow-duration="1000ms">Looking for a project? Find the <b>Perfect one</b></h1>
                     <div class="banner-form-two wow fadeInLeft" data-wow-delay="100ms" data-wow-duration="1000ms">
                         <form action="{{ path('all_projects') }}" method="get">
                             <div class="row align-items-center">
@@ -39,10 +39,11 @@
                    <div class="banner-shape-two">
 
                         <div class="shape2 wow fadeInDown"  data-wow-delay="200ms" data-wow-duration="1000ms" style="z-index: 1; opacity: .5">
-                            <img src="{{ asset('images/home-two/sdg-no-bg.png') }}" alt="" width="80%">
+                           {# <img src="{{ asset('images/home-two/sdg-no-bg.png') }}" alt="" width="80%">#}
                         </div>
                         <div class="shape3 wow fadeInDown" data-wow-delay="300ms" data-wow-duration="1000ms">
-                            <img src="{{ asset('images/banner.jpg') }}" alt="" width="80%">
+                            {% include ('script/bee.html.twig') %}
+                            {#<img src="{{ asset('images/banner.jpg') }}" alt="" width="80%">#}
                         </div>
                     </div>
                 </div>

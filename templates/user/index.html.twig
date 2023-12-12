@@ -1,4 +1,4 @@
-{% extends 'base-dashboard.html.twig' %}
+{% include 'base.html.twig' %}
 
 {% block title %}Users directory{% endblock %}
 
@@ -14,17 +14,24 @@
     <!-- End Breadcrumb Area -->
 
     <!-- Start Resume Alerts Area -->
-    <div class="resume-alerts-area">
-        <div class="resume-alerts-table table-responsive">
-            <div class="d-flex flex-row justify-content-between">
-                <h2>Users</h2>
-                <a class="default-btn border-radius-5" href="{{ path('user_create') }}">Add</a>
+    <div class="manage-jobs-box">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h3>Users</h3>
+                <div class="bar"></div>
             </div>
+            <div>
+                <a class="default-btn small border-radius-5" href="{{ path('user_create') }}"><i class="ri-add-line"></i> Add user</a>
+                <a class="default-btn small border-radius-5" href="{{ path('users_delete') }}"><i class="ri-user-search-line"></i> Deleted</a>
+            </div>
+        </div>
 
-            <table class="table table-bordered">
+        <div class="manage-jobs-table table-responsive">
+            <table class="table table-bordered" id="datatable">
                 <thead>
                 <tr>
                     <th scope="col">Full name</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Profile</th>
                     <th scope="col">Role</th>
                     <th scope="col">Registered At</th>
@@ -36,10 +43,11 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <td>{{ user.nom }} {{ user.prenom }}</td>
+                        <td>{{ user.nom|capitalize }} {{ user.prenom|capitalize }}</td>
+                        <td>{{ user.email }}</td>
                         <td>
-                            {% if user.profile %}
-                                <a href="{{ path('profile_show', {'id': user.profile.id}) }}"><i class="ri-eye-line" type="button"></i></a>
+                           {% if prof %}
+                                <a href="{{ path('profile_show', {'id': prof.id}) }}"><i class="ri-eye-line" type="button"></i></a>
                             {% endif %}
                         </td>
                         <td>{{ user.getRoleName() }}</td>
@@ -48,7 +56,7 @@
                         <td>
                             <ul class="option-list">
                                 <li><a href="{{ path('user_edit', {'id': user.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
-                                <li>{{ include('user/_delete_form.html.twig') }}</li>
+                                <li><a href="{{ path('user_delete_account', {'id': user.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-delete-bin-2-fill"></i></button></a></li>
                             </ul>
                         </td>
                     </tr>

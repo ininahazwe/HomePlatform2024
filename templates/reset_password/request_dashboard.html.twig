@@ -1,0 +1,35 @@
+{% extends 'base-dashboard.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+
+    <div class="user-area pt-100 pb-70">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6">
+                    <div class="user-all-form">
+                        <div class="contact-form">
+                            <h3>Reset your password</h3>
+                            <div class="bar"></div>
+                            {% for flashError in app.flashes('reset_password_error') %}
+                                <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                            {% endfor %}
+
+                            {{ form_start(requestForm, {'action': path('app_password_user'), 'method': 'POST','attr': {'class': 'default-form'} }) }}
+                            <div class="row">
+
+                                <div class="form-group">{{ form_row(requestForm.oldPassword) }}</div>
+                                <div class="form-group">{{ form_row(requestForm.password) }}</div>
+                                <div class="form-group">
+                                    <button class="default-btn border-radius-5" type="submit" name="Register">Confirm</button>
+                                </div>
+                            </div>
+                            {{ form_end(requestForm, {'render_rest': true}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

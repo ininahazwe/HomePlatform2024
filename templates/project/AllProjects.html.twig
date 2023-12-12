@@ -8,7 +8,7 @@
     <div class="inner-banner">
         <div class="container">
             <div class="inner-title text-center">
-                <h2>Browse all Projects Posted</h2>
+                <h2>Browse all projects</h2>
                 <div class="bar m-auto"></div>
                 <p class="m-auto">Read summaries of the SDG problem-solving projects developed by our program participants!</p>
             </div>
@@ -16,25 +16,40 @@
     </div>
 
     <div class="job-listing-area pt-100 pb-70">
-        <div class="container">
-            <div class="job-listing-top">
-                {% include 'search/_filter_project.html.twig' %}
-            </div>
+        <div class="container js-filter jobs">
             <div class="row">
-                {% include 'project/_projects.html.twig' %}
+                <div class="col-lg-4">
+                    {% include 'search/_filter_project.html.twig' with {form: form} only %}
+                </div>
+                <div class="col-lg-8">
+                    {% if  projects|length > 0 %}
+                        {% include 'project/_sorting.html.twig' %}
+                    {% endif %}
+                    <div class="row pt-45 js-filter-content">
+                        {% include 'project/_projects.html.twig' %}
+                    </div>
+                    <div class="js-filter-pagination"
+                        {% if projects|length == 0 %}
+                        style="display: none;"
+                        {% endif %}
+                        >
+                        {% include 'project/_pagination.html.twig' %}
+                    </div>
+                    <div class="row js-filter-error"
+                            {% if projects|length > 0%}
+                                style="display: none;"
+                            {% endif %}
+                    >
+                        No result
+                    </div>
+
+                    {#<div class="browse-btn">
+                        <a href="job-listing.html"> Browse All Categories <i class="ri-arrow-right-s-line"></i></a>
+                    </div>#}
+                </div>
             </div>
         </div>
     </div>
     <!-- Recent Job Area Two End -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
-    <script>
-        $(document).ready(function() {
-            $('.select-tags').select2({
-                placeholder: "Select a category",
-                allowClear: true
-            });
-        });
-    </script>
 
 {% endblock %}

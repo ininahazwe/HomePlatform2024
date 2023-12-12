@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Candidature;
+use App\Entity\Group;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -66,33 +68,50 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $mdp;
     }
 
+    public function getInvitationByUser($user = null) {
+        $query = $this->createQueryBuilder('e')
+            ->andWhere('e.invite = :user')
+            ->setParameter('user', $user);
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        return $query->getQuery()->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
     }
-    */
+
+    public function getGroupMembers($user): mixed
+    {
+        $query = $this->createQueryBuilder('u');
+        if ($user->isSuperAdmin()) {
+            $query->select('u')
+                ->andWhere('u.id != :id')
+                ->setParameter('id', $user->getId());
+        } elseif ($user->isAdmin()) {
+            $query->select('u')
+                ->andWhere('u.id != :id')
+                ->setParameter('id', $user->getId());
+        } elseif ($user->isMentor()) {
+            $query->select('u')
+                ->andWhere('u.id != :id')
+                ->setParameter('id', $user->getId());
+        }
+        return $query->getQuery()->getResult();
+    }
+
+    public function getGroupMembersByUser(User $user): array
+    {
+        $userGroups = $user->getGroups();
+        $usersInSameGroup = [];
+
+        if ($userGroups->count() > 0) {
+            $group = $userGroups->first();
+            $members = $group->getMembers();
+
+            foreach ($members as $member) {
+                if ($member !== $user) {
+                    $usersInSameGroup[] = $member;
+                }
+            }
+        }
+
+        return $usersInSameGroup;
+    }
 }

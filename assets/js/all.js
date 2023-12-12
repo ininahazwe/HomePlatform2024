@@ -1,21 +1,21 @@
-import './custom';
-import './select2';
-import './dropzone.min';
-import './form-validator.min';
-import './jquery.ajaxchimp.min';
-import './jquery.appear.min';
-import './jquery.magnific-popup.min';
+//import './custom';
 import './jquery.min';
-import './jquery-ui';
-import './jquery';
+import './jquery.magnific-popup.min';
+import './odometer.min';
+import './jquery.appear.min';
 import './meanmenu.min';
 import './metismenu.min';
-import './odometer.min';
-import './owl.carousel.min';
-import './range-slider.min';
-import './selectize.min';
 import './simplebar.min';
+import './dropzone.min';
 import './sticky-sidebar.min';
 import './tweenMax.min';
+import './owl.carousel.min';
 import './wow.min';
+import './jquery.ajaxchimp.min';
+import './form-validator.min';
+import './contact-form-script';
+import './custom';
+import './sweetalert-delete';
+import './sweetalert-confirmation';
+
 

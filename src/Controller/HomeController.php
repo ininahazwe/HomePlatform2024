@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use App\Entity\Edition;
 use App\Entity\File;
 use App\Entity\Project;
+use App\Entity\User;
 use App\Form\ContactType;
 use App\Form\ProjectContactType;
 use App\Form\ProjectType;
@@ -15,11 +16,14 @@ use App\Repository\AboutRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\EditionRepository;
 use App\Repository\PartenairesRepository;
+use App\Repository\ProfileRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TeamRepository;
 use App\Service\Mailer;
+use Doctrine\Persistence\ManagerRegistry;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -37,15 +41,36 @@ use Twig\Loader\ArrayLoader;
 
 class HomeController extends AbstractController
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     #[Route('/', name: 'home')]
-    public function index(Stopwatch $stopwatch, CacheInterface $cache,
-        Request $request, AboutRepository $aboutRepository, CategorieRepository $categorieRepository, EditionRepository $editionRepository, ProjectRepository $projectRepository, PartenairesRepository $partenairesRepository): Response
+    public function index(
+        Stopwatch $stopwatch,
+        CacheInterface $cache,
+        Request $request,
+        AboutRepository $aboutRepository,
+        CategorieRepository $categorieRepository,
+        EditionRepository $editionRepository,
+        ProjectRepository $projectRepository,
+        PartenairesRepository $partenairesRepository,
+        ProfileRepository $profileRepository,
+    ): Response
     {
         $projects = $projectRepository->getProjectPublished();
         $abouts = $aboutRepository->findAll();
-        $partenaires = $partenairesRepository->findAll();
+        $partenaires = $partenairesRepository->getPartenairesOrdered();
         $categories = $categorieRepository->findLatest();
-        $editions = $editionRepository->findAll();
+        $editions = $editionRepository->getEditionsOrdered();
+
+        $profile = null;
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($user){
+            $profile = $profileRepository->findOneBy(['user' => $user->getId()]);
+        }
 
         $data = new SearchDataProject();
         $data->page = $request->get('page', 1);
@@ -59,6 +84,7 @@ class HomeController extends AbstractController
         });
         $stopwatch->stop('calcul-long');
         return $this->render('home/index.html.twig', [
+            'profile' => $profile,
             'categories' => $categories,
             'abouts' => $abouts,
             'editions' => $editions,
@@ -111,10 +137,13 @@ class HomeController extends AbstractController
     }
 
     #[Route('/sdg/{slug}', name: 'sdg_page', methods: ['GET'])]
-    public function OneSdg(Categorie $categorie, CategorieRepository $categorieRepository): Response
+    public function OneSdg(Categorie $categorie, CategorieRepository $categorieRepository, ProjectRepository $projectRepository): Response
     {
+        $projects = $projectRepository->getProjectsBySdg($categorie);
+
         return $this->render('categorie/sdg-page.html.twig', [
             'categorie' => $categorie,
+            'projects' => $projects,
             'categories' => $categorieRepository->findAll(),
         ]);
     }
@@ -122,28 +151,27 @@ class HomeController extends AbstractController
     #[Route('/projects', name: 'all_projects', methods: ['GET'])]
     public function allProjects(Request $request, ProjectRepository $projectRepository): Response
     {
-        /*$data = new SearchDataProject();
+        $data = new SearchDataProject();
         $data->page = $request->get('page', 1);
         $form = $this->createForm(SearchProjectForm::class, $data);
         $form->handleRequest($request);
 
-        $projects = $projectRepository->findSearch($data);*/
+        $projects = $projectRepository->findSearch($data);
+        $nbProjects  = $projectRepository->findCountSearch($data);
 
-        $projects = $projectRepository->findBy(['isPublished' => true], ['createdAt' => 'desc']);
 
-        $form = $this->createForm(SearchProjectForm::class);
-
-        $search = $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-            $projects = $projectRepository->search(
-                $search->get('mots')->getData(),
-                $search->get('categorie')->getData()
-            );
+        if($request->get('ajax')){
+            return new JsonResponse([
+                'content' => $this->renderView('project/_projects.html.twig', ['projects' => $projects,'nbProjects' => $nbProjects,]),
+                'sorting' => $this->renderView('project/_sorting.html.twig', ['projects' => $projects,'nbProjects' => $nbProjects,]),
+                'pagination' => $this->renderView('project/_pagination.html.twig', ['projects' => $projects, 'nbProjects' => $nbProjects,]),
+                'pages' => ceil($projects->getTotalItemCount() / $projects->getItemNumberPerPage())
+            ]);
         }
 
         return $this->render('project/AllProjects.html.twig', [
             'projects' => $projects,
+            'nbProjects' => $nbProjects,
             'form' => $form->createView()
         ]);
     }
@@ -156,7 +184,7 @@ class HomeController extends AbstractController
      * @throws LoaderError
      */
     #[Route('/project/{slug}', name: 'project_page', methods: ['GET'])]
-    public function OneProject(Request $request, Project $project, $slug, ProjectRepository $projectRepository, CacheInterface $cache, Mailer $mailer): Response
+    public function OneProject(Request $request, Project $project, $slug, ProjectRepository $projectRepository, CacheInterface $cache, Mailer $mailer, ManagerRegistry $doctrine): Response
     {
         $project = $cache->get('project'.$slug, function(ItemInterface $item) use($projectRepository, $slug){
             $item->expiresAfter(20);
@@ -170,7 +198,7 @@ class HomeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $contactFormData = $form->getData();
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $doctrine->getManager();
             $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_PROJECT_CONTACT']);
 
             $loader = new ArrayLoader([
@@ -194,7 +222,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('contact');
         }
 
-        $projects = $projectRepository->getProjectPublished($project);
+        $projects = $projectRepository->getProjetsSimilaire($project);
 
         return $this->render('project/project-page.html.twig', [
             'project' => $project,

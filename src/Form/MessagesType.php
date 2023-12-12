@@ -2,9 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\File;
 use App\Entity\Messages;
 use App\Entity\User;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -26,7 +27,14 @@ class MessagesType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('message', CKEditorType::class, [
+            ->add('file', EntityType::class, [
+                'class' => File::class,
+                'label' => 'Avatar',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
+            ->add('message', TextareaType::class, [
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -38,12 +46,13 @@ class MessagesType extends AbstractType
                 "attr" => [
                     "class" => "form-control"
                 ],
-                'query_builder' => function($repository) use ($user){
-                $query = $repository->createQueryBuilder('u');
+                'query_builder' => function (EntityRepository $er) use ($user){
+                $query = $er->createQueryBuilder('u');
                 if($user->isSuperAdmin()){
                     $query->select('u')
                         ->andWhere('u.id != :id')
-                        ->setParameter('id', $user->getId());
+                        ->setParameter('id', $user->getId())
+                    ;
                 } elseif ($user->isAdmin()){
                     $query->select('u')
                         ->andWhere('u.id != :id')

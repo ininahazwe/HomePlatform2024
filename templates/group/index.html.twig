@@ -14,12 +14,18 @@
     <!-- End Breadcrumb Area -->
 
     <!-- Start Resume Alerts Area -->
-    <div class="resume-alerts-area">
-        <div class="resume-alerts-table table-responsive">
-            <div class="d-flex flex-row justify-content-between">
-                <h2>Group</h2>
-                <a class="default-btn border-radius-5" href="{{ path('group_new') }}">Add</a>
+    <div class="manage-jobs-box">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h3>Groups</h3>
+                <div class="bar"></div>
             </div>
+            <div>
+                <a class="default-btn small border-radius-5" href="{{ path('group_new') }}"><i class="ri-add-line"></i> Add</a>
+            </div>
+        </div>
+
+        <div class="manage-jobs-table table-responsive">
 
             <table class="table table-bordered">
                 <thead>
@@ -51,4 +57,5 @@
             </table>
         </div>
     </div>
+
 {% endblock %}

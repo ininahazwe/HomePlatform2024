@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Email;
 use App\Entity\Messages;
+use App\Entity\User;
 use App\Form\MessagesType;
 use App\Repository\MessagesRepository;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,38 +22,42 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\ArrayLoader;
 
-#[Route('/messages')]
+#[Route('/message')]
 class MessagesController extends AbstractController
 {
     #[Route('/', name: 'messages')]
-    public function index(MessagesRepository $messagesRepository): Response
+    public function index(MessagesRepository $messagesRepository, UserRepository $userRepository): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        return $this->render('messages/index.html.twig', [
-            'received' => $messagesRepository->getReceived($this->getUser())
+        $users = $userRepository->findBy(['isDeleted' => 0]);
+
+        $groupmates = $userRepository->getGroupMembers($this->getUser());
+
+        return $this->render('message/index.html.twig', [
+            'controller_name' => 'MessagesController',
+            'messageRepository' => $messagesRepository,
+            'received' => $messagesRepository->getReceivedUsers($this->getUser()),
+            'groupmates' => $groupmates,
+            'users' => $users
         ]);
     }
 
-
     /**
-     * @param Request $request
-     * @param Mailer $mailer
-     * @param ManagerRegistry $doctrine
-     * @return Response
-     * @throws LoaderError
-     * @throws RuntimeError
      * @throws SyntaxError
      * @throws TransportExceptionInterface
+     * @throws RuntimeError
+     * @throws LoaderError
      */
-    #[Route('/send', name: 'send')]
-    public function send(Request $request, Mailer $mailer, ManagerRegistry $doctrine): Response
+    #[Route('/send', name: 'message_send')]
+    public function send(MessagesRepository $messagesRepository, Request $request, Mailer $mailer, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
         $message = new Messages;
         $form = $this->createForm(MessagesType::class, $message, [
-            'user' => $this->getUser(),
-        ]);
+                        'user' => $this->getUser(),
+                ]
+        );
 
         $form->handleRequest($request);
 
@@ -68,31 +75,32 @@ class MessagesController extends AbstractController
             $em->persist($message);
             $em->flush();
 
-            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_MESSAGE_INTERNE']);
+            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_ENVOI_MESSAGE']);
 
             $loader = new ArrayLoader([
-                'email' => $email->getContenu(),
+                    'email' => $email->getContenu(),
             ]);
 
             $twig = new Environment($loader);
-            $messageMail = $twig->render('email', ['user' => $user, 'messageMail' => $message->getMessage(), 'sender' => $user, 'recipient' => $message->getRecipient()]);
+            $messageMail = $twig->render('email', ['message' => $message->getMessage(), 'sender' => $user, 'recipient' => $message->getRecipient()]);
 
-            $this->addFlash('success', 'Successfully sent.');
+            $this->addFlash("success", "Message envoyé avec succès.");
 
             $mailer->send([
-                'recipient_email' => $message->getRecipient()->getEmail(),
-                'subject' => $email->getSujet(),
-                'html_template' => 'email/email_vide.html.twig',
-                'context' => [
-                    'message' => $messageMail
-                ]
+                    'recipient_email' => $message->getRecipient()->getEmail(),
+                    'subject' => $message->getTitle(),
+                    'html_template' => 'email/email_vide.html.twig',
+                    'context' => [
+                            'message' => $messageMail
+                    ]
             ]);
 
             return $this->redirectToRoute("messages");
         }
 
-        return $this->render("messages/send.html.twig", [
-            "form" => $form->createView()
+        return $this->render("message/modal.html.twig", [
+                "form" => $form->createView(),
+                'received' => $messagesRepository->getReceived($this->getUser())
         ]);
     }
 
@@ -103,85 +111,108 @@ class MessagesController extends AbstractController
      * @throws LoaderError
      */
     #[Route('/reply/{id}', name: 'reply')]
-    public function reply(Request $request, Mailer $mailer, Messages $message, ManagerRegistry $doctrine): Response
+    public function reply(Request $request, Mailer $mailer, User $user, ManagerRegistry $doctrine): Response
     {
-        $user = $this->getUser();
-        $reply = new Messages;
         $em = $doctrine->getManager();
+        $moi= $this->getUser();
+        $reply = new Messages;
+
         $textReply = $request->request->get('reply');
+        $ajax = $request->request->get('ajax');
 
-        $reply->setSender($user);
-        $reply->setRecipient($message->getSender());
+        $reply->setSender($moi);
+        $reply->setRecipient($user);
         $reply->setMessage($textReply);
-        $reply->setTitle('Re: ' . $message->getTitle());
-        $reply->setParent($message);
+        $reply->setTitle('Re: ');
+        if ($ajax) {
+            $reply->setIsRead(1);
+        }else{
+            $reply->setIsRead(0);
+        }
+        //$reply->setParent($message);
 
-        $em->persist($reply);
-        $em->flush();
+            $em->persist($reply);
+            $em->flush();
 
-        $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_RECEPTION_MESSAGE_INTERNE']);
+            $email = $em->getRepository(Email::class)->findOneBy(['code' => 'EMAIL_ENVOI_MESSAGE']);
+            if ($email) {
+                $loader = new ArrayLoader([
+                    'email' => $email->getContenu(),
+                ]);
 
-        $loader = new ArrayLoader([
-            'email' => $email->getContenu(),
-        ]);
+                $twig = new Environment($loader);
+                $messageMail = $twig->render('email', ['message' => $reply->getMessage(), 'sender' => $moi, 'recipient' => $reply->getRecipient()]);
 
-        $twig = new Environment($loader);
-        $messageMail = $twig->render('email', ['user' => $user, 'messageMail' => $message->getMessage(), 'recipient' => $message->getRecipient()]);
+                $this->addFlash("success", "Message envoyé avec succès.");
 
-        $this->addFlash('success', 'Successfully sent.');
+                $mailer->send([
+                    'recipient_email' => $reply->getRecipient()->getEmail(),
+                    'subject' => 'Nouveau message sur Talents Handicap',
+                    'html_template' => 'email/email_vide.html.twig',
+                    'context' => [
+                        'message' => $messageMail
+                    ]
+                ]);
+            }
+            if ($ajax){
+                return new Response(1);
+            }else{
+                return $this->redirectToRoute('read',['id' => $user->getId()]);
+            }
 
-        $mailer->send([
-            'recipient_email' => $message->getRecipient()->getEmail(),
-            'subject' => $email->getSujet(),
-            'html_template' => 'email/email_vide.html.twig',
-            'context' => [
-                'message' => $messageMail
-            ]
-        ]);
 
-        return $this->redirectToRoute('read',['id' => $message->getId()]);
-
-    }
-
-    #[Route('/received', name: 'received')]
-    public function received(): Response
-    {
-        return $this->render('messages/received.html.twig');
-    }
-
-    #[Route('/sent', name: 'sent')]
-    public function sent(): Response
-    {
-        return $this->render('messages/sent.html.twig');
     }
 
     #[Route('/read/{id}', name: 'read')]
-    public function read(Messages $message, Request $request, ManagerRegistry $doctrine): Response
+    public function read(User $user, MessagesRepository $messagesRepository, ManagerRegistry $doctrine, UserRepository $userRepository): Response
     {
-        $message->setIsRead(true);
+        $groupmates = $userRepository->getGroupMembers($this->getUser());
         $em = $doctrine->getManager();
-        $em->persist($message);
+        $messagesReceived = $em->getRepository(Messages::class)->getAllMessagesReceivedNotRead($this->getUser(), $user);
+
+        $users = $userRepository->findBy(['isDeleted' => 0 ]);
+
+        foreach ($messagesReceived as $msg){
+            $msg->setIsRead(1);
+            $em->persist($msg);
+        }
         $em->flush();
 
-        $responses = $em->getRepository(Messages::class)->getResponses($message);
-        $received = $em->getRepository(Messages::class)->getReceived($this->getUser());
+        $messages = $em->getRepository(Messages::class)->getAllMessages($this->getUser(), $user);
 
-        return $this->render('messages/read.html.twig', [
-            'message' => $message,
-            'received' => $received,
-            'responses' => $responses,
+        return $this->render('message/read.html.twig', [
+                'user' => $user,
+                'message' => $messages,
+                'received' => $messagesRepository->getReceivedUsers($this->getUser()),
+                'groupmates' => $groupmates,
+                'users' => $users
         ]);
-
     }
 
-    #[Route('/delete/{id}', name: 'delete')]
-    public function delete(Messages $message, ManagerRegistry $doctrine): Response
+    public function messageNotReadBySender(User $user, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
-        $em->remove($message);
-        $em->flush();
-
-        return $this->redirectToRoute("received");
+        $messages = $em->getRepository(Messages::class)->countMsgNotRead($this->getUser(), $user);
+        return new Response("".$messages);
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function lastMessageReceived(User $user, MessagesRepository $messagesRepository): Response
+    {
+        $message = $messagesRepository->getLastMessage($this->getUser(), $user);
+
+        return new Response("".$message);
+    }
+
+    #[Route('/all/message/{id}', name: 'ajax_all_messages')]
+    public function allMessages(User $user, MessagesRepository $messagesRepository): Response
+    {
+        $messages = $messagesRepository->getAllMessages($this->getUser(), $user);
+        return $this->render('message/_messages.html.twig', [
+            'user' => $user,
+            'messages' => $messages,
+        ]);
+    }
 }

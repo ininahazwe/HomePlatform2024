@@ -124,22 +124,22 @@
                         <div class="dropdown profile-nav-item">
                             <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="menu-profile">
-                                    {% if app.user.profile and app.user.profile.photo|length %}
-                                        {% for photo in app.user.profile.photo %}
+                                    {% if profile and profile.photo|length %}
+                                        {% for photo in profile.photo %}
                                             {% if loop.first %}<img src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar" class="rounded-circle">{% endif %}
                                         {% endfor %}
                                     {% else %}
                                         <img src="{{ asset('images/user-img/avataaars.png') }}" alt="avatar" class="thumb">
                                     {% endif %}
-                                    <span class="name">My Account</span>
+                                    <span class="name">My account</span>
                                 </div>
                             </a>
 
                             <div class="dropdown-menu">
                                 <div class="dropdown-header d-flex flex-column align-items-center">
                                     <div class="figure mb-3">
-                                        {% if app.user.profile and app.user.profile.photo|length %}
-                                            {% for photo in app.user.profile.photo %}
+                                        {% if profile and profile.photo|length %}
+                                            {% for photo in profile.photo %}
                                                 {% if loop.first %}<img class="rounded-circle" src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar">{% endif %}
                                             {% endfor %}
                                         {% else %}
@@ -148,8 +148,8 @@
                                     </div>
 
                                     <div class="info text-center">
-                                        <span class="name"></span>
-                                        <p class="mb-3 email"></p>
+                                        <span class="name">{{ app.user.fullname }}</span>
+                                        <p class="mb-3 email">{{ app.user.email }}</p>
                                     </div>
                                 </div>
 
@@ -166,7 +166,7 @@
                                         <li class="nav-item">
                                             <a href="{{ path('project_index') }}" class="nav-link">
                                                 <span class="icon"><i class="ri-file-list-line"></i></span>
-                                                <span class="menu-title">My Projects</span>
+                                                <span class="menu-title">My projects</span>
                                             </a>
                                         </li>
                                         {% endif %}
@@ -206,15 +206,15 @@
                                 <a href="#" class="dropdown-bs-toggle" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="menu-profile">
                                         <img class="rounded-circle" src="{{ asset('images/user-img/user-img2.jpg') }}" alt="image">
-                                        <span class="name">My Account</span>
+                                        <span class="name">My account</span>
                                     </div>
                                 </a>
 
                                 <div class="dropdown-menu">
                                     <div class="dropdown-header d-flex flex-column align-items-center">
                                         <div class="figure mb-3">
-                                            {% if app.user.profile and app.user.profile.photo|length %}
-                                                {% for photo in app.user.profile.photo %}
+                                            {% if profile and profile.photo|length %}
+                                                {% for photo in profile.photo %}
                                                     {% if loop.first %}<img class="rounded-circle" src="{{ asset('uploads/' ~ photo.nom) }}" alt="avatar">{% endif %}
                                                 {% endfor %}
                                             {% else %}

@@ -27,9 +27,9 @@ class GoogleAuthenticator extends OAuth2Authenticator
 {
     use TargetPathTrait;
 
-    private $clientRegistry;
-    private $entityManager;
-    private $router;
+    private ClientRegistry $clientRegistry;
+    private EntityManagerInterface $entityManager;
+    private RouterInterface $router;
 
     public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router)
     {

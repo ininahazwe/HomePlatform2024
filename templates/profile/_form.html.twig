@@ -1,20 +1,34 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+<div class="row">
+    <div class="col-lg-4 col-md-12">{{ form_row(form.school) }}</div>
+    <div class="col-lg-4 col-md-12">{{ form_row(form.degree) }}</div>
+    <div class="col-lg-4 col-md-12">{{ form_row(form.level) }}</div>
+</div>
+<div class="col-md-12">{{ form_row(form.photo) }}</div>
+{% if profile.photo is not empty %}
     {% if app.request.attributes.get('_route') == 'profile_edit' %}
-        <div class="title">My picture</div>
-        <div class="row">
+        <div class="title">My picture(s)</div>
+        <div class="row mb-5">
             {% if profile.photo %}
                 {% for image in profile.photo %}
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <figure class="image">
-                            <img src="{{ asset('uploads/' ~ image.nom) }}" alt="{{ image.nom }}">
-                            <a class="" href="{{ path('profile_delete_files', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}"><span class="la la-trash"></span></a>
-                        </figure>
+                    <div class="col-lg-3 col-md-3 col-sm-6 delete-image-container" style="background-image: url('{{ asset('/uploads/' ~ image.nom) }}');" id="view{{ image.id }}">
+                        <a href="#" class="delete-sweetalert" data-id="{{ image.id }}" data-url="{{ path('profile_delete_files', {'id': image.id}) }}">
+                            <button class="delete-image" data-text="Delete"><i class="ri-delete-bin-line"></i></button>
+                        </a>
                     </div>
                 {% endfor %}
             {% endif %}
         </div>
     {% endif %}
+{% endif %}
+<div class="col-md-12">{{ form_row(form.description) }}</div>
+{#<div class="col-md-12">{{ form_row(form.skills) }}</div>#}
+<div class="row">
+    <div class="col-lg-4 col-md-12"> {{ form_row(form.facebook) }}</div>
+    <div class="col-lg-4 col-md-12">{{ form_row(form.instagram) }}</div>
+    <div class="col-lg-4 col-md-12">{{ form_row(form.lindedin) }}</div>
+    <div class="col-lg-4 col-md-12">{{ form_row(form.twitter) }}</div>
+</div>
 
 <button type="submit" class="default-btn btn-sm border-radius-5 mt-2">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_end(form, {'render_rest': false}) }}

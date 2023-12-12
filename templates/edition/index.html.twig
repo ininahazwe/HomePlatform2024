@@ -1,6 +1,6 @@
 {% extends 'base-dashboard.html.twig' %}
 
-{% block title %}Edition index{% endblock %}
+{% block title %}Editions{% endblock %}
 
 {% block body %}
     <!-- Breadcrumb Area -->
@@ -21,22 +21,25 @@
 
         <div class="row">
             {% for edition in editions %}
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-6 col-md-12" id="view{{ edition.id }}">
                     <div class="single-applicants-card">
                         <div class="image">
-                            <a href="#">
                                 {% if edition.avatar %}
                                     {% for logo in edition.avatar %}
                                         <img src="{{ asset('uploads/' ~ logo.nom) }}" alt="{{ logo.nom }}">
                                     {% endfor %}
                                 {% endif %}
-                            </a>
                         </div>
 
                         <div class="content">
                             <h3>
                                 <a href="{{ path('edition_show', {'slug': edition.slug}) }}">{{ edition.nom }}</a>
                             </h3>
+
+                            <ul class="job-info">
+                                <li><i class="ri-map-pin-line"></i> {{ edition.city }}</li>
+                                <li><i class="ri-calendar-2-line"></i> {{ edition.year }}</li>
+                            </ul>
 
                             <div class="applicants-footer">
                                 <ul class="option-list">

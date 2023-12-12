@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import {usePaginatedFetch} from "./hooks";
 
 function Partenaires(){
-    const {items: partenaires, load, loading, hasMore} = usePaginatedFetch('/api/partenaires')
+    const {items: partenaires, load, loading, hasMore} = usePaginatedFetch('/api/partenaires?status=1&order[ordre]=ASC')
 
     useEffect(() => {
         load()

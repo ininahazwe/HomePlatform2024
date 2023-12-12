@@ -31,6 +31,7 @@ Default CSS
     --titleColor: #000000;
     --bodyColor: #696969;
     --whiteColor: #ffffff;
+    --redColor: #CA0000;
     --fontSize: 16px;
     --transition: .5s;
 }
@@ -1043,7 +1044,7 @@ Main Banner Area
     z-index: 22;
     .form-group {
         position: relative;
-        border-right: 1px solid #E3E3E3;
+        //border-right: 1px solid #E3E3E3;
         //padding-right: 10px;
         &.select-group {
             border: none;

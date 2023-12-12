@@ -4,7 +4,6 @@ namespace App\Form\Search;
 
 use App\Data\SearchDataProject;
 use App\Entity\Categorie;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,24 +23,19 @@ class SearchProjectForm extends AbstractType
                     'placeholder' => 'Keywords / Project Title'
                 ]
             ])
-            ->add('categories', EntityType::class, [
+            ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'multiple' => true,
                 'label' => false,
                 'required' => false,
-                'choice_label' => 'nom',
-                'by_reference' => false,
-                'attr' => [
-                    'class' => 'select-tags',
-                ],
+                'expanded' => true,
                 'query_builder' => function($repository) {
-                    $ids = $repository->findAll();
-                    $query = $repository->createQueryBuilder('c')
+                    $ids = $repository->getCategoriesWithProjects();
+                    return $repository->createQueryBuilder('c')
                         ->select('c')
-                        ->andWhere('c.id IN (:ids)')
-                        ->setParameter('ids', $ids)
-                    ;
-                    return $query;
+                        ->orderBy('c.nom', 'ASC')
+                        ->andWhere('c.id in (:ids)')
+                        ->setParameter('ids', $ids);
                 }
             ])
         ;
@@ -63,6 +57,6 @@ class SearchProjectForm extends AbstractType
 
     public function getName(): string
     {
-        return 'search_project';
+        return 'search_projects';
     }
 }

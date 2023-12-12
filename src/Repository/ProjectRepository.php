@@ -28,18 +28,25 @@ class ProjectRepository extends ServiceEntityRepository
 
     public function getProjectByUser($user)
     {
-        $query = $this->createQueryBuilder('p');
-        $query->select('p')
-            ->InnerJoin('p.auteur', 'u', 'WITH', 'u = :user')
-            ->setParameter('user', $user);
-
+        if($user->isCandidat()) {
+            $query = $this->createQueryBuilder('p');
+            $query->select('p')
+                ->InnerJoin('p.auteur', 'u', 'WITH', 'u = :user')
+                ->orderBy('p.id', 'DESC')
+                ->setParameter('user', $user);
+        }else{
+            $query = $this->createQueryBuilder('p')
+                ->select('p')
+                ->orderBy('p.id', 'DESC');
+        }
         return $query->getQuery()->getResult();
     }
 
     public function getProjectPublished($project = null): mixed
     {
         $query = $this->createQueryBuilder('p')
-            ->where('p.isPublished = 1')
+            ->where('p.statut = 1')
+            ->orderBy('p.id', 'DESC')
         ;
         if($project){
             $ids = array();
@@ -73,7 +80,7 @@ class ProjectRepository extends ServiceEntityRepository
     public function getSearchQuery(SearchDataProject $search): QueryBuilder {
         $query = $this
             ->createQueryBuilder('p')
-            ->andWhere('p.isPublished = 1')
+            ->andWhere('p.statut = 1')
         ;
 
 
@@ -98,7 +105,7 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function search($mots = null, $categorie = null){
         $query = $this->createQueryBuilder('p');
-        $query->where('p.isPublished = 1');
+        $query->where('p.statut = 1');
         if($mots != null){
             $query->andWhere('MATCH_AGAINST(p.nom, a.description) AGAINST (:mots boolean)>0')
                 ->setParameter('mots', $mots);
@@ -108,6 +115,42 @@ class ProjectRepository extends ServiceEntityRepository
             $query->andWhere('c.id = :id')
                 ->setParameter('id', $categorie);
         }
+        return $query->getQuery()->getResult();
+    }
+
+    public function getProjetsSimilaire($project)
+    {
+        $ids = [];
+        if(count($project->getCategorie()) > 0) {
+            foreach($project->getCategorie() as $cat){
+                $ids[] = $cat->getId();
+            }
+        } else {
+            return null;
+        }
+
+        $query = $this->createQueryBuilder('p');
+        $query->leftJoin('p.categorie', 'cat')
+            ->andWhere($query->expr()->in('cat.id', $ids))
+            ->andWhere('p.id != :id')
+            ->setParameter('id', $project->getId());
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findCountSearch(SearchDataProject $search): int {
+        $query = $this->getSearchQuery($search)->getQuery();
+        return count($query->getScalarResult());
+    }
+
+    public function getProjectsBySdg($categorie)
+    {
+        $query = $this->createQueryBuilder('p')
+                ->addOrderBy('p.id', 'DESC');
+        $ids = array();
+        $ids[] = $categorie->getId();
+             $query->leftJoin('p.categorie', 'categorie');
+             $query->andWhere($query->expr()->in('categorie.id', $ids));
         return $query->getQuery()->getResult();
     }
 }

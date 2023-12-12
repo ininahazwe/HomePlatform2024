@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use App\Entity\File;
 use App\Entity\Project;
+use App\Entity\User;
 use App\Form\ProjectType;
+use App\Repository\GroupRepository;
 use App\Repository\ProjectRepository;
 use App\Service\Mailer;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,10 +23,13 @@ class ProjectController extends AbstractController
     #[Route('/', name: 'project_index', methods: ['GET'])]
     public function index(ProjectRepository $projectRepository): Response
     {
+        /**@var User $user */
+        $user = $this->getUser();
         $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
 
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->getProjectByUser($this->getUser()),
+            'user' => $user,
         ]);
     }
 
@@ -36,12 +42,17 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/pr/new', name: 'project_new', methods: ['GET','POST'])]
-    public function new(Request $request, Mailer $mailer): Response
+    public function new(Request $request, Mailer $mailer, ManagerRegistry $doctrine, GroupRepository $groupRepository): Response
     {
-        $project = new Project();
-        $form = $this->createForm(ProjectType::class, $project);
-        $form->handleRequest($request);
+        /**@var User $user */
         $user = $this->getUser();
+
+        $project = new Project();
+        $form = $this->createForm(ProjectType::class, $project, [
+            'user' => $user,
+        ]);
+
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -54,7 +65,9 @@ class ProjectController extends AbstractController
                 $this->saveDoc($project, $image, File::TYPE_ILLUSTRATION);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $project->addAuteur($user);
+
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($project);
             $entityManager->flush();
 
@@ -108,7 +121,12 @@ class ProjectController extends AbstractController
     #[Route('/edit/{id}', name: 'project_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Project $project, ManagerRegistry $doctrine): Response
     {
-        $form = $this->createForm(ProjectType::class, $project);
+        /**@var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(ProjectType::class, $project, [
+            'user' => $user,
+        ]);
         $form->handleRequest($request);
         $user = $this->getUser();
 
@@ -141,34 +159,41 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'project_delete', methods: ['POST'])]
-    public function delete(Request $request, Project $project): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($project);
-            $entityManager->flush();
-        }
+    #[Route('/delete/ajax/{id}', name: 'project_delete_files')]
+    public function deleteImage(File $file, Request $request, ManagerRegistry $doctrine): Response {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($file);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
+        return new Response(1);
     }
 
-    #[Route('/supprime/file/{id}', name: 'projects_delete_files', methods: ['DELETE'])]
-    public function deleteImage(File $file, Request $request): JsonResponse
+    #[Route('/delete/ajax/{id}', name: 'project_delete')]
+    public function delete(Request $request, Project $project, ManagerRegistry $doctrine): Response
     {
-        $data = json_decode($request->getContent(), true);
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($project);
+        $entityManager->flush();
 
-        if($this->isCsrfTokenValid('delete'.$file->getId(), $data['_token'])){
-            $nom = $file->getNom();
-            unlink($this->getParameter('files_directory').'/'.$nom);
+        return new Response(1);
+    }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($file);
-            $em->flush();
 
-            return new JsonResponse(['success' => 1]);
+
+    #[Route('/status/{id}/{statut}', name: 'project_statut', methods: ['GET'])]
+    public function statutProject($id, $statut, Request $request, Project $project, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $project = $entityManager->getRepository(Project::class)->find($id);
+        $project->setStatut($statut);
+        $entityManager->persist($project);
+        $entityManager->flush();
+
+        if ($statut == 1){
+            return new Response($this->generateUrl('project_statut', ['id' => $id, 'statut' => 0]));
         }else{
-            return new JsonResponse(['error' => 'Token Invalide'], 400);
+            return new Response($this->generateUrl('project_statut', ['id' => $id, 'statut' => 1]));
         }
     }
+
 }

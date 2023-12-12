@@ -1,0 +1,13 @@
+{% if user %}
+    {% if user.isCandidat() %}
+        {{ include('layouts/navbar-user.html.twig') }}
+    {% elseif user.isMentor() %}
+        {{ include('layouts/navbar-mentor.html.twig') }}
+    {% elseif user.isAdmin() %}
+        {{ include('layouts/navbar-admin.html.twig') }}
+    {% elseif user.isSuperAdmin() %}
+        {{ include('layouts/navbar-super-admin.html.twig') }}
+    {% else %}
+        {{ include('layouts/navbar.twig') }}
+    {% endif %}
+{% endif %}

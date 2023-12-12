@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use App\Repository\EditionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,6 +28,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       }
  *     }
  * )
+ * @ApiFilter(BooleanFilter::class, properties={"status"})
+ * @ApiFilter(OrderFilter::class, properties={"ordre"}, arguments={"orderParameterName"="order"})
  */
 class Edition
 {
@@ -75,6 +80,23 @@ class Edition
      * @ORM\Column(type="text", nullable=true)
      */
     private ?string $intro;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"read:edition"})
+     */
+    private ?int $ordre;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private ?bool $status;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"read:edition"})
+     */
+    private ?string $year;
 
     public function __construct()
     {
@@ -212,6 +234,42 @@ class Edition
     public function setIntro(?string $intro): self
     {
         $this->intro = $intro;
+
+        return $this;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(?int $ordre): self
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getYear(): ?string
+    {
+        return $this->year;
+    }
+
+    public function setYear(?string $year): self
+    {
+        $this->year = $year;
 
         return $this;
     }

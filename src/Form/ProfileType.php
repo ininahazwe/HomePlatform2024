@@ -6,9 +6,9 @@ use App\Entity\Dictionnaire;
 use App\Entity\Profile;
 use App\Entity\Tag;
 use Doctrine\ORM\EntityRepository;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -60,11 +60,17 @@ class ProfileType extends AbstractType
                 'mapped' => false,
                 'required' => false,
             ])
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'required' => false,
+            ])
+            ->add('degree', TextType::class, [
+                    'attr' => [
+                            'class' => 'form-control'
+                    ],
+                    'required' => false,
             ])
             ->add('facebook', TextType::class, [
                 'attr' => [
@@ -90,21 +96,20 @@ class ProfileType extends AbstractType
                 ],
                 'required' => false,
             ])
-            /*->add('skills', EntityType::class, [
-                'class' => Tag::class,
-                'multiple' => true,
-                'choice_label' => 'nom',
-                'required' => false,
-                'query_builder' => function (EntityRepository $er){
-                    return $er->createQueryBuilder('t')
-                        ->orderBy('t.nom', 'ASC');
-                },
-                'label' => 'Tags',
-                'by_reference' => false,
-                'attr' => [
-                    'class' => 'select-tags'
-                ]
-            ])*/
+            ->add('skills', EntityType::class, [
+                    'class' => Tag::class,
+                    'multiple' => true,
+                    'required' => false,
+                    'choice_label' => 'nom',
+                    'query_builder' => function (EntityRepository $er){
+                        return $er->createQueryBuilder('t')
+                                ->orderBy('t.nom', 'ASC');
+                    },
+                    'by_reference' => false,
+                    'attr' => [
+                            'class' => 'select-tags'
+                    ]
+            ])
         ;
     }
 

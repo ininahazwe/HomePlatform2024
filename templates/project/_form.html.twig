@@ -24,15 +24,14 @@
         </div>
     </div>
     {% if app.request.attributes.get('_route') == 'project_edit' %}
-        <div class="row">
+        <div class="row mb-5">
             {% if project.avatar %}
                 {% for image in project.avatar %}
-                <div class="col-lg-3 col-md-3 col-sm-6">
-                    <div>
-                        <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                        <a href="{{ path('projects_delete_files', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                    <div class="col-lg-3 col-md-3 col-sm-6 delete-image-container" style="background-image: url('{{ asset('/uploads/' ~ image.nom) }}');" id="view{{ image.id }}">
+                        <a href="#" class="delete-sweetalert" data-id="{{ image.id }}" data-url="{{ path('project_delete_files', {'id': image.id}) }}">
+                            <button class="delete-image" data-text="Delete"><i class="ri-delete-bin-line"></i></button>
+                        </a>
                     </div>
-                </div>
                 {% endfor %}
             {% endif %}
         </div>
@@ -60,7 +59,7 @@
     </div>
     <div class="col-lg-6 col-md-6">
         <div class="form-group">
-            {{ form_row(form.isPublished) }}
+            {{ form_row(form.statut) }}
         </div>
     </div>
 
@@ -78,14 +77,13 @@
         </div>
     </div>
     {% if app.request.attributes.get('_route') == 'project_edit' %}
-        <div class="row">
+        <div class="row mb-5">
             {% if project.images %}
-                {% for ill in project.images %}
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <div>
-                            <img src="{{ asset('/uploads/'~ill.nom) }}" alt="" width="150">
-                            <a href="{{ path('projects_delete_files', {id: ill.id})}}" data-delete data-token="{{ csrf_token('delete' ~ ill.id )}}"><i class="ri-delete-bin-line"></i></a>
-                        </div>
+                {% for image in project.images %}
+                    <div class="col-lg-3 col-md-3 col-sm-6 delete-image-container" style="background-image: url('{{ asset('/uploads/' ~ image.nom) }}');" id="view{{ image.id }}">
+                        <a href="#" class="delete-sweetalert" data-id="{{ image.id }}" data-url="{{ path('project_delete_files', {'id': image.id}) }}">
+                            <button class="delete-image" data-text="Delete"><i class="ri-delete-bin-line"></i></button>
+                        </a>
                     </div>
                 {% endfor %}
             {% endif %}

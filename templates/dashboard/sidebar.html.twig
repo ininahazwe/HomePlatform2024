@@ -1,0 +1,11 @@
+{% if user %}
+    {% if user.isCandidat() %}
+        {{ include('dashboard/user-sidebar.html.twig') }}
+    {% elseif user.isMentor() %}
+        {{ include('dashboard/mentor-sidebar.html.twig') }}
+    {% elseif user.isAdmin() %}
+        {{ include('dashboard/admin-sidebar.html.twig') }}
+    {% elseif user.isSuperAdmin() %}
+        {{ include('dashboard/super-admin-sidebar.html.twig') }}
+    {% endif %}
+{% endif %}

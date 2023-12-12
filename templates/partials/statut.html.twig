@@ -1,0 +1,27 @@
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+    $('.btn-statut').on('click', function (e) {
+        let url = $(this).data('url');
+        //let idStatut = $(this).data('statut');
+        let statut = $("#" + $(this).data('statut'));
+        let objet = $(this);
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (data) {
+                if (objet.hasClass("status")){
+                    objet.removeClass( "status" ).addClass( "status" );
+                    objet.text('Published');
+                    statut.text('Unpublished');
+
+                }else{
+                    objet.removeClass( "status" ).addClass( "status" );
+                    objet.text('Unpublished');
+                    statut.text('Published')
+                }
+                objet.data('url', data);
+            }
+        });
+        return false;
+    });
+</script>

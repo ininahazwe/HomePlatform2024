@@ -60,10 +60,16 @@ class Team
      */
     private ?string $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="team")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->photo = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable('now');
+        $this->users = new ArrayCollection();
     }
 
     public function getNom(): ?string
@@ -140,6 +146,36 @@ class Team
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getTeam() === $this) {
+                $user->setTeam(null);
+            }
+        }
 
         return $this;
     }

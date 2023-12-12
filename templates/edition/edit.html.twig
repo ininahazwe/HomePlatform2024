@@ -1,12 +1,12 @@
 {% extends 'base-dashboard.html.twig' %}
 
-{% block title %}Edit Edition{% endblock %}
+{% block title %}Edit | Edit{% endblock %}
 
 {% block body %}
     <div class="post-a-new-job-box">
         <h3>Edit Edition</h3>
         <div class="bar"></div>
-        {{ include('edition/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('edition/_form.html.twig') }}
     </div>
     <script src="{{ asset('js/images.js') }}"></script>
 {% endblock %}

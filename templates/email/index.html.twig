@@ -13,37 +13,43 @@
 <!-- End Breadcrumb Area -->
 
 <!-- Start Resume Alerts Area -->
-<div class="resume-alerts-area">
-    <div class="resume-alerts-table table-responsive">
-        <div class="d-flex flex-row justify-content-between">
-            <h2>Email</h2>
-            <a class="default-btn border-radius-5" href="{{ path('email_new') }}">Add</a>
+    <div class="manage-jobs-box">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h3>Email templates</h3>
+                <div class="bar"></div>
+            </div>
+            <div>
+                <a class="default-btn small border-radius-5" href="{{ path('email_new') }}"><i class="ri-add-line"></i> Add</a>
+            </div>
         </div>
 
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th scope="col">Code</th>
-                <th scope="col">Sujet</th>
-                <th scope="col">actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for email in emails %}
-            <tr>
-                <td>{{ email.code }}</td>
-                <td>{{ email.sujet }}</td>
-                <td>
-                    <ul class="option-list">
-                        <li><a href="{{ path('email_show', {'id': email.id}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
-                        <li><a href="{{ path('email_edit', {'id': email.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
-                        <li>{{ include('email/_delete_form.html.twig') }}</li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-        </table>
+        <div class="manage-jobs-table table-responsive">
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Sujet</th>
+                    <th scope="col">actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for email in emails %}
+                <tr>
+                    <td>{{ email.code }}</td>
+                    <td>{{ email.sujet }}</td>
+                    <td>
+                        <ul class="option-list">
+                            <li><a href="{{ path('email_show', {'id': email.id}) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><i class="ri-eye-line" type="button"></i></button></a></li>
+                            <li><a href="{{ path('email_edit', {'id': email.id }) }}"><button class="option-btn d-inline-block" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="ri-edit-line"></i></button></a></li>
+                            <li>{{ include('email/_delete_form.html.twig') }}</li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}

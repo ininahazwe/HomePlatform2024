@@ -19,5 +19,5 @@ class SearchDataProject
     /**
      * @var Categorie[]
      */
-    public array $categories = []   ;
+    public array $categorie = [];
 }

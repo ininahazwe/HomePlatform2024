@@ -3,21 +3,36 @@
 {% block title %}All Projects{% endblock %}
 
 {% block body %}
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area">
+        <h1>Projects</h1>
+        <ol class="breadcrumb">
+            <li class="item"><a href="{{ path('home') }}">Home</a></li>
+            <li class="item">Projects</li>
+        </ol>
+    </div>
+    <!-- End Breadcrumb Area -->
 
-    <div class="resume-alerts-area">
-        <div class="resume-alerts-table table-responsive">
-            <div class="d-flex flex-row justify-content-between">
-                <h2>Projects</h2>
-                <a class="default-btn border-radius-5" href="{{ path('project_new') }}">Add</a>
+    <div class="manage-jobs-box">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h3>Projects</h3>
+                <div class="bar"></div>
             </div>
+            <div>
+                <a class="default-btn small border-radius-5" href="{{ path('project_new') }}"><i class="ri-add-line"></i> Add</a>
+            </div>
+        </div>
 
-            <table class="table table-bordered">
+        <div class="manage-jobs-table table-responsive">
+            <table class="table table-bordered" id="datatable">
                 <thead>
                 <tr>
                     <th scope="col">Title</th>
                     <th scope="col">Category</th>
                     <th scope="col">Authors</th>
                     <th scope="col">Editor</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Created at</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -25,8 +40,8 @@
 
                 <tbody>
                 {% for project in projects %}
-                    <tr>
-                        <td><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom }}</a></td>
+                    <tr id="view{{ project.id }}">
+                        <td><a href="{{ path('project_show', {'slug': project.slug }) }}">{{ project.nom|capitalize }}</a></td>
                         <td>
                             {% for cat in project.categorie %}
                                 {{ cat.nom }}<br>
@@ -39,6 +54,19 @@
                         </td>
                         <td>
                             {{ project.editor }}
+                        </td>
+                        <td>
+                            <div class="buttons">
+                                {% if project.statut == 0 %}
+                                    <a href="#" data-statut="statut-project-{{project.id}}"
+                                       data-url="{{ path('project_statut', {'id': project.id, 'statut' : 1 }) }}"
+                                       class="btn-statut status">Publish</a>
+                                {% else %}
+                                    <a href="#" data-statut="statut-project-{{project.id}}"
+                                       data-url="{{ path('project_statut', {'id': project.id, 'statut' : 0 }) }}"
+                                       class="btn-statut status">Unpublish</a>
+                                {% endif %}
+                            </div>
                         </td>
                         <td>{{ project.createdAt|date('d-m-Y') }}</td>
                         <td>
@@ -54,5 +82,5 @@
             </table>
         </div>
     </div>
-
+    {{ include('partials/statut.html.twig') }}
 {% endblock %}

@@ -35,7 +35,7 @@ class Tag
     /**
      * @ORM\ManyToMany(targetEntity=Profile::class, mappedBy="skills")
      */
-    private $profiles_skills;
+    private Collection $profiles_skills;
 
     public function __construct()
     {

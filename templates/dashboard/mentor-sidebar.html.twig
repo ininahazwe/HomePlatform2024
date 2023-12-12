@@ -29,20 +29,6 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ path('about_index') }}" class="nav-link">
-                    <span class="icon"><i class="ri-user-line"></i></span>
-                    <span class="menu-title">About</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ path('edition_index') }}" class="nav-link">
-                    <span class="icon"><i class="ri-send-plane-fill"></i></span>
-                    <span class="menu-title">Editions</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a href="{{ path('projects_for_admin') }}" class="nav-link">
                     <span class="icon"><i class="ri-briefcase-line"></i></span>
                     <span class="menu-title">Projects</span>
@@ -56,10 +42,10 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="{{ path('app_reset_password') }}" class="nav-link">
-                    <span class="icon"><i class="ri-lock-line"></i></span>
-                    <span class="menu-title">Change Password</span>
+            <li class="nav-item" data-info="group_index">
+                <a href="{{ path('group_index') }}" class="nav-link">
+                    <span class="icon"><i class="ri-group-line"></i></span>
+                    <span class="menu-title">Groups</span>
                 </a>
             </li>
 

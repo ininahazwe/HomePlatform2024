@@ -1,2 +1,7 @@
 #!/bin/sh
 rsync -av ./ u102109786@access842112298.webspace-data.io:~/home2022 --include=vendor --include=node_modules --include=src --exclude-from=.gitignore --exclude=".*"
+
+maildev --hide-extensions STARTTLS
+
+/usr/bin/php8.0-cli bin/console make:migration
+/usr/bin/php8.0-cli composer.phar

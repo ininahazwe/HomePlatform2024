@@ -6,6 +6,7 @@ use App\Entity\Categorie;
 use App\Entity\File;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +26,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/new', name: 'categorie_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerRegistry $doctrine): Response
     {
         $categorie = new Categorie();
         $user = $this->getUser();
@@ -50,7 +51,7 @@ class CategorieController extends AbstractController
                 $categorie->addLogo($img);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($categorie);
             $entityManager->flush();
 
@@ -74,7 +75,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'categorie_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, Categorie $categorie): Response
+    public function edit(Request $request, Categorie $categorie, ManagerRegistry $doctrine): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(CategorieType::class, $categorie);
@@ -100,7 +101,7 @@ class CategorieController extends AbstractController
 
             $categorie->updateTimestamps();
 
-            $this->getDoctrine()->getManager()->flush();
+            $doctrine->getManager()->flush();
 
             $this->addFlash('success', 'Successful update');
 
@@ -114,10 +115,10 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{id}', name: 'categorie_delete', methods: ['POST'])]
-    public function delete(Request $request, Categorie $categorie): Response
+    public function delete(Request $request, Categorie $categorie, ManagerRegistry $doctrine): Response
     {
         if ($this->isCsrfTokenValid('delete'.$categorie->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->remove($categorie);
             $entityManager->flush();
         }
@@ -125,21 +126,12 @@ class CategorieController extends AbstractController
         return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/supprime/image/{id}', name: 'categories_delete_image', methods: ['DELETE'])]
-    public function deleteImage(File $image, Request $request): JsonResponse
-    {
-        $data = json_decode($request->getContent(), true);
-        if ($this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])) {
-            $nom = $image->getNom();
-            unlink($this->getParameter('files_directory') . '/' . $nom);
+    #[Route('/delete/ajax/{id}', name: 'categorie_delete_files')]
+    public function deleteImage(File $file, Request $request, ManagerRegistry $doctrine): Response {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($file);
+        $entityManager->flush();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($image);
-            $em->flush();
-
-            return new JsonResponse(['success' => 1]);
-        } else {
-            return new JsonResponse(['error' => 'Token Invalide'], 400);
-        }
+        return new Response(1);
     }
 }

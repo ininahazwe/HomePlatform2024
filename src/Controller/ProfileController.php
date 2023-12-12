@@ -6,8 +6,8 @@ use App\Entity\File;
 use App\Entity\Profile;
 use App\Form\ProfileType;
 use App\Repository\ProfileRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +24,7 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/new', name: 'profile_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, ManagerRegistry $doctrine): Response
     {
         $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
 
@@ -48,7 +48,7 @@ class ProfileController extends AbstractController
                 $profile->setUser($user);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->persist($profile);
             $entityManager->flush();
 
@@ -115,10 +115,10 @@ class ProfileController extends AbstractController
     }
 
     #[Route('/{id}', name: 'profile_delete', methods: ['POST'])]
-    public function delete(Request $request, Profile $profile): Response
+    public function delete(Request $request, Profile $profile, ManagerRegistry $doctrine): Response
     {
         if ($this->isCsrfTokenValid('delete'.$profile->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager = $doctrine->getManager();
             $entityManager->remove($profile);
             $entityManager->flush();
         }
@@ -142,22 +142,12 @@ class ProfileController extends AbstractController
         }
     }
 
-    #[Route('/supprime/file/{id}', name: 'profile_delete_files', methods: ['DELETE'])]
-    public function deleteImage(File $file, Request $request): JsonResponse {
-        $data = json_decode($request->getContent(), true);
+    #[Route('/delete/ajax/{id}', name: 'profile_delete_files')]
+    public function deleteImage(File $file, Request $request, ManagerRegistry $doctrine): Response {
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($file);
+        $entityManager->flush();
 
-        if ($this->isCsrfTokenValid('delete' . $file->getId(), $data['_token'])) {
-            $nom = $file->getNom();
-            unlink($this->getParameter('files_directory') . '/' . $nom);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($file);
-            $em->flush();
-
-            return new JsonResponse(['success' => 1]);
-        } else {
-            return new JsonResponse(['error' => 'Token Invalide'], 400);
-        }
+        return new Response(1);
     }
-
 }

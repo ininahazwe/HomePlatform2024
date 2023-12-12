@@ -1,0 +1,44 @@
+{% for message in messages %}
+    <div {% if message.sender.id == app.user.id %}
+        class="chat"
+    {% else %}
+        class="chat chat-left"
+    {% endif %}
+    >
+        <div class="chat-avatar">
+            <a class="d-inline-block">
+                {% if message.sender.id == app.user.id %}
+                    {% if message.sender.profile and message.sender.profile.getPhoto()|length %}
+                        {% for avatar in message.sender.profile.getPhoto() %}
+                            {% if avatar.type is same as 1 %}
+                                {% if loop.first %}
+                                    <img src="{{ asset('uploads/' ~ avatar.nom) }}" width="50" height="50" class="rounded-circle" alt="{{ message.sender.getFullname() }}">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <svg viewBox="0 0 36 36" fill="none" role="img" xmlns="http://www.w3.org/2000/svg" width="50" height="50"><title>{{ message.sender.getFullname()|capitalize }}</title><mask id="mask__beam" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36"><rect width="36" height="36" fill="#FFFFFF" rx="72"></rect></mask><g mask="url(#mask__beam)"><rect width="36" height="36" fill="#dde3ca"></rect><rect x="0" y="0" width="36" height="36" transform="translate(3 5) rotate(261 18 18) scale(1)" fill="#487aa1" rx="36"></rect><g transform="translate(-5 1) rotate(-1 18 18)"><path d="M13,19 a1,0.75 0 0,0 10,0" fill="#FFFFFF"></path><rect x="13" y="14" width="1.5" height="2" rx="1" stroke="none" fill="#FFFFFF"></rect><rect x="21" y="14" width="1.5" height="2" rx="1" stroke="none" fill="#FFFFFF"></rect></g></g></svg>
+                    {% endif %}
+                {% else %}
+                    {% if user.profile and user.profile.getPhoto()|length %}
+                        {% for avatar in user.profile.getPhoto() %}
+                            {% if avatar.type is same as 1 %}
+                                {% if loop.first %}
+                                    <img src="{{ asset('uploads/' ~ avatar.nom) }}" width="50" height="50" class="rounded-circle" alt="{{ user.getFullname() }}">
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <svg viewBox="0 0 36 36" fill="none" role="img" xmlns="http://www.w3.org/2000/svg" width="50" height="50"><title>{{ user.getFullname()|capitalize }}</title><mask id="mask__beam" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36"><rect width="36" height="36" fill="#FFFFFF" rx="72"></rect></mask><g mask="url(#mask__beam)"><rect width="36" height="36" fill="#dde3ca"></rect><rect x="0" y="0" width="36" height="36" transform="translate(3 5) rotate(261 18 18) scale(1)" fill="#487aa1" rx="36"></rect><g transform="translate(-5 1) rotate(-1 18 18)"><path d="M13,19 a1,0.75 0 0,0 10,0" fill="#FFFFFF"></path><rect x="13" y="14" width="1.5" height="2" rx="1" stroke="none" fill="#FFFFFF"></rect><rect x="21" y="14" width="1.5" height="2" rx="1" stroke="none" fill="#FFFFFF"></rect></g></g></svg>
+                    {% endif %}
+                {% endif %}
+            </a>
+        </div>
+        <div class="chat-body">
+            <div class="chat-message">
+                {{ message.message|raw }}
+                <span class="time d-block">{{ message.getTempsEcoule() }}</span>
+            </div>
+        </div>
+    </div>
+{% endfor %}

@@ -6,6 +6,7 @@ use App\Entity\Edition;
 use App\Entity\File;
 use App\Form\EditionType;
 use App\Repository\EditionRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class EditionController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_MENTOR');
 
         return $this->render('edition/index.html.twig', [
-            'editions' => $editionRepository->findBy([], ['id' => 'DESC']),
+            'editions' => $editionRepository->getEditionsOrdered(),
         ]);
     }
 
@@ -120,35 +121,23 @@ class EditionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'edition_delete', methods: ['POST'])]
-    public function delete(Request $request, Edition $edition): Response
+    #[Route('/delete/ajax/{id}', name: 'edition_delete')]
+    public function delete(Request $request, Edition $edition, ManagerRegistry $doctrine): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$edition->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($edition);
-            $entityManager->flush();
-        }
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($edition);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('edition_index', [], Response::HTTP_SEE_OTHER);
+        return new Response(1);
     }
 
-    #[Route('/supprime/file/{id}', name: 'editions_delete_files', methods: ['DELETE'])]
-    public function deleteImage(File $file, Request $request): JsonResponse
+    #[Route('/supprime/file/{id}', name: 'editions_delete_files')]
+    public function deleteImage(File $file, Request $request, ManagerRegistry $doctrine): Response
     {
-        $data = json_decode($request->getContent(), true);
+        $entityManager = $doctrine->getManager();
+        $entityManager->remove($file);
+        $entityManager->flush();
 
-        if($this->isCsrfTokenValid('delete'.$file->getId(), $data['_token'])){
-            $nom = $file->getNom();
-            unlink($this->getParameter('files_directory').'/'.$nom);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($file);
-            $em->flush();
-
-            return new JsonResponse(['success' => 1]);
-        }else{
-            return new JsonResponse(['error' => 'Token Invalide'], 400);
-        }
+        return new Response(1);
     }
-
 }

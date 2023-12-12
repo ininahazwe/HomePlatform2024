@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -26,6 +25,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     const ROLE_CANDIDAT = 'ROLE_CANDIDAT';
 
+    const EN_ATTENTE = 0;
+    const ACCEPTEE = 1;
+    const REFUSEE = 2;
+
+    const COMPTE_ACTIF = 3;
+    const COMPTE_SUPPRIME = 4;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -39,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private string $password;
 
@@ -74,11 +79,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $civilite;
 
     /**
-     * @ORM\OneToOne(targetEntity=Profile::class, inversedBy="user", cascade={"persist", "remove"})
-     */
-    private ?Profile $profile;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Group::class, mappedBy="members")
      */
     private Collection $groups;
@@ -94,19 +94,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?bool $isDeleted;
 
     /**
-     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="sender", orphanRemoval=true)
-     */
-    private Collection $sent;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Messages::class, mappedBy="recipient", orphanRemoval=true)
-     */
-    private Collection $received;
-
-    /**
      * @ORM\Column(type="boolean", nullable=true)
      */
     private ?bool $isMentor;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTimeInterface $lastConnection;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="users")
+     */
+    private ?Team $team = null;
 
     public function __construct()
     {
@@ -115,8 +115,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = new \DateTimeImmutable('now');
         $this->groups = new ArrayCollection();
         $this->project_editor = new ArrayCollection();
-        $this->sent = new ArrayCollection();
-        $this->received = new ArrayCollection();
     }
 
     public function getEmail(): ?string
@@ -249,12 +247,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }else if($this->isMentor()){
             return 'Mentor';
         }else if($this->isCandidat()){
-            return 'Candidat';
+            return 'Student';
         }else{
             return 'No info';
         }
     }
-
 
     /**
      * @see PasswordAuthenticatedUserInterface
@@ -392,18 +389,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCivilite(?string $civilite): self
     {
         $this->civilite = $civilite;
-
-        return $this;
-    }
-
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?Profile $profile): self
-    {
-        $this->profile = $profile;
 
         return $this;
     }
@@ -548,4 +533,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getAvatar(): string {
+        $avatar = '';
+
+        if (count($this->files) > 0){
+            foreach ($this->files as $file){
+                if ($file->getType() == 1 && $file->getProfile() == null){
+                    $avatar = $file->getNom();
+                }
+            }
+        }
+        return $avatar;
+    }
+
+   /* public function hasGroup($user): bool {
+
+        $result = false;
+
+        if($user->getGroups()){
+            $result = true;
+        }
+
+        return $result;
+    }*/
+
+   public function getLastConnection(): ?\DateTimeInterface
+   {
+       return $this->lastConnection;
+   }
+
+   public function setLastConnection(?\DateTimeInterface $lastConnection): self
+   {
+       $this->lastConnection = $lastConnection;
+
+       return $this;
+   }
+
+   public function getTeam(): ?Team
+   {
+       return $this->team;
+   }
+
+   public function setTeam(?Team $team): self
+   {
+       $this->team = $team;
+
+       return $this;
+   }
 }

@@ -19,6 +19,16 @@ class PartenairesRepository extends ServiceEntityRepository
         parent::__construct($registry, Partenaires::class);
     }
 
+    public function getPartenairesOrdered()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.ordre', "DESC")
+            ->andWhere('p.status = 1 or p.status IS NULL ')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Partenaires[] Returns an array of Partenaires objects
     //  */

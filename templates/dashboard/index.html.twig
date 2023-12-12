@@ -13,7 +13,7 @@
     </div>
     <!-- End Breadcrumb Area -->
 
-    {% if not app.user.profile %}
+    {% if not profile %}
         <div class="container pb-5">
             <div class="employers-cv-bg">
                 <div class="row align-items-center">
@@ -43,7 +43,11 @@
                         <i class="ri-briefcase-line"></i>
                     </div>
                     <span class="sub-title">Posted Projects</span>
-                    <a href="{{ path('all_projects') }}"><h3>{{ projects|length }}</h3></a>
+                    {% if user.isSuperAdmin() %}
+                        <a href="{{ path('all_projects') }}"><h3>{{ projects|length }}</h3></a>
+                    {% else %}
+                        <a href="{{ path('all_projects') }}"><h3>{{ app.user.projects|length }}</h3></a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -74,7 +78,7 @@
     {% if projects %}
     <!-- Start Recent Jobs Area -->
     <div class="dashboard-jobs-box">
-        <h2>Projects Applied Recently</h2>
+        <h2>Last projects</h2>
 
         <div class="row">
             {% for project in projects|slice(0, 4) %}

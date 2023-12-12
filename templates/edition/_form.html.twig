@@ -4,16 +4,20 @@
 <div class="form-group col-lg-6">{{ form_row(form.city) }}</div>
 <div class="form-group col-lg-6">{{ form_row(form.intro) }}</div>
 <div class="form-group col-lg-6">{{ form_row(form.description) }}</div>
-<div class="form-group">{{ form_row(form.video) }}</div>
+<div class="form-group col-lg-6">{{ form_row(form.year) }}</div>
+<div class="form-group col-lg-6">{{ form_row(form.ordre) }}</div>
+<div class="form-group col-lg-6">{{ form_row(form.status) }}</div>
+<div class="form-group col-lg-6">{{ form_row(form.video) }}</div>
     <div class="col-lg-6">
         {{ form_row(form.avatar) }}
         {% if app.request.attributes.get('_route') == 'edition_edit' %}
             <p>Avatar</p>
             <div class="row">
                 {% for image in edition.avatar %}
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <img src="{{ asset('/uploads/'~image.nom) }}" alt="" width="150">
-                        <a href="{{ path('editions_delete_files', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id )}}"><i class="ri-delete-bin-line"></i></a>
+                    <div class="col-lg-3 col-md-3 col-sm-6 delete-image-container" style="background-image: url('{{ asset('/uploads/' ~ image.nom) }}');" id="view{{ image.id }}">
+                        <a href="#" class="delete-sweetalert" data-id="{{ image.id }}" data-url="{{ path('editions_delete_files', {'id': image.id}) }}">
+                            <button class="delete-image" data-text="Delete"><i class="ri-delete-bin-line"></i></button>
+                        </a>
                     </div>
                 {% endfor %}
             </div>
@@ -24,10 +28,11 @@
         {% if app.request.attributes.get('_route') == 'edition_edit' %}
             <p>Illustration</p>
             <div class="row">
-                {% for ill in edition.illustration %}
-                    <div class="col-lg-3 col-md-3 col-sm-6">
-                        <img src="{{ asset('/uploads/'~ill.nom) }}" alt="" width="150">
-                        <a href="{{ path('editions_delete_files', {id: ill.id})}}" data-delete data-token="{{ csrf_token('delete' ~ ill.id )}}"><i class="ri-delete-bin-line"></i></a>
+                {% for image in edition.illustration %}
+                    <div class="col-lg-3 col-md-3 col-sm-6 delete-image-container" style="background-image: url('{{ asset('/uploads/' ~ image.nom) }}');" id="view{{ image.id }}">
+                        <a href="#" class="delete-sweetalert" data-id="{{ image.id }}" data-url="{{ path('editions_delete_files', {'id': image.id}) }}">
+                            <button class="delete-image" data-text="Delete"><i class="ri-delete-bin-line"></i></button>
+                        </a>
                     </div>
                 {% endfor %}
             </div>

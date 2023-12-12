@@ -36,3 +36,9 @@ services:
         arguments:
             $senderEmail: '%app.sender_email%'
             $senderName: '%app.sender_name%'
+
+    App\EventListener\LoginListener:
+        arguments:
+            $em: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }

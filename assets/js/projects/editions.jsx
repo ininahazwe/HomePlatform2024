@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import {usePaginatedFetch} from "./hooks";
 
 function Editions(){
-    const {items: editions, load, loading, hasMore} = usePaginatedFetch('/api/editions')
+    const {items: editions, load, loading, hasMore} = usePaginatedFetch('/api/editions?status=true&order[year]=DESC')
 
     useEffect(() => {
         load()

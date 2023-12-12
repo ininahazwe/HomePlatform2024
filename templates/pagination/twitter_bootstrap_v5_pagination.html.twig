@@ -1,0 +1,88 @@
+{#
+/**
+ * @file
+ * Twitter Bootstrap v4 Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module
+ * from the Twitter Bootstrap CSS Toolkit
+ * https://getbootstrap.com/docs/4.5/components/pagination/
+ *
+ */
+#}
+
+<div class="col-lg-12 col-md-12 text-center">
+{% if pageCount > 1 %}
+    <div class="pagination-area">
+    <nav class="">
+        {% set classAlign = (align is not defined) ? '' : align=='center' ? ' justify-content-center' : (align=='right' ? ' justify-content-end' : '') %}
+        {% set classSize = (size is not defined) ? '' : size=='large' ? ' pagination-lg' : (size=='small' ? ' pagination-sm' : '') %}
+        <ul>
+            {% if previous is defined %}
+                <li class="prev page-numbers">
+                    <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="ri-arrow-left-s-line"></i></a>
+                </li>
+            {% else %}
+                <li class="prev page-numbers disabled">
+                    <span><i class="ri-arrow-left-s-line"></i></span>
+                </li>
+            {% endif %}
+
+            {% if startPage > 1 %}
+                <li class="page-numbers">
+                    <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+                </li>
+                {% if startPage == 3 %}
+                    <li class="page-numbers">
+                        <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+                    </li>
+                {% elseif startPage != 2 %}
+                    <li class="disabled page-numbers">
+                        <span>&hellip;</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li class="page-numbers">
+                        <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-numbers">
+                        <a class="page-numbers current">{{ page }}</a>
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+
+            {% if pageCount > endPage %}
+                {% if pageCount > (endPage + 1) %}
+                    {% if pageCount > (endPage + 2) %}
+                        <li class="disabled page-numbers">
+                            <span class="page-link">&hellip;</span>
+                        </li>
+                    {% else %}
+                        <li class="page-numbers">
+                            <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                <li class="page-numbers">
+                    <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+                </li>
+            {% endif %}
+
+            {% if next is defined %}
+                <li class="next page-numbers">
+                    <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="ri-arrow-right-s-line"></i></a>
+                </li>
+            {% else %}
+                <li class="next page-numbers disabled">
+                    <span><i class="ri-arrow-right-s-line"></i></span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    </div>
+{% endif %}
+</div>
